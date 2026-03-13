@@ -1,0 +1,3548 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Mastery — Complete Roadmap Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./react.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ═══ SIDEBAR ═══ -->
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <div class="logo-icon">⚛</div>
+            <div>
+              <div class="logo-text">React Mastery Tracker</div>
+              <div class="logo-sub">Zero to Advanced · 7 sections</div>
+            </div>
+          </div>
+          <div class="overall-progress">
+            <div class="progress-row">
+              <span class="progress-label">overall</span>
+              <span class="progress-pct" id="overall-pct">0%</span>
+            </div>
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                id="overall-fill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-label">Sections</div>
+          <a class="nav-item active" href="#sec1">
+            <div class="nav-dot" style="background: var(--s1)"></div>
+            <div class="nav-week-title">JSX & Fundamentals</div>
+            <span class="nav-mini-progress" id="nav-pct-1">0%</span>
+          </a>
+          <a class="nav-item" href="#sec2">
+            <div class="nav-dot" style="background: var(--s2)"></div>
+            <div class="nav-week-title">Core Hooks</div>
+            <span class="nav-mini-progress" id="nav-pct-2">0%</span>
+          </a>
+          <a class="nav-item" href="#sec3">
+            <div class="nav-dot" style="background: var(--s3)"></div>
+            <div class="nav-week-title">Component Patterns</div>
+            <span class="nav-mini-progress" id="nav-pct-3">0%</span>
+          </a>
+          <a class="nav-item" href="#sec4">
+            <div class="nav-dot" style="background: var(--s4)"></div>
+            <div class="nav-week-title">Advanced Hooks</div>
+            <span class="nav-mini-progress" id="nav-pct-4">0%</span>
+          </a>
+          <a class="nav-item" href="#sec5">
+            <div class="nav-dot" style="background: var(--s5)"></div>
+            <div class="nav-week-title">React Router</div>
+            <span class="nav-mini-progress" id="nav-pct-5">0%</span>
+          </a>
+          <a class="nav-item" href="#sec6">
+            <div class="nav-dot" style="background: var(--s6)"></div>
+            <div class="nav-week-title">State Management</div>
+            <span class="nav-mini-progress" id="nav-pct-6">0%</span>
+          </a>
+          <a class="nav-item" href="#sec7">
+            <div class="nav-dot" style="background: var(--s7)"></div>
+            <div class="nav-week-title">Performance & Internals</div>
+            <span class="nav-mini-progress" id="nav-pct-7">0%</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div style="display: flex; gap: 8px; margin-bottom: 8px">
+            <button class="theme-btn" onclick="toggleTheme()">
+              <span id="theme-icon">☀</span>
+            </button>
+          </div>
+          <button class="reset-btn" onclick="resetAll()">
+            ↺ reset progress
+          </button>
+        </div>
+      </aside>
+
+      <!-- ═══ MAIN ═══ -->
+      <main class="main">
+        <div class="main-inner">
+          <header class="page-header">
+            <div class="page-tag">complete learning roadmap</div>
+            <h1 class="page-title">
+              Master <strong>React</strong> — zero to advanced
+            </h1>
+            <p class="page-desc">
+              Topic-by-topic. Go at your own pace. From JSX basics to
+              reconciliation internals, hooks deep dives, routing, state
+              management, and production patterns.
+            </p>
+          </header>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-label">completed</div>
+              <div class="stat-value" id="stat-done">0</div>
+              <div class="stat-sub">
+                of <span id="stat-total">112</span> topics
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">sections done</div>
+              <div class="stat-value" id="stat-sections">0</div>
+              <div class="stat-sub">of 7 sections</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">projects done</div>
+              <div class="stat-value" id="stat-projects">0</div>
+              <div class="stat-sub">of 7 builds</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">active section</div>
+              <div class="stat-value" id="stat-active">S1</div>
+              <div class="stat-sub" id="stat-active-name">
+                JSX & Fundamentals
+              </div>
+            </div>
+          </div>
+
+          <div class="celebrate-bar" id="celebrate-bar">
+            <span id="celebrate-msg">🎉 Section complete!</span>
+          </div>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 1: JSX & React Fundamentals       -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec1">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s1-dim); color: var(--s1)"
+                >01</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">JSX & React Fundamentals</h2>
+                <p class="week-desc">
+                  The mental model shift: React is a UI function machine. You
+                  describe what the UI should look like, React figures out how
+                  to get there. JSX is not HTML — it compiles to function calls.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-1" style="color: var(--s1)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-1"
+                    style="background: var(--s1); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">jsx syntax</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s1c1"
+                    style="background: var(--s1-dim); color: var(--s1)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">JSX & How React Works</div>
+                <div class="day-hint">
+                  JSX is just
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >React.createElement()</code
+                  >
+                  in disguise.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >&lt;div className="box"&gt;</code
+                  >
+                  compiles to
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >createElement("div", {className:"box"})</code
+                  >. The browser never sees JSX — Babel transforms it first.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >JSX compiles to React.createElement() — JSX is not HTML,
+                      it's JS</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >JSX rules: className vs class, htmlFor vs for,
+                      self-closing tags, one root element</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Expressions in JSX: {}, ternary, short-circuit — and what
+                      you cannot embed</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React.Fragment and the shorthand &lt;&gt;&lt;/&gt; — why
+                      fragments exist</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">components</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s1c2"
+                    style="background: var(--s1-dim); color: var(--s1)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Components & Props</div>
+                <div class="day-hint">
+                  A component is just a function that returns JSX. Props are
+                  read-only — never mutate them. Think of props as function
+                  arguments: the parent controls what goes in, the child
+                  controls what comes out.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Functional components: just a function that returns JSX —
+                      naming must be Capitalised</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Props: passing data down, destructuring props, default
+                      prop values</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >children prop: composing components by nesting them like
+                      HTML elements</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >PropTypes (or TypeScript) for type-checking props at
+                      runtime / compile time</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">rendering</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s1c3"
+                    style="background: var(--s1-dim); color: var(--s1)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Rendering & Lists</div>
+                <div class="day-hint">
+                  The
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >key</code
+                  >
+                  prop is React's identity card for list items. It must be
+                  stable and unique among siblings — never use array index as
+                  key if the list can reorder. React uses keys to decide whether
+                  to reuse or recreate DOM nodes.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Rendering lists with .map() — always returning JSX from
+                      the callback</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >The key prop: why it's required, why index-as-key causes
+                      bugs</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Conditional rendering: ternary, &&, early return, switch
+                      patterns</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Rendering null, false, undefined — and what React renders
+                      vs ignores</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">setup</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s1c4"
+                    style="background: var(--s1-dim); color: var(--s1)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Project Setup & Tooling</div>
+                <div class="day-hint">
+                  Vite is faster than CRA for development — it serves modules
+                  natively over ESM and only bundles for production. CRA is
+                  deprecated. For new projects:
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >npm create vite@latest</code
+                  >
+                  then pick React.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Vite + React setup: project structure, index.html,
+                      main.jsx, App.jsx</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React DevTools: component tree, props inspector, profiler
+                      tab</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >CSS in React: plain CSS modules, inline styles,
+                      classnames library</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s1-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >File & folder structure: feature-based vs type-based
+                      organisation</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s1-glow); border-color: var(--s1-dim)"
+            >
+              <div class="project-tag" style="color: var(--s1)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">Component Library Showcase</div>
+              <div class="project-desc">
+                Build 8–10 reusable UI components: Button (variants:
+                primary/secondary/danger), Badge, Card, Avatar, Alert, Input,
+                Modal, and Spinner. No hooks yet — props only. Each component
+                accepts props for customisation. This forces you to think in
+                components and nail JSX + props before state exists.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s1')">
+                <div
+                  class="project-cb"
+                  id="proj-s1"
+                  style="border-color: var(--s1)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> Install React DevTools on day one.
+                Get into the habit of inspecting the component tree, not just
+                the DOM. The DevTools profiler will show you exactly which
+                components re-render and why — a skill you'll use for the rest
+                of your React career.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 1</div>
+              <div class="mental-model-text">
+                React components are pure functions: same props in, same UI out.
+                The entire React model is built on this assumption. When React
+                calls your component, it expects no side effects — just return
+                JSX. Side effects (data fetching, subscriptions, timers) belong
+                in hooks, not in the render body.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >JSX</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >Components</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >Props</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >children</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >key prop</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s1-dim);
+                  color: var(--s1);
+                  border-color: #006080;
+                "
+                >Vite</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 2: Core Hooks                     -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec2">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s2-dim); color: var(--s2)"
+                >02</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">Core Hooks</h2>
+                <p class="week-desc">
+                  Hooks are the entire React programming model. useState gives
+                  components memory. useEffect synchronises with the outside
+                  world. useRef escapes the render cycle. useContext shares
+                  state without prop drilling. Master these four and 80% of
+                  React clicks.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-2" style="color: var(--s2)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-2"
+                    style="background: var(--s2); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">useState</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s2c1"
+                    style="background: var(--s2-dim); color: var(--s2)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useState — Component Memory</div>
+                <div class="day-hint">
+                  State updates are asynchronous and batched. Calling
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >setState</code
+                  >
+                  schedules a re-render — it does not immediately update the
+                  variable. If new state depends on old state, always use the
+                  updater function:
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >setCount(c => c + 1)</code
+                  >.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useState signature: const [value, setValue] =
+                      useState(initialValue)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >State updates trigger re-renders — the component function
+                      runs again from top</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Updater function pattern: setState(prev => ...) for state
+                      that depends on previous</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Object and array state: always create new references,
+                      never mutate directly</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">useEffect</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s2c2"
+                    style="background: var(--s2-dim); color: var(--s2)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useEffect — Side Effects</div>
+                <div class="day-hint">
+                  useEffect runs after the browser paints. The dependency array
+                  controls when it runs: no array = every render, empty array =
+                  once on mount, [dep] = when dep changes. Always return a
+                  cleanup function to cancel subscriptions, clear timers, or
+                  abort fetches.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Three forms: no deps (every render), [] (mount only),
+                      [dep] (when dep changes)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Cleanup function: returned from useEffect, runs before
+                      next effect and on unmount</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Data fetching in useEffect: the async pattern, loading
+                      states, error states</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Strict Mode double-invoke: why effects run twice in dev
+                      and what it reveals</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">useRef</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s2c3"
+                    style="background: var(--s2-dim); color: var(--s2)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useRef — Escape Hatch</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >useRef</code
+                  >
+                  returns a mutable box:
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >{current: value}</code
+                  >. Changing
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >.current</code
+                  >
+                  does NOT trigger a re-render — that's the entire point. Use it
+                  for DOM access, previous values, or any mutable value that
+                  shouldn't cause re-renders.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >DOM refs: ref={myRef} on JSX elements to get the
+                      underlying DOM node</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Mutable values: storing interval IDs, previous state,
+                      render counts without re-renders</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >forwardRef: passing refs from parent to child component's
+                      DOM node</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useImperativeHandle: exposing custom methods on a ref
+                      (e.g. focus, scrollTo)</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">useContext</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s2c4"
+                    style="background: var(--s2-dim); color: var(--s2)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useContext — Shared State</div>
+                <div class="day-hint">
+                  Context solves prop drilling — passing data through many
+                  layers that don't need it. But every consumer re-renders when
+                  context value changes. Use context for low-frequency updates
+                  (theme, auth, locale). For high-frequency updates (search
+                  input), context is the wrong tool.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >createContext, Provider with value prop,
+                      useContext(MyContext) consumer</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Context with state: combining createContext + useState in
+                      a provider component</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Context re-render problem: all consumers re-render when
+                      context value changes</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s2-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Multiple contexts: theme + auth + locale as separate
+                      providers stacked at root</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s2-glow); border-color: var(--s2-dim)"
+            >
+              <div class="project-tag" style="color: var(--s2)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">Expense Tracker App</div>
+              <div class="project-desc">
+                Full CRUD expense tracker: add transactions, delete them, see
+                running balance. useState for all data. useEffect to persist to
+                localStorage and load on mount. useContext for a global theme
+                toggle (dark/light). useRef to auto-focus the input after
+                adding. Exercises all 4 core hooks in one real app.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s2')">
+                <div
+                  class="project-cb"
+                  id="proj-s2"
+                  style="border-color: var(--s2)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> The most common useEffect bug is a
+                missing dependency. Use the
+                <code>eslint-plugin-react-hooks</code> plugin — it will warn you
+                when deps are missing. Never ignore those warnings without fully
+                understanding why. A missing dep means your effect has stale
+                data and will silently produce wrong results.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 2</div>
+              <div class="mental-model-text">
+                Every hook call is tied to a specific position in the call
+                order. React identifies hooks by their order — not by name. This
+                is why you can't call hooks inside conditionals: if a hook is
+                skipped, every hook after it shifts position and React reads the
+                wrong state for each one. Rules of hooks are not arbitrary —
+                they're a constraint of the implementation.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >useState</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >useEffect</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >useRef</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >useContext</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >cleanup fn</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s2-dim);
+                  color: var(--s2);
+                  border-color: #4a3e9e;
+                "
+                >forwardRef</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 3: Component Patterns             -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec3">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s3-dim); color: var(--s3)"
+                >03</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">Component Patterns</h2>
+                <p class="week-desc">
+                  How you structure components determines how maintainable your
+                  app is at scale. Controlled forms, lifting state, composition
+                  over inheritance, and custom hooks are the four patterns
+                  you'll use in every React codebase forever.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-3" style="color: var(--s3)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-3"
+                    style="background: var(--s3); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">forms</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s3c1"
+                    style="background: var(--s3-dim); color: var(--s3)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Controlled Forms & Inputs</div>
+                <div class="day-hint">
+                  Controlled inputs: React state is the single source of truth —
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >value={state}</code
+                  >
+                  +
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >onChange</code
+                  >. Uncontrolled inputs: the DOM holds the value, React reads
+                  it via a ref. Prefer controlled for forms you validate;
+                  uncontrolled for file inputs.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Controlled inputs: value + onChange as the only way state
+                      flows in React</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Handling all input types: text, checkbox, radio, select,
+                      textarea</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Form submission: preventDefault, reading state, resetting
+                      after submit</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Basic validation: error state per field, showing/hiding
+                      error messages</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">composition</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s3c2"
+                    style="background: var(--s3-dim); color: var(--s3)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Component Composition</div>
+                <div class="day-hint">
+                  Composition is React's answer to inheritance. Instead of
+                  extending a base component, you pass components as props or
+                  children. The
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >children</code
+                  >
+                  prop is just a prop that React fills with whatever is between
+                  the opening and closing tags.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Slot pattern: passing components via named props (header,
+                      footer, sidebar props)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Render props: passing a function as a prop that returns
+                      JSX</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Compound components: parent + children sharing implicit
+                      state (e.g. Tabs/Tab)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Higher-Order Components (HOC): wrapping components to
+                      inject behaviour</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">state design</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s3c3"
+                    style="background: var(--s3-dim); color: var(--s3)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Lifting State & Data Flow</div>
+                <div class="day-hint">
+                  State lives in the lowest common ancestor that needs it. If
+                  two siblings need the same state, lift it to their parent. If
+                  that parent is too far away, use context. Data flows down via
+                  props; events flow up via callback props.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Lifting state: moving state to parent so siblings can
+                      share it via props</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Callback props: child → parent communication via onAction
+                      handler props</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Derived state: compute values from existing state instead
+                      of duplicating state</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Colocation: keep state as close to where it's used as
+                      possible — don't over-lift</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">custom hooks</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s3c4"
+                    style="background: var(--s3-dim); color: var(--s3)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Custom Hooks</div>
+                <div class="day-hint">
+                  A custom hook is just a function that starts with
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >use</code
+                  >
+                  and calls other hooks. The naming convention is what makes
+                  React recognise it as a hook. Custom hooks are the primary way
+                  to share stateful logic between components.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Extracting logic into a custom hook: useFetch,
+                      useLocalStorage, useToggle</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Custom hook return values: returning arrays (like
+                      useState) vs objects</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useDebounce and useThrottle hooks — wrapping vanilla JS
+                      utilities in hook form</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s3-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Custom hooks don't share state — each component call gets
+                      its own isolated copy</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s3-glow); border-color: var(--s3-dim)"
+            >
+              <div class="project-tag" style="color: var(--s3)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">Multi-Step Form with Custom Hooks</div>
+              <div class="project-desc">
+                Build a 3-step registration form: personal info → account
+                details → review & submit. Extract a useFormStep hook to manage
+                step state. Extract a useFormValidation hook for field
+                validation. Use compound component pattern for the step
+                indicator. Each step is its own component receiving controlled
+                props.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s3')">
+                <div
+                  class="project-cb"
+                  id="proj-s3"
+                  style="border-color: var(--s3)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> When you find yourself copy-pasting
+                the same useState + useEffect combination across multiple
+                components, that's the signal to extract a custom hook. Custom
+                hooks are React's answer to utility functions — they make logic
+                portable and testable in isolation.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 3</div>
+              <div class="mental-model-text">
+                Think of your component tree like a river. Data flows downstream
+                (props). Events flow upstream (callbacks). The width of the
+                river at each point determines how much state lives there. When
+                two branches need the same water, find the fork point upstream
+                and put the reservoir there — that's lifting state.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >Controlled forms</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >Composition</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >Lifting state</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >Custom hooks</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >Render props</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s3-dim);
+                  color: var(--s3);
+                  border-color: #1a6645;
+                "
+                >HOC</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 4: Advanced Hooks                 -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec4">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s4-dim); color: var(--s4)"
+                >04</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">Advanced Hooks</h2>
+                <p class="week-desc">
+                  useReducer replaces complex useState logic with a predictable
+                  state machine. useMemo and useCallback are optimisation tools
+                  — not defaults. useTransition and useDeferredValue are React
+                  18's concurrency features for keeping UIs responsive under
+                  load.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-4" style="color: var(--s4)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-4"
+                    style="background: var(--s4); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">useReducer</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s4c1"
+                    style="background: var(--s4-dim); color: var(--s4)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useReducer — State Machines</div>
+                <div class="day-hint">
+                  When your state has multiple sub-values that change together,
+                  or when next state depends on complex logic about previous
+                  state, useReducer is cleaner than multiple useState calls.
+                  Redux was born from this exact pattern.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useReducer(reducer, initialState): returns [state,
+                      dispatch]</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Reducer function: pure (state, action) => newState —
+                      never mutate state</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Action objects: { type, payload } convention and
+                      exhaustive switch statements</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useReducer + useContext: the local Redux pattern for
+                      complex component trees</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">memoisation</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s4c2"
+                    style="background: var(--s4-dim); color: var(--s4)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useMemo & useCallback</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >useMemo</code
+                  >
+                  caches a computed value.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >useCallback</code
+                  >
+                  caches a function reference. Both only matter when their
+                  output is a dependency of something else (another hook,
+                  React.memo). Don't use them everywhere — they add cost.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useMemo(fn, deps): memoises the result of an expensive
+                      calculation</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useCallback(fn, deps): memoises the function itself —
+                      stable reference across renders</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React.memo: wraps a component to skip re-render if props
+                      haven't changed</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >When NOT to memo: the cost of memoising vs the cost of
+                      re-rendering trade-off</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">layout & id</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s4c3"
+                    style="background: var(--s4-dim); color: var(--s4)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useLayoutEffect & useId</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >useLayoutEffect</code
+                  >
+                  fires synchronously after DOM mutations but before the browser
+                  paints — use it to read/set DOM measurements to avoid visual
+                  flicker.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >useId</code
+                  >
+                  generates stable server/client-consistent IDs for
+                  accessibility attributes.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useLayoutEffect vs useEffect: timing difference and when
+                      it matters</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >DOM measurements: reading scrollHeight,
+                      getBoundingClientRect before paint</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useId: generating unique IDs for aria-labelledby, htmlFor
+                      without hydration mismatches</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useSyncExternalStore: subscribing to external stores
+                      safely in concurrent mode</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">concurrency</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s4c4"
+                    style="background: var(--s4-dim); color: var(--s4)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">useTransition & Concurrent React</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >startTransition</code
+                  >
+                  marks a state update as non-urgent. React can interrupt it to
+                  handle urgent updates (typing, clicking) first. This is the
+                  core of React 18 concurrency — keeping the UI responsive while
+                  expensive updates happen in the background.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useTransition: const [isPending, startTransition] =
+                      useTransition()</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useDeferredValue: defer re-rendering a value until urgent
+                      updates complete</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Suspense: &lt;Suspense fallback={}&gt; boundary for
+                      lazy-loaded and async components</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s4-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React 19 use() hook: reading promises and context inside
+                      render directly</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s4-glow); border-color: var(--s4-dim)"
+            >
+              <div class="project-tag" style="color: var(--s4)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">Searchable Data Table</div>
+              <div class="project-desc">
+                Build a table of 10,000 rows with live search, sort by column,
+                and pagination. useReducer for all table state (search, sort,
+                page). useMemo for filtered + sorted results. useTransition to
+                keep the search input responsive while filtering renders.
+                React.memo on each row to prevent unnecessary re-renders.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s4')">
+                <div
+                  class="project-cb"
+                  id="proj-s4"
+                  style="border-color: var(--s4)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> Don't reach for useMemo and
+                useCallback as a first step. Profile first with React DevTools
+                Profiler. If a component is slow, measure before memoising —
+                often the bottleneck is elsewhere. Premature memoisation adds
+                cognitive overhead without measurable benefit.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 4</div>
+              <div class="mental-model-text">
+                useReducer is Redux in miniature: one state object, one dispatch
+                function, one pure reducer. The power is that your entire state
+                transitions are in one place and trivially testable — just call
+                reducer(state, action) and assert the result. No React, no DOM,
+                no mocks needed.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >useReducer</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >useMemo</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >useCallback</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >React.memo</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >useTransition</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s4-dim);
+                  color: var(--s4);
+                  border-color: #6b4a00;
+                "
+                >Suspense</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 5: React Router                   -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec5">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s5-dim); color: var(--s5)"
+                >05</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">React Router v6</h2>
+                <p class="week-desc">
+                  Client-side routing makes React apps feel like native apps.
+                  React Router v6 is a complete rewrite from v5 — nested routes,
+                  layouts, loaders, and actions are first-class features.
+                  Understanding the component-based routing model unlocks all of
+                  it.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-5" style="color: var(--s5)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-5"
+                    style="background: var(--s5); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">basics</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s5c1"
+                    style="background: var(--s5-dim); color: var(--s5)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Router Basics</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >&lt;Link&gt;</code
+                  >
+                  renders an anchor tag but intercepts the click — no full page
+                  reload.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >&lt;NavLink&gt;</code
+                  >
+                  does the same but adds an active class when the URL matches —
+                  built for navbars.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >BrowserRouter + Routes + Route: the three components that
+                      set up routing</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Link and NavLink: client-side navigation without full
+                      page reloads</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useNavigate: programmatic navigation — navigate('/path'),
+                      navigate(-1) for back</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >404 handling: catch-all route with path="*" to render a
+                      Not Found component</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">params & query</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s5c2"
+                    style="background: var(--s5-dim); color: var(--s5)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Params, Query & Location</div>
+                <div class="day-hint">
+                  Route params (<code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >:id</code
+                  >) are part of the path — they identify a resource. Query
+                  strings (<code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >?sort=asc</code
+                  >) are optional filters or UI state. Use params for required
+                  resource IDs, query strings for optional filters you want
+                  shareable via URL.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useParams: reading :id, :slug, :userId from the URL
+                      path</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useSearchParams: reading and writing ?key=value query
+                      strings</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useLocation: reading pathname, search, state, hash — the
+                      full location object</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Passing state via navigation: navigate('/path', { state:
+                      { from: 'login' } })</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">nested routes</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s5c3"
+                    style="background: var(--s5-dim); color: var(--s5)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Nested Routes & Layouts</div>
+                <div class="day-hint">
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >&lt;Outlet&gt;</code
+                  >
+                  is a placeholder in a parent route component where child
+                  routes render. This is how you build shared layouts: a
+                  Dashboard layout with sidebar renders once, and child routes
+                  (Overview, Settings, Profile) swap in via Outlet.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Nested Route config: child routes inside parent Route
+                      element</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Outlet component: where child route components render
+                      inside the layout</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Index routes: the default child rendered at the parent
+                      path with no sub-path</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Layout components: shared shell (header + sidebar +
+                      footer) wrapping child routes</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">advanced</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s5c4"
+                    style="background: var(--s5-dim); color: var(--s5)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Protected Routes & Loaders</div>
+                <div class="day-hint">
+                  Protected routes are not a React Router feature — they're a
+                  pattern: render the route component only if a condition (auth
+                  check) passes, otherwise redirect. The
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >loader</code
+                  >
+                  API in v6.4+ fetches data before the route renders — similar
+                  to getServerSideProps in Next.js.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Protected route pattern: wrapper component that checks
+                      auth and redirects</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Navigate component: declarative redirect, replaces
+                      useNavigate for JSX redirects</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Data router (createBrowserRouter): loader, action,
+                      useLoaderData, errorElement</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s5-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Lazy routes: lazy(() => import('./Page')) with Suspense
+                      for code-split routes</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s5-glow); border-color: var(--s5-dim)"
+            >
+              <div class="project-tag" style="color: var(--s5)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">Dashboard App with Auth Routing</div>
+              <div class="project-desc">
+                Full routed app: public pages (Home, Login, Register) +
+                protected dashboard (Overview, Profile, Settings). Nested routes
+                with a shared Dashboard layout (sidebar + header via Outlet).
+                Protected route wrapper redirecting to Login. Query params for
+                search/filter. useNavigate after form submit.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s5')">
+                <div
+                  class="project-cb"
+                  id="proj-s5"
+                  style="border-color: var(--s5)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> Synchronise UI state to the URL
+                wherever possible — search terms, filters, active tabs, page
+                numbers. Users should be able to copy the URL and share an
+                identical view. URL-driven state is free persistence and is one
+                of the most underused practices in React apps.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 5</div>
+              <div class="mental-model-text">
+                React Router renders components based on URL pattern matching.
+                The entire route tree is just a component tree where the URL is
+                the data. Nested routes render nested components. The Outlet is
+                just a slot where the matched child component drops in. If you
+                understand composition, you understand routing.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >BrowserRouter</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >useNavigate</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >useParams</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >Outlet</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >Protected routes</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s5-dim);
+                  color: var(--s5);
+                  border-color: #5a2e14;
+                "
+                >Loaders</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 6: State Management               -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec6">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s6-dim); color: var(--s6)"
+                >06</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">State Management</h2>
+                <p class="week-desc">
+                  Most apps need three kinds of state: server state (async,
+                  cached), client UI state (modals, tabs), and global app state
+                  (auth, settings). Each has the right tool. TanStack Query for
+                  server state. Zustand for global client state. Context for
+                  low-frequency shared state.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-6" style="color: var(--s6)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-6"
+                    style="background: var(--s6); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">context deep dive</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s6c1"
+                    style="background: var(--s6-dim); color: var(--s6)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Context API — Production Patterns</div>
+                <div class="day-hint">
+                  Split context into state and dispatch to prevent unnecessary
+                  re-renders. Components that only dispatch actions don't need
+                  to subscribe to state changes. Two contexts — one for reading,
+                  one for writing — is a common production pattern.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Context + useReducer: the scalable pattern for complex
+                      shared state</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Splitting state and dispatch into two separate contexts
+                      for performance</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Custom provider components: encapsulating context setup
+                      and exposing clean APIs</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Context limitations: not for high-frequency state — why
+                      Zustand / Redux exist</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">zustand</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s6c2"
+                    style="background: var(--s6-dim); color: var(--s6)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Zustand — Simple Global State</div>
+                <div class="day-hint">
+                  Zustand is a minimal store — just a hook. No boilerplate, no
+                  Provider needed. Components subscribe to slices of the store;
+                  only components that read a changed slice re-render. This
+                  makes it far more performant than Context for
+                  frequently-updating state.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >create() store: define state and actions together in one
+                      object</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Selectors: useStore(state => state.count) — subscribe to
+                      only what you need</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Zustand middleware: persist (localStorage), devtools,
+                      immer for mutations</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Slice pattern: organising large stores into separate
+                      slice files</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">server state</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s6c3"
+                    style="background: var(--s6-dim); color: var(--s6)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">TanStack Query — Server State</div>
+                <div class="day-hint">
+                  Server state is fundamentally different from client state:
+                  it's asynchronous, can become stale, needs caching, and can be
+                  shared by multiple components. TanStack Query manages all of
+                  this automatically — caching, deduplication, background
+                  refetch, and stale-while-revalidate.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useQuery(queryKey, queryFn): data, isLoading, isError,
+                      error, refetch</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useMutation: POST/PUT/DELETE with onSuccess, onError,
+                      optimistic updates</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Query invalidation: queryClient.invalidateQueries to
+                      refetch after mutation</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Cache config: staleTime, gcTime (cacheTime),
+                      refetchOnWindowFocus</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">redux toolkit</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s6c4"
+                    style="background: var(--s6-dim); color: var(--s6)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Redux Toolkit Essentials</div>
+                <div class="day-hint">
+                  Redux Toolkit (RTK) is the official opinionated Redux — no
+                  more hand-written action creators.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >createSlice</code
+                  >
+                  generates actions and reducer together. RTK uses Immer
+                  internally, so you can write mutating syntax that stays
+                  immutable under the hood.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >configureStore and the Redux DevTools integration out of
+                      the box</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >createSlice: name, initialState, reducers —
+                      auto-generated actions</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useSelector and useDispatch hooks — reading from and
+                      writing to the store</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s6-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >RTK Query: a TanStack Query alternative built into Redux
+                      Toolkit</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s6-glow); border-color: var(--s6-dim)"
+            >
+              <div class="project-tag" style="color: var(--s6)">
+                <span>◆</span> Practice Project
+              </div>
+              <div class="project-name">
+                GitHub Repo Browser with TanStack Query + Zustand
+              </div>
+              <div class="project-desc">
+                Search GitHub repos via the API. TanStack Query for all API
+                calls (search, repo details, issues list) — automatic caching,
+                loading states, error boundaries. Zustand for UI state: starred
+                repos (persisted), active filters, sidebar open state.
+                Optimistic update when starring a repo.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s6')">
+                <div
+                  class="project-cb"
+                  id="proj-s6"
+                  style="border-color: var(--s6)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark project as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> 80% of what developers put in Redux
+                is server state — API responses being stored, loading flags
+                being tracked, errors being saved. TanStack Query eliminates all
+                of that. After adopting it, most apps can drop Redux entirely
+                and replace it with Zustand for the remaining client state.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 6</div>
+              <div class="mental-model-text">
+                State has three addresses: local (useState inside a component),
+                global client (Zustand store), and server (TanStack Query
+                cache). Before choosing a state tool, ask: where does this data
+                live? If it comes from a server, it belongs in a cache. If it's
+                pure UI behaviour (open/closed, selected tab), it belongs
+                locally or in Zustand.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s6-dim);
+                  color: var(--s6);
+                  border-color: #4a1470;
+                "
+                >Context + Reducer</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s6-dim);
+                  color: var(--s6);
+                  border-color: #4a1470;
+                "
+                >Zustand</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s6-dim);
+                  color: var(--s6);
+                  border-color: #4a1470;
+                "
+                >TanStack Query</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s6-dim);
+                  color: var(--s6);
+                  border-color: #4a1470;
+                "
+                >useMutation</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s6-dim);
+                  color: var(--s6);
+                  border-color: #4a1470;
+                "
+                >RTK</span
+              >
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- SECTION 7: Performance & Internals        -->
+          <!-- ══════════════════════════════════════════ -->
+          <section class="week-section" id="sec7">
+            <div class="week-header">
+              <span
+                class="week-num"
+                style="background: var(--s7-dim); color: var(--s7)"
+                >07</span
+              >
+              <div class="week-header-text">
+                <h2 class="week-title">Performance, Testing & Internals</h2>
+                <p class="week-desc">
+                  Understanding how React works under the hood — Fiber,
+                  reconciliation, the commit phase — demystifies every
+                  performance decision. Testing verifies behaviour, not
+                  implementation. This section makes you dangerous in
+                  production.
+                </p>
+              </div>
+              <div class="week-progress-wrap">
+                <span class="week-pct" id="wpct-7" style="color: var(--s7)"
+                  >0%</span
+                >
+                <div class="week-track">
+                  <div
+                    class="week-fill"
+                    id="wfill-7"
+                    style="background: var(--s7); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="days-grid">
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">internals</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s7c1"
+                    style="background: var(--s7-dim); color: var(--s7)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">React Fiber & Reconciliation</div>
+                <div class="day-hint">
+                  Reconciliation is React diffing the new virtual DOM against
+                  the previous one to find the minimal set of DOM changes. Fiber
+                  is the scheduler underneath — it can pause, prioritise, and
+                  resume work. This is what makes concurrent features possible.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c1-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Virtual DOM: React's in-memory representation of the UI
+                      tree</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c1-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Reconciliation diffing algorithm: same type = update,
+                      different type = unmount + mount</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c1-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Render phase (pure, can be interrupted) vs commit phase
+                      (DOM mutations, side effects)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c1-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React Fiber: unit-of-work scheduler enabling time-slicing
+                      and prioritisation</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">performance</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s7c2"
+                    style="background: var(--s7-dim); color: var(--s7)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Code Splitting & Lazy Loading</div>
+                <div class="day-hint">
+                  Every route you load eagerly adds to the initial bundle.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >React.lazy + Suspense</code
+                  >
+                  splits each route into its own chunk — downloaded only when
+                  the user navigates there. First load becomes dramatically
+                  faster on large apps.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c2-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React.lazy(() => import('./Component')) + Suspense
+                      fallback</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c2-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Route-based code splitting: lazy-loading each page
+                      component automatically</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c2-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Error boundaries: class component catching render errors,
+                      errorElement in router</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c2-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Bundle analysis: vite-bundle-visualizer to find what's
+                      bloating your build</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">testing</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s7c3"
+                    style="background: var(--s7-dim); color: var(--s7)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">Testing React Components</div>
+                <div class="day-hint">
+                  Test what the user sees and does, not implementation details.
+                  <code
+                    style="
+                      font-family:
+                        DM Mono,
+                        monospace;
+                      font-size: 11px;
+                    "
+                    >getByRole, getByText, getByLabelText</code
+                  >
+                  query the DOM as a user would. If your tests break when you
+                  refactor but not when user behaviour breaks, you're testing
+                  the wrong things.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c3-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Vitest + React Testing Library: render, screen, userEvent
+                      setup</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c3-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Queries: getByRole, getByText, findByText (async),
+                      queryByText (optional presence)</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c3-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Testing hooks with renderHook and act() — isolating
+                      custom hook logic</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c3-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Mocking fetch / modules: vi.mock, MSW (Mock Service
+                      Worker) for API testing</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="day-card">
+                <div class="day-meta">
+                  <span class="day-label">react 19 & beyond</span>
+                  <span
+                    class="day-done-badge"
+                    id="badge-s7c4"
+                    style="background: var(--s7-dim); color: var(--s7)"
+                    >done ✓</span
+                  >
+                </div>
+                <div class="day-title">React 19 & Modern Patterns</div>
+                <div class="day-hint">
+                  Server Components run on the server — no bundle size, direct
+                  DB access, zero hydration cost. They cannot use state or
+                  effects. Client components are the React you know.
+                  Understanding the boundary between them is the core skill for
+                  the Next.js / Remix era.
+                </div>
+                <ul class="topic-list">
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c4-t1"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >React Server Components (RSC): server-only render, no JS
+                      shipped to client</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c4-t2"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >Server Actions: async functions that run on the server,
+                      called from client forms</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c4-t3"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >use() hook: reading a Promise or Context inside a
+                      component during render</span
+                    >
+                  </li>
+                  <li
+                    class="topic-item"
+                    onclick="toggle(this)"
+                    data-id="s7-c4-t4"
+                  >
+                    <div class="topic-cb"></div>
+                    <span class="topic-text"
+                      >useOptimistic: instant UI update before server confirms —
+                      the optimistic pattern</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="project-card"
+              style="background: var(--s7-glow); border-color: var(--s7-dim)"
+            >
+              <div class="project-tag" style="color: var(--s7)">
+                <span>◆</span> Capstone Project
+              </div>
+              <div class="project-name">Production-Ready Notes App</div>
+              <div class="project-desc">
+                Everything together: React Router v6 with nested routes +
+                layouts. TanStack Query for notes CRUD. Zustand for UI state.
+                Code-split routes with lazy + Suspense. Error boundary per
+                route. Full test suite with Vitest + Testing Library covering
+                all user flows. Lighthouse score above 90. This is your React
+                portfolio centrepiece.
+              </div>
+              <div class="project-check" onclick="toggleProject('proj-s7')">
+                <div
+                  class="project-cb"
+                  id="proj-s7"
+                  style="border-color: var(--s7)"
+                ></div>
+                <span class="project-check-label"
+                  >Mark capstone as complete</span
+                >
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <span class="tip-icon">⟡</span>
+              <p class="tip-text">
+                <strong>Senior tip:</strong> Read the React source code for
+                <code>useState</code> and <code>useEffect</code> — it's
+                surprisingly approachable. Once you see how hook state is stored
+                in a linked list on the fiber node, the "rules of hooks" stop
+                feeling like arbitrary restrictions and start feeling like
+                obvious physical constraints.
+              </p>
+            </div>
+
+            <div class="mental-model">
+              <div class="mental-model-label">⬡ Mental Model — Section 7</div>
+              <div class="mental-model-text">
+                React's rendering is split into two phases. The render phase is
+                pure — React calls your components, builds a new fiber tree,
+                diffs it against the old one. No DOM is touched. The commit
+                phase is where DOM mutations, ref assignments, and effects
+                happen. Only the commit phase is synchronous and
+                uninterruptible.
+              </div>
+            </div>
+
+            <div class="pills-row">
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >Fiber / Reconciler</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >React.lazy</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >Error boundary</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >Testing Library</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >RSC</span
+              >
+              <span
+                class="skill-pill"
+                style="
+                  background: var(--s7-dim);
+                  color: var(--s7);
+                  border-color: #7a1240;
+                "
+                >Server Actions</span
+              >
+            </div>
+          </section>
+
+          <!-- RESOURCES -->
+          <div class="resources-section">
+            <div class="resources-title">Resources to keep open</div>
+            <div class="resources-grid">
+              <a class="resource-item" href="https://react.dev" target="_blank">
+                <div class="resource-name">react.dev</div>
+                <div class="resource-desc">
+                  The new official docs. Best React learning resource that
+                  exists.
+                </div>
+              </a>
+              <a
+                class="resource-item"
+                href="https://tanstack.com/query/latest"
+                target="_blank"
+              >
+                <div class="resource-name">TanStack Query docs</div>
+                <div class="resource-desc">
+                  Read the "Why" page first. Changes how you think about state.
+                </div>
+              </a>
+              <a
+                class="resource-item"
+                href="https://zustand-demo.pmnd.rs"
+                target="_blank"
+              >
+                <div class="resource-name">Zustand docs</div>
+                <div class="resource-desc">
+                  Minimal, readable. The entire API fits on one page.
+                </div>
+              </a>
+              <a
+                class="resource-item"
+                href="https://testing-library.com/docs/react-testing-library/intro"
+                target="_blank"
+              >
+                <div class="resource-name">React Testing Library</div>
+                <div class="resource-desc">
+                  Read the guiding principles. It changes how you write tests.
+                </div>
+              </a>
+              <a
+                class="resource-item"
+                href="https://reactrouter.com/en/main"
+                target="_blank"
+              >
+                <div class="resource-name">React Router v6 docs</div>
+                <div class="resource-desc">
+                  The tutorial section is excellent — do it end to end.
+                </div>
+              </a>
+              <a
+                class="resource-item"
+                href="https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023"
+                target="_blank"
+              >
+                <div class="resource-name">React 19 blog</div>
+                <div class="resource-desc">
+                  Official posts on Server Components and React 19 changes.
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- /main-inner -->
+      </main>
+    </div>
+
+    <script>
+      // ── DATA ──────────────────────────────────────────────────────
+      const SECTION_IDS = {
+        1: {
+          c1: ["s1-c1-t1", "s1-c1-t2", "s1-c1-t3", "s1-c1-t4"],
+          c2: ["s1-c2-t1", "s1-c2-t2", "s1-c2-t3", "s1-c2-t4"],
+          c3: ["s1-c3-t1", "s1-c3-t2", "s1-c3-t3", "s1-c3-t4"],
+          c4: ["s1-c4-t1", "s1-c4-t2", "s1-c4-t3", "s1-c4-t4"],
+        },
+        2: {
+          c1: ["s2-c1-t1", "s2-c1-t2", "s2-c1-t3", "s2-c1-t4"],
+          c2: ["s2-c2-t1", "s2-c2-t2", "s2-c2-t3", "s2-c2-t4"],
+          c3: ["s2-c3-t1", "s2-c3-t2", "s2-c3-t3", "s2-c3-t4"],
+          c4: ["s2-c4-t1", "s2-c4-t2", "s2-c4-t3", "s2-c4-t4"],
+        },
+        3: {
+          c1: ["s3-c1-t1", "s3-c1-t2", "s3-c1-t3", "s3-c1-t4"],
+          c2: ["s3-c2-t1", "s3-c2-t2", "s3-c2-t3", "s3-c2-t4"],
+          c3: ["s3-c3-t1", "s3-c3-t2", "s3-c3-t3", "s3-c3-t4"],
+          c4: ["s3-c4-t1", "s3-c4-t2", "s3-c4-t3", "s3-c4-t4"],
+        },
+        4: {
+          c1: ["s4-c1-t1", "s4-c1-t2", "s4-c1-t3", "s4-c1-t4"],
+          c2: ["s4-c2-t1", "s4-c2-t2", "s4-c2-t3", "s4-c2-t4"],
+          c3: ["s4-c3-t1", "s4-c3-t2", "s4-c3-t3", "s4-c3-t4"],
+          c4: ["s4-c4-t1", "s4-c4-t2", "s4-c4-t3", "s4-c4-t4"],
+        },
+        5: {
+          c1: ["s5-c1-t1", "s5-c1-t2", "s5-c1-t3", "s5-c1-t4"],
+          c2: ["s5-c2-t1", "s5-c2-t2", "s5-c2-t3", "s5-c2-t4"],
+          c3: ["s5-c3-t1", "s5-c3-t2", "s5-c3-t3", "s5-c3-t4"],
+          c4: ["s5-c4-t1", "s5-c4-t2", "s5-c4-t3", "s5-c4-t4"],
+        },
+        6: {
+          c1: ["s6-c1-t1", "s6-c1-t2", "s6-c1-t3", "s6-c1-t4"],
+          c2: ["s6-c2-t1", "s6-c2-t2", "s6-c2-t3", "s6-c2-t4"],
+          c3: ["s6-c3-t1", "s6-c3-t2", "s6-c3-t3", "s6-c3-t4"],
+          c4: ["s6-c4-t1", "s6-c4-t2", "s6-c4-t3", "s6-c4-t4"],
+        },
+        7: {
+          c1: ["s7-c1-t1", "s7-c1-t2", "s7-c1-t3", "s7-c1-t4"],
+          c2: ["s7-c2-t1", "s7-c2-t2", "s7-c2-t3", "s7-c2-t4"],
+          c3: ["s7-c3-t1", "s7-c3-t2", "s7-c3-t3", "s7-c3-t4"],
+          c4: ["s7-c4-t1", "s7-c4-t2", "s7-c4-t3", "s7-c4-t4"],
+        },
+      };
+
+      const SECTION_NAMES = {
+        1: "JSX & Fundamentals",
+        2: "Core Hooks",
+        3: "Component Patterns",
+        4: "Advanced Hooks",
+        5: "React Router",
+        6: "State Management",
+        7: "Performance & Internals",
+      };
+
+      let state = {};
+
+      function loadState() {
+        try {
+          state = JSON.parse(localStorage.getItem("react-tracker") || "{}");
+        } catch (e) {
+          state = {};
+        }
+      }
+
+      function saveState() {
+        localStorage.setItem("react-tracker", JSON.stringify(state));
+      }
+
+      // ── TOPIC TOGGLE ──────────────────────────────────────────────
+      function toggle(el) {
+        const id = el.dataset.id;
+        state[id] = !state[id];
+        saveState();
+        applyItem(el, state[id]);
+        updateAll();
+      }
+
+      function applyItem(el, checked) {
+        el.classList.toggle("checked", !!checked);
+        const cb = el.querySelector(".topic-cb");
+        const color = getSecColor(el);
+        cb.style.background = checked ? color : "";
+        cb.style.borderColor = checked ? color : "";
+      }
+
+      function getSecColor(el) {
+        const id = el.dataset.id;
+        const s = id.charAt(1);
+        return getComputedStyle(document.documentElement)
+          .getPropertyValue(`--s${s}`)
+          .trim();
+      }
+
+      // ── PROJECT TOGGLE ────────────────────────────────────────────
+      function toggleProject(id) {
+        state[id] = !state[id];
+        saveState();
+        applyProject(id, state[id]);
+        updateAll();
+      }
+
+      function applyProject(id, done) {
+        const cb = document.getElementById(id);
+        if (!cb) return;
+        cb.classList.toggle("done", !!done);
+        const s = id.split("-s")[1];
+        const col = getComputedStyle(document.documentElement)
+          .getPropertyValue(`--s${s}`)
+          .trim();
+        cb.style.background = done ? col : "";
+        cb.style.borderColor = col;
+      }
+
+      // ── UPDATE ALL ────────────────────────────────────────────────
+      function updateAll() {
+        let totalTopics = 0,
+          doneTopics = 0,
+          doneSections = 0,
+          doneProjects = 0;
+        const secDone = {},
+          secTotal = {};
+
+        for (let s = 1; s <= 7; s++) {
+          let st = 0,
+            sd = 0;
+          for (const cards of Object.values(SECTION_IDS[s])) {
+            for (const id of cards) {
+              st++;
+              totalTopics++;
+              if (state[id]) {
+                sd++;
+                doneTopics++;
+              }
+            }
+          }
+          secTotal[s] = st;
+          secDone[s] = sd;
+          const pct = st ? Math.round((sd / st) * 100) : 0;
+
+          document.getElementById(`wpct-${s}`).textContent = pct + "%";
+          document.getElementById(`wfill-${s}`).style.width = pct + "%";
+          document.getElementById(`nav-pct-${s}`).textContent = pct + "%";
+
+          // card done badges
+          const cards = Object.keys(SECTION_IDS[s]);
+          cards.forEach((ck, i) => {
+            const badge = document.getElementById(`badge-s${s}c${i + 1}`);
+            if (!badge) return;
+            badge.classList.toggle(
+              "visible",
+              SECTION_IDS[s][ck].every((id) => state[id]),
+            );
+          });
+
+          if (sd === st && st > 0) doneSections++;
+          if (state[`proj-s${s}`]) doneProjects++;
+        }
+
+        const overallPct = totalTopics
+          ? Math.round((doneTopics / totalTopics) * 100)
+          : 0;
+        document.getElementById("overall-pct").textContent = overallPct + "%";
+        document.getElementById("overall-fill").style.width = overallPct + "%";
+
+        document.getElementById("stat-done").textContent = doneTopics;
+        document.getElementById("stat-total").textContent = totalTopics;
+        document.getElementById("stat-sections").textContent = doneSections;
+        document.getElementById("stat-projects").textContent = doneProjects;
+
+        // active section
+        let active = 7;
+        for (let s = 1; s <= 7; s++) {
+          if (secDone[s] < secTotal[s]) {
+            active = s;
+            break;
+          }
+        }
+        document.getElementById("stat-active").textContent = "S" + active;
+        document.getElementById("stat-active-name").textContent =
+          SECTION_NAMES[active];
+
+        // celebrate
+        const prev = JSON.parse(
+          sessionStorage.getItem("react-sections-complete") || "{}",
+        );
+        for (let s = 1; s <= 7; s++) {
+          if (secDone[s] === secTotal[s] && secTotal[s] > 0 && !prev[s]) {
+            prev[s] = true;
+            sessionStorage.setItem(
+              "react-sections-complete",
+              JSON.stringify(prev),
+            );
+            showCelebrate(`${SECTION_NAMES[s]} complete! 🎉`);
+            break;
+          }
+        }
+      }
+
+      function showCelebrate(msg) {
+        const bar = document.getElementById("celebrate-bar");
+        document.getElementById("celebrate-msg").textContent = msg;
+        bar.classList.add("show");
+        setTimeout(() => bar.classList.remove("show"), 4000);
+      }
+
+      // ── RESET ─────────────────────────────────────────────────────
+      function resetAll() {
+        if (!confirm("Reset all progress? This cannot be undone.")) return;
+        state = {};
+        saveState();
+        sessionStorage.removeItem("react-sections-complete");
+        restoreAll();
+        updateAll();
+      }
+
+      // ── RESTORE FROM STATE ────────────────────────────────────────
+      function restoreAll() {
+        document.querySelectorAll(".topic-item").forEach((el) => {
+          applyItem(el, !!state[el.dataset.id]);
+        });
+        for (let s = 1; s <= 7; s++) {
+          applyProject(`proj-s${s}`, !!state[`proj-s${s}`]);
+        }
+      }
+
+      // ── NAV ACTIVE ON SCROLL ──────────────────────────────────────
+      function updateNavActive() {
+        const sections = document.querySelectorAll(".week-section");
+        let active = "sec1";
+        sections.forEach((s) => {
+          if (s.getBoundingClientRect().top <= 120) active = s.id;
+        });
+        document.querySelectorAll(".nav-item").forEach((n) => {
+          n.classList.toggle("active", n.getAttribute("href") === "#" + active);
+        });
+      }
+
+      // ── THEME ─────────────────────────────────────────────────────
+      function toggleTheme() {
+        const isLight = document.documentElement.classList.toggle("light");
+        localStorage.setItem("react-tracker-theme", isLight ? "light" : "dark");
+        document.getElementById("theme-icon").textContent = isLight ? "☾" : "☀";
+      }
+
+      (function initTheme() {
+        const saved =
+          localStorage.getItem("react-tracker-theme") ||
+          localStorage.getItem("devroads-theme");
+        if (saved === "light") {
+          document.documentElement.classList.add("light");
+          const icon = document.getElementById("theme-icon");
+          if (icon) icon.textContent = "☾";
+        }
+      })();
+
+      // ── INIT ──────────────────────────────────────────────────────
+      loadState();
+      restoreAll();
+      updateAll();
+      window.addEventListener("scroll", updateNavActive, { passive: true });
+    </script>
+  </body>
+</html>
