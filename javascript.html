@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Mastery — Complete Roadmap Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0d0f12;
+    --bg2:      #13161b;
+    --bg3:      #1a1e26;
+    --border:   #252a35;
+    --border2:  #2f3545;
+    --text:     #e8eaf0;
+    --muted:    #6b7385;
+    --muted2:   #4a5166;
+    --s1:       #f59e0b;
+    --s1-dim:   #3d2a00;
+    --s1-glow:  #f59e0b20;
+    --s2:       #f97316;
+    --s2-dim:   #3d1800;
+    --s2-glow:  #f9731620;
+    --s3:       #06b6d4;
+    --s3-dim:   #003340;
+    --s3-glow:  #06b6d420;
+    --s4:       #22c55e;
+    --s4-dim:   #0a2e14;
+    --s4-glow:  #22c55e20;
+    --s5:       #e06b3f;
+    --s5-dim:   #2e1a0e;
+    --s5-glow:  #e06b3f20;
+    --s6:       #a855f7;
+    --s6-dim:   #2a0e40;
+    --s6-glow:  #a855f720;
+    --s7:       #3b9ede;
+    --s7-dim:   #0e2030;
+    --s7-glow:  #3b9ede20;
+    --radius:   12px;
+    --radius-sm: 7px;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html.light {
+    --bg:       #f3f4f8;
+    --bg2:      #ffffff;
+    --bg3:      #eaecf2;
+    --border:   #dde1ec;
+    --border2:  #c8cedf;
+    --text:     #1a1d27;
+    --muted:    #5a6275;
+    --muted2:   #9099b0;
+    --s1-dim:   #fef3c7;
+    --s1-glow:  #f59e0b14;
+    --s2-dim:   #fff0e6;
+    --s2-glow:  #f9731614;
+    --s3-dim:   #e0f9ff;
+    --s3-glow:  #06b6d414;
+    --s4-dim:   #dcfce7;
+    --s4-glow:  #22c55e14;
+    --s5-dim:   #fdeee8;
+    --s5-glow:  #e06b3f14;
+    --s6-dim:   #f3e8ff;
+    --s6-glow:  #a855f714;
+    --s7-dim:   #e3f2fd;
+    --s7-glow:  #3b9ede14;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .layout { display: block; min-height: 100vh; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  .sidebar-top {
+    padding: 24px 24px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .overall-progress { margin-bottom: 4px; }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: .3px;
+  }
+
+  .progress-pct {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--s1), var(--s3), var(--s6), var(--s7));
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* sidebar nav */
+  .sidebar-nav {
+    flex: 1;
+    padding: 12px 12px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 1.2px;
+    color: var(--muted2);
+    text-transform: uppercase;
+    padding: 0 12px;
+    margin-bottom: 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background .15s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    position: relative;
+    margin-bottom: 1px;
+  }
+
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--bg3); color: var(--text); }
+
+  .nav-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-week-title {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .nav-mini-progress {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted2);
+  }
+
+  .sidebar-footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .reset-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .3px;
+  }
+
+  .reset-btn:hover {
+    border-color: #e06b3f66;
+    color: var(--s5);
+    background: var(--s5-glow);
+  }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 260px;
+    padding: 48px 56px 80px;
+    min-height: 100vh;
+  }
+
+  .main-inner { width: 100%; }
+
+  .page-header { margin-bottom: 48px; }
+
+  .page-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .page-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--muted2);
+  }
+
+  .page-title {
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title strong { font-weight: 500; }
+
+  .page-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .stat-card:hover { border-color: var(--border2); }
+
+  .stat-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 500;
+    font-family: var(--mono);
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub { font-size: 11px; color: var(--muted2); }
+
+  /* ── SECTION ── */
+  .week-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 32px;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .week-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .week-header-text { flex: 1; }
+
+  .week-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 5px;
+    letter-spacing: -0.3px;
+  }
+
+  .week-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .week-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .week-pct {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .week-track {
+    width: 80px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .week-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ── CARDS GRID ── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .day-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .day-card:hover { border-color: var(--border2); }
+
+  .day-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .day-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted2);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  .day-done-badge {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .day-done-badge.visible { opacity: 1; }
+
+  .day-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .topic-list { list-style: none; }
+
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background .1s;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin: 0 -6px;
+  }
+
+  .topic-item:last-child { border-bottom: none; }
+  .topic-item:hover { background: var(--bg3); }
+
+  .topic-cb {
+    width: 15px; height: 15px;
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    transition: all .15s;
+    background: transparent;
+  }
+
+  .topic-item.checked .topic-cb { border-color: transparent; }
+
+  .topic-item.checked .topic-cb::after {
+    content: '';
+    display: block;
+    width: 8px; height: 6px;
+    border-left: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .topic-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    transition: color .15s;
+    flex: 1;
+  }
+
+  .topic-item.checked .topic-text {
+    color: var(--muted2);
+    text-decoration: line-through;
+    text-decoration-color: var(--muted2);
+  }
+
+  /* ── PROJECT CARD ── */
+  .project-card {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    opacity: .06;
+    transform: translate(30px, -30px);
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .project-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .project-cb {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+    flex-shrink: 0;
+  }
+
+  .project-cb.done::after {
+    content: '';
+    display: block;
+    width: 9px; height: 7px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .project-check-label {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--muted);
+    transition: color .15s;
+  }
+
+  .project-check:hover .project-check-label { color: var(--text); }
+
+  /* ── TIP CARD ── */
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .tip-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    opacity: .7;
+  }
+
+  .tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .tip-text strong { color: var(--text); font-weight: 500; }
+
+  .tip-text code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── PILLS ── */
+  .pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .skill-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: .2px;
+  }
+
+  /* ── RESOURCES ── */
+  .resources-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 40px;
+  }
+
+  .resources-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resources-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .resource-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    text-decoration: none;
+    display: block;
+    transition: border-color .15s;
+  }
+
+  .resource-item:hover { border-color: var(--border2); }
+
+  .resource-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+    font-family: var(--mono);
+  }
+
+  .resource-desc {
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.4;
+  }
+
+  /* ── CELEBRATE ── */
+  .celebrate-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    animation: fadeSlide .3s ease;
+  }
+
+  .celebrate-bar.show { display: flex; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── THEME BTN ── */
+  .theme-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  .theme-btn:hover {
+    border-color: var(--s7);
+    color: var(--s7);
+    background: var(--s7-glow);
+  }
+
+  /* ── DAY HINT ── */
+  .day-hint {
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    background: var(--bg3);
+    border-radius: 6px;
+    border-left: 2px solid var(--border2);
+    font-style: italic;
+  }
+
+  /* ── MENTAL MODEL ── */
+  .mental-model {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .mental-model-label {
+    font-size: 9px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 3px;
+  }
+
+  .mental-model-text {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .mental-model-text code {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  html.light ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .main { padding: 40px 40px 80px; }
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { position: static; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { margin-left: 0; padding: 28px 28px 60px; }
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .resources-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .main { padding: 20px 16px 60px; }
+    .days-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .week-header { flex-wrap: wrap; gap: 10px; }
+    .week-progress-wrap { flex-direction: row; align-items: center; gap: 10px; }
+    .page-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <div class="logo-icon">JS</div>
+        <div>
+          <div class="logo-text">JS Mastery Tracker</div>
+          <div class="logo-sub">Zero to Advanced · 7 sections</div>
+        </div>
+      </div>
+      <div class="overall-progress">
+        <div class="progress-row">
+          <span class="progress-label">overall</span>
+          <span class="progress-pct" id="overall-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="overall-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Sections</div>
+      <a class="nav-item active" href="#sec1">
+        <div class="nav-dot" style="background:var(--s1)"></div>
+        <div class="nav-week-title">HTML & CSS</div>
+        <span class="nav-mini-progress" id="nav-pct-1">0%</span>
+      </a>
+      <a class="nav-item" href="#sec2">
+        <div class="nav-dot" style="background:var(--s2)"></div>
+        <div class="nav-week-title">JS Fundamentals</div>
+        <span class="nav-mini-progress" id="nav-pct-2">0%</span>
+      </a>
+      <a class="nav-item" href="#sec3">
+        <div class="nav-dot" style="background:var(--s3)"></div>
+        <div class="nav-week-title">DOM & Events</div>
+        <span class="nav-mini-progress" id="nav-pct-3">0%</span>
+      </a>
+      <a class="nav-item" href="#sec4">
+        <div class="nav-dot" style="background:var(--s4)"></div>
+        <div class="nav-week-title">Functions & Scope</div>
+        <span class="nav-mini-progress" id="nav-pct-4">0%</span>
+      </a>
+      <a class="nav-item" href="#sec5">
+        <div class="nav-dot" style="background:var(--s5)"></div>
+        <div class="nav-week-title">Async JavaScript</div>
+        <span class="nav-mini-progress" id="nav-pct-5">0%</span>
+      </a>
+      <a class="nav-item" href="#sec6">
+        <div class="nav-dot" style="background:var(--s6)"></div>
+        <div class="nav-week-title">OOP & Patterns</div>
+        <span class="nav-mini-progress" id="nav-pct-6">0%</span>
+      </a>
+      <a class="nav-item" href="#sec7">
+        <div class="nav-dot" style="background:var(--s7)"></div>
+        <div class="nav-week-title">Advanced JS</div>
+        <span class="nav-mini-progress" id="nav-pct-7">0%</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button class="theme-btn" onclick="toggleTheme()">
+          <span id="theme-icon">☀</span>
+        </button>
+      </div>
+      <button class="reset-btn" onclick="resetAll()">↺ reset progress</button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+  <div class="main-inner">
+
+    <header class="page-header">
+      <div class="page-tag">complete learning roadmap</div>
+      <h1 class="page-title">Master <strong>JavaScript</strong> — zero to advanced</h1>
+      <p class="page-desc">Topic-by-topic. Go at your own pace. Check off concepts as you learn them — no strict schedule, just clear progress. Covers HTML/CSS basics all the way to advanced JS patterns.</p>
+    </header>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">completed</div>
+        <div class="stat-value" id="stat-done">0</div>
+        <div class="stat-sub">of <span id="stat-total">112</span> topics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">sections done</div>
+        <div class="stat-value" id="stat-sections">0</div>
+        <div class="stat-sub">of 7 sections</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">projects done</div>
+        <div class="stat-value" id="stat-projects">0</div>
+        <div class="stat-sub">of 7 builds</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">active section</div>
+        <div class="stat-value" id="stat-active">S1</div>
+        <div class="stat-sub" id="stat-active-name">HTML & CSS</div>
+      </div>
+    </div>
+
+    <div class="celebrate-bar" id="celebrate-bar">
+      <span id="celebrate-msg">🎉 Section complete!</span>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 1: HTML & CSS Foundations     -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec1">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s1-dim);color:var(--s1)">01</span>
+        <div class="week-header-text">
+          <h2 class="week-title">HTML & CSS Foundations</h2>
+          <p class="week-desc">Every web interface starts here. HTML gives structure and meaning. CSS gives style and layout. These aren't just prerequisites — they're skills you'll use daily alongside JavaScript.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-1" style="color:var(--s1)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-1" style="background:var(--s1);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">structure</span>
+            <span class="day-done-badge" id="badge-s1c1" style="background:var(--s1-dim);color:var(--s1)">done ✓</span>
+          </div>
+          <div class="day-title">HTML Structure & Semantics</div>
+          <div class="day-hint">Use semantic elements everywhere — <code style="font-family:DM Mono,monospace;font-size:11px">&lt;article&gt;</code>, <code style="font-family:DM Mono,monospace;font-size:11px">&lt;nav&gt;</code>, <code style="font-family:DM Mono,monospace;font-size:11px">&lt;main&gt;</code>. A <code style="font-family:DM Mono,monospace;font-size:11px">&lt;div&gt;</code> has no meaning; a <code style="font-family:DM Mono,monospace;font-size:11px">&lt;header&gt;</code> tells browsers, screen readers, and search engines exactly what it is.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c1-t1"><div class="topic-cb"></div><span class="topic-text">Document structure: DOCTYPE, html, head, body, meta charset & viewport</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c1-t2"><div class="topic-cb"></div><span class="topic-text">Semantic elements: header, nav, main, section, article, footer, aside</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c1-t3"><div class="topic-cb"></div><span class="topic-text">Forms & inputs: form, input types, label, textarea, select, button</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c1-t4"><div class="topic-cb"></div><span class="topic-text">Accessibility: alt text, tabindex, ARIA labels and landmark roles</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">core styling</span>
+            <span class="day-done-badge" id="badge-s1c2" style="background:var(--s1-dim);color:var(--s1)">done ✓</span>
+          </div>
+          <div class="day-title">CSS Core Concepts</div>
+          <div class="day-hint">The box model is the foundation of all CSS layout. Every element is a box — content, padding, border, margin. Add <code style="font-family:DM Mono,monospace;font-size:11px">box-sizing: border-box</code> globally and never fight CSS again.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c2-t1"><div class="topic-cb"></div><span class="topic-text">Selectors: element, .class, #id, attribute, :hover, :focus pseudo-classes</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c2-t2"><div class="topic-cb"></div><span class="topic-text">The box model: content, padding, border, margin, box-sizing: border-box</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c2-t3"><div class="topic-cb"></div><span class="topic-text">Display values: block, inline, inline-block, none — and how they affect layout</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c2-t4"><div class="topic-cb"></div><span class="topic-text">Specificity & cascade: how browsers resolve conflicting CSS rules</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">layout</span>
+            <span class="day-done-badge" id="badge-s1c3" style="background:var(--s1-dim);color:var(--s1)">done ✓</span>
+          </div>
+          <div class="day-title">Flexbox, Grid & Responsive</div>
+          <div class="day-hint">Flexbox is 1D (row or column). Grid is 2D (rows AND columns). Use Flexbox for components, Grid for page structure. Media queries are mobile-first: <code style="font-family:DM Mono,monospace;font-size:11px">min-width</code>, not max-width.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c3-t1"><div class="topic-cb"></div><span class="topic-text">Flexbox: flex-direction, justify-content, align-items, flex-wrap, gap</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c3-t2"><div class="topic-cb"></div><span class="topic-text">CSS Grid: grid-template-columns, grid-area, fr unit, auto-fill / auto-fit</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c3-t3"><div class="topic-cb"></div><span class="topic-text">Positioning: relative, absolute, fixed, sticky — and z-index stacking</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c3-t4"><div class="topic-cb"></div><span class="topic-text">Responsive design: mobile-first approach, @media queries, viewport meta</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">modern css</span>
+            <span class="day-done-badge" id="badge-s1c4" style="background:var(--s1-dim);color:var(--s1)">done ✓</span>
+          </div>
+          <div class="day-title">Modern CSS Features</div>
+          <div class="day-hint">CSS custom properties are not just convenience — every major design system (Tailwind, Material UI, shadcn) is built on them. Master them now; they're everywhere.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c4-t1"><div class="topic-cb"></div><span class="topic-text">CSS custom properties: --var-name, var(), :root scope, theming with variables</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c4-t2"><div class="topic-cb"></div><span class="topic-text">Transitions & animations: transition shorthand, @keyframes, animation properties</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c4-t3"><div class="topic-cb"></div><span class="topic-text">Pseudo-elements: ::before, ::after — the content property and use cases</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s1-c4-t4"><div class="topic-cb"></div><span class="topic-text">CSS units deep dive: px, rem, em, %, vw/vh — and clamp() for fluid sizing</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s1-glow);border-color:var(--s1-dim)">
+        <div class="project-tag" style="color:var(--s1)"><span>◆</span> Practice Project</div>
+        <div class="project-name">Responsive Portfolio Page</div>
+        <div class="project-desc">Build a personal portfolio with HTML only — no JS yet. Sections: hero, about, projects grid, contact form. Use semantic HTML throughout. Style it with Flexbox + Grid, CSS variables for colours, smooth transitions on hover, and make it fully mobile responsive.</div>
+        <div class="project-check" onclick="toggleProject('proj-s1')">
+          <div class="project-cb" id="proj-s1" style="border-color:var(--s1)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Don't rush past HTML semantics — they directly affect SEO and accessibility. Use the browser's accessibility inspector (DevTools → Accessibility tab) to verify your semantic structure reads correctly. And never use <code>&lt;div&gt;</code> when a semantic element exists.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 1</div>
+        <div class="mental-model-text">HTML is the skeleton, CSS is the skin, JavaScript is the muscles. You can't write good JS DOM manipulation code if you don't deeply understand what the DOM tree looks like. Every hour spent on HTML/CSS saves three hours debugging layout issues from JS.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">Semantic HTML</span>
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">Box model</span>
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">Flexbox</span>
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">CSS Grid</span>
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">Responsive</span>
+        <span class="skill-pill" style="background:var(--s1-dim);color:var(--s1);border-color:#6b4a00">CSS Variables</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 2: JavaScript Fundamentals    -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec2">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s2-dim);color:var(--s2)">02</span>
+        <div class="week-header-text">
+          <h2 class="week-title">JavaScript Fundamentals</h2>
+          <p class="week-desc">The core language — types, variables, operators, control flow, arrays, and objects. This is the bedrock everything else is built on. Don't skip anything; gaps here cause bugs everywhere.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-2" style="color:var(--s2)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-2" style="background:var(--s2);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">types</span>
+            <span class="day-done-badge" id="badge-s2c1" style="background:var(--s2-dim);color:var(--s2)">done ✓</span>
+          </div>
+          <div class="day-title">Variables & Data Types</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">var</code> is function-scoped and hoisted. <code style="font-family:DM Mono,monospace;font-size:11px">let/const</code> are block-scoped. Use <code style="font-family:DM Mono,monospace;font-size:11px">const</code> by default — it signals intent, not immutability of the value inside an object.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c1-t1"><div class="topic-cb"></div><span class="topic-text">var, let, const — scoping rules and when to use each one</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c1-t2"><div class="topic-cb"></div><span class="topic-text">Primitive types: string, number, boolean, null, undefined, symbol, BigInt</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c1-t3"><div class="topic-cb"></div><span class="topic-text">Type coercion: implicit vs explicit, truthy/falsy values, == vs ===</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c1-t4"><div class="topic-cb"></div><span class="topic-text">typeof operator — and the typeof null === "object" gotcha</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">control flow</span>
+            <span class="day-done-badge" id="badge-s2c2" style="background:var(--s2-dim);color:var(--s2)">done ✓</span>
+          </div>
+          <div class="day-title">Operators & Control Flow</div>
+          <div class="day-hint">Short-circuit evaluation: <code style="font-family:DM Mono,monospace;font-size:11px">a && b</code> returns b only if a is truthy. <code style="font-family:DM Mono,monospace;font-size:11px">a || b</code> returns a if truthy, else b. <code style="font-family:DM Mono,monospace;font-size:11px">a ?? b</code> returns b only if a is null or undefined — not just falsy.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c2-t1"><div class="topic-cb"></div><span class="topic-text">Arithmetic, comparison, logical operators — operator precedence</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c2-t2"><div class="topic-cb"></div><span class="topic-text">Ternary operator and short-circuit evaluation (&&, ||, ??) as expressions</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c2-t3"><div class="topic-cb"></div><span class="topic-text">if/else, switch — exhaustive matching and fallthrough behaviour</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c2-t4"><div class="topic-cb"></div><span class="topic-text">Loops: for, while, for...of, for...in — and when to use each</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">data structures</span>
+            <span class="day-done-badge" id="badge-s2c3" style="background:var(--s2-dim);color:var(--s2)">done ✓</span>
+          </div>
+          <div class="day-title">Arrays & Objects</div>
+          <div class="day-hint">.map() returns a new array. .filter() returns a new array. .reduce() returns whatever you want. None of them mutate the original. This non-mutation principle is the foundation of functional JS.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c3-t1"><div class="topic-cb"></div><span class="topic-text">Array methods: map, filter, reduce, forEach, find, findIndex, some, every, flat</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c3-t2"><div class="topic-cb"></div><span class="topic-text">Object literals: property shorthand, computed keys, optional chaining (?.) usage</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c3-t3"><div class="topic-cb"></div><span class="topic-text">Destructuring: array and object — renaming, defaults, nested destructuring</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c3-t4"><div class="topic-cb"></div><span class="topic-text">Spread (...) and rest (...) — same syntax, opposite purposes</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">built-ins</span>
+            <span class="day-done-badge" id="badge-s2c4" style="background:var(--s2-dim);color:var(--s2)">done ✓</span>
+          </div>
+          <div class="day-title">Strings, Numbers & Built-ins</div>
+          <div class="day-hint">Template literals aren't just nicer string concatenation. Tagged templates let frameworks like styled-components and GraphQL parse them at build time. Understand the base first.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c4-t1"><div class="topic-cb"></div><span class="topic-text">String methods: split, join, trim, replace, includes, slice, padStart, at()</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c4-t2"><div class="topic-cb"></div><span class="topic-text">Template literals, multi-line strings, and tagged template functions concept</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c4-t3"><div class="topic-cb"></div><span class="topic-text">Math: floor, ceil, round, random, max/min — and Number: isNaN, isFinite, toFixed</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s2-c4-t4"><div class="topic-cb"></div><span class="topic-text">Map, Set, WeakMap, WeakSet — when objects and arrays aren't the right tool</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s2-glow);border-color:var(--s2-dim)">
+        <div class="project-tag" style="color:var(--s2)"><span>◆</span> Practice Project</div>
+        <div class="project-name">Vanilla JS Quiz App</div>
+        <div class="project-desc">Build a 10-question quiz in the browser console — no DOM manipulation yet. Questions stored as arrays of objects. Track score, shuffle questions using Fisher-Yates algorithm, categorise results. Pure JS fundamentals: loops, conditionals, array methods, objects. No frameworks.</div>
+        <div class="project-check" onclick="toggleProject('proj-s2')">
+          <div class="project-cb" id="proj-s2" style="border-color:var(--s2)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Understand type coercion deeply — it's the source of most JS interview questions. Know why <code>[] + {}</code> and <code>{} + []</code> give different results. Learn the difference between <code>null</code> and <code>undefined</code> in actual data flow, not just definition. These details separate juniors from seniors.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 2</div>
+        <div class="mental-model-text">Everything in JavaScript is either a primitive or an object. Primitives are compared by value; objects are compared by reference. This one fact explains why <code>[] === []</code> is false, why passing an object to a function can mutate the original, and why shallow vs deep clone matters.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s2-dim);color:var(--s2);border-color:#6b3000">Types & coercion</span>
+        <span class="skill-pill" style="background:var(--s2-dim);color:var(--s2);border-color:#6b3000">Array methods</span>
+        <span class="skill-pill" style="background:var(--s2-dim);color:var(--s2);border-color:#6b3000">Destructuring</span>
+        <span class="skill-pill" style="background:var(--s2-dim);color:var(--s2);border-color:#6b3000">Spread / rest</span>
+        <span class="skill-pill" style="background:var(--s2-dim);color:var(--s2);border-color:#6b3000">Map & Set</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 3: DOM & Events               -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec3">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s3-dim);color:var(--s3)">03</span>
+        <div class="week-header-text">
+          <h2 class="week-title">DOM & Browser Events</h2>
+          <p class="week-desc">This is where JavaScript meets the browser. Selecting, creating, and manipulating elements, listening to events, and using browser APIs. React, Vue, and Svelte all abstract this — but they all build on top of exactly these concepts.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-3" style="color:var(--s3)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-3" style="background:var(--s3);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">dom core</span>
+            <span class="day-done-badge" id="badge-s3c1" style="background:var(--s3-dim);color:var(--s3)">done ✓</span>
+          </div>
+          <div class="day-title">DOM Fundamentals</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">querySelector</code> returns the first match or null. <code style="font-family:DM Mono,monospace;font-size:11px">querySelectorAll</code> returns a NodeList — not an Array. Spread it with <code style="font-family:DM Mono,monospace;font-size:11px">[...nodeList]</code> to use array methods.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c1-t1"><div class="topic-cb"></div><span class="topic-text">DOM tree: document node, element nodes, text nodes, HTMLCollection vs NodeList</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c1-t2"><div class="topic-cb"></div><span class="topic-text">Selecting: querySelector, querySelectorAll, getElementById, getElementsByClassName</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c1-t3"><div class="topic-cb"></div><span class="topic-text">Traversing: parentElement, children, firstElementChild, nextElementSibling</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c1-t4"><div class="topic-cb"></div><span class="topic-text">Reading: innerHTML, textContent, value, getAttribute, dataset (data-* attributes)</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">events</span>
+            <span class="day-done-badge" id="badge-s3c2" style="background:var(--s3-dim);color:var(--s3)">done ✓</span>
+          </div>
+          <div class="day-title">Events & Event Handling</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">event.target</code> = where the event started. <code style="font-family:DM Mono,monospace;font-size:11px">event.currentTarget</code> = where the listener is attached. Events bubble up from child → parent → document. That's why delegation works.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c2-t1"><div class="topic-cb"></div><span class="topic-text">addEventListener(type, handler, options) — and removeEventListener</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c2-t2"><div class="topic-cb"></div><span class="topic-text">Event object: target, currentTarget, type, key, clientX/Y, preventDefault()</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c2-t3"><div class="topic-cb"></div><span class="topic-text">Event bubbling (bottom-up) vs capturing (top-down) — and stopPropagation()</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c2-t4"><div class="topic-cb"></div><span class="topic-text">Event delegation — one parent listener instead of N child listeners</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">manipulation</span>
+            <span class="day-done-badge" id="badge-s3c3" style="background:var(--s3-dim);color:var(--s3)">done ✓</span>
+          </div>
+          <div class="day-title">DOM Manipulation</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">innerHTML</code> is fast but opens XSS vulnerabilities — never use it with user input. <code style="font-family:DM Mono,monospace;font-size:11px">textContent</code> is safe. <code style="font-family:DM Mono,monospace;font-size:11px">createElement</code> is verbose but safest for dynamic content.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c3-t1"><div class="topic-cb"></div><span class="topic-text">Creating: createElement, createTextNode, cloneNode(deep)</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c3-t2"><div class="topic-cb"></div><span class="topic-text">Inserting: appendChild, prepend, append, insertAdjacentHTML, before/after</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c3-t3"><div class="topic-cb"></div><span class="topic-text">Removing: removeChild, element.remove() — and replaceChild / replaceWith</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c3-t4"><div class="topic-cb"></div><span class="topic-text">classList API: add, remove, toggle, contains, replace — your most-used DOM tool</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">web apis</span>
+            <span class="day-done-badge" id="badge-s3c4" style="background:var(--s3-dim);color:var(--s3)">done ✓</span>
+          </div>
+          <div class="day-title">Browser APIs</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">localStorage</code> survives browser restarts. <code style="font-family:DM Mono,monospace;font-size:11px">sessionStorage</code> dies when the tab closes. Always <code style="font-family:DM Mono,monospace;font-size:11px">JSON.stringify</code> before storing and <code style="font-family:DM Mono,monospace;font-size:11px">JSON.parse</code> after reading — localStorage only stores strings.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c4-t1"><div class="topic-cb"></div><span class="topic-text">localStorage and sessionStorage: getItem, setItem, removeItem, clear</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c4-t2"><div class="topic-cb"></div><span class="topic-text">fetch() basics: GET request, .json(), .text(), response.ok status check</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c4-t3"><div class="topic-cb"></div><span class="topic-text">Timers: setTimeout, setInterval, clearTimeout, clearInterval, requestAnimationFrame</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s3-c4-t4"><div class="topic-cb"></div><span class="topic-text">Window: location, history.pushState, scrollTo, innerWidth/Height, matchMedia</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s3-glow);border-color:var(--s3-dim)">
+        <div class="project-tag" style="color:var(--s3)"><span>◆</span> Practice Project</div>
+        <div class="project-name">Interactive Todo List</div>
+        <div class="project-desc">Full CRUD todo app using only vanilla DOM manipulation — no frameworks. Add tasks, mark complete, delete, filter by status (all/active/done). Persist to localStorage. Use event delegation for the task list. This exercises nearly every DOM API you've learned.</div>
+        <div class="project-check" onclick="toggleProject('proj-s3')">
+          <div class="project-cb" id="proj-s3" style="border-color:var(--s3)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Event delegation is not just a performance trick — it's the only correct pattern when you're dynamically adding/removing elements. React uses a single root event listener for the entire app. Understanding why this is necessary before learning React makes the framework make sense immediately.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 3</div>
+        <div class="mental-model-text">The DOM is not JavaScript — it's a C++ API that JavaScript talks to. Every DOM read or write crosses a boundary between the JS engine and the browser rendering engine. This is why batching DOM changes matters and why frameworks like React exist — virtual DOM batches your mutations.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s3-dim);color:var(--s3);border-color:#005566">querySelector</span>
+        <span class="skill-pill" style="background:var(--s3-dim);color:var(--s3);border-color:#005566">Event delegation</span>
+        <span class="skill-pill" style="background:var(--s3-dim);color:var(--s3);border-color:#005566">classList</span>
+        <span class="skill-pill" style="background:var(--s3-dim);color:var(--s3);border-color:#005566">localStorage</span>
+        <span class="skill-pill" style="background:var(--s3-dim);color:var(--s3);border-color:#005566">fetch basics</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 4: Functions, Scope, Closures -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec4">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s4-dim);color:var(--s4)">04</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Functions, Scope & Closures</h2>
+          <p class="week-desc">The deepest, most important section. Closures power React hooks, Redux, middleware, memoization, and module systems. <code style="font-family:DM Mono,monospace;font-size:14px">this</code> causes the most confusion in JS. Master both and you'll understand frameworks at their core.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-4" style="color:var(--s4)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-4" style="background:var(--s4);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">scope</span>
+            <span class="day-done-badge" id="badge-s4c1" style="background:var(--s4-dim);color:var(--s4)">done ✓</span>
+          </div>
+          <div class="day-title">Scope & Hoisting</div>
+          <div class="day-hint">JavaScript determines scope at write time (lexical scope), not at call time. Where you define a function — not where you call it — determines which variables it can access. This is the root of closures.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c1-t1"><div class="topic-cb"></div><span class="topic-text">Scope chain: global → function → block scope and the lookup process</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c1-t2"><div class="topic-cb"></div><span class="topic-text">var hoisting: declarations moved to top of function, initializations stay put</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c1-t3"><div class="topic-cb"></div><span class="topic-text">Temporal Dead Zone (TDZ): let/const hoisted but inaccessible until declaration</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c1-t4"><div class="topic-cb"></div><span class="topic-text">Lexical scope: child functions see parent scope, but never the reverse</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">closures</span>
+            <span class="day-done-badge" id="badge-s4c2" style="background:var(--s4-dim);color:var(--s4)">done ✓</span>
+          </div>
+          <div class="day-title">Closures</div>
+          <div class="day-hint">A closure is a function + a reference to its surrounding scope at the time it was created. The outer function returns and its execution context is gone — but the closure keeps the scope alive. This is private state in JavaScript.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c2-t1"><div class="topic-cb"></div><span class="topic-text">What closures are: function packaged with its surrounding lexical environment</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c2-t2"><div class="topic-cb"></div><span class="topic-text">Practical uses: counter factories, private variables, partial application</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c2-t3"><div class="topic-cb"></div><span class="topic-text">Module pattern: encapsulated stateful objects using closure + IIFE</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c2-t4"><div class="topic-cb"></div><span class="topic-text">Classic var-in-loop gotcha — and why let fixes it (new binding per iteration)</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">this keyword</span>
+            <span class="day-done-badge" id="badge-s4c3" style="background:var(--s4-dim);color:var(--s4)">done ✓</span>
+          </div>
+          <div class="day-title">this & Binding Rules</div>
+          <div class="day-hint">4 binding rules in priority order: new > explicit (call/apply/bind) > implicit (obj.method()) > default (global/undefined in strict). Arrow functions skip all rules — they inherit <code style="font-family:DM Mono,monospace;font-size:11px">this</code> from the enclosing lexical scope.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c3-t1"><div class="topic-cb"></div><span class="topic-text">Default binding: global in sloppy, undefined in strict mode</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c3-t2"><div class="topic-cb"></div><span class="topic-text">Implicit binding: obj.method() — and how storing a method loses `this`</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c3-t3"><div class="topic-cb"></div><span class="topic-text">Explicit binding: call(ctx, args), apply(ctx, [args]), bind(ctx) — differences</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c3-t4"><div class="topic-cb"></div><span class="topic-text">Arrow functions: no own `this` — captures lexical `this` from definition site</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">composition</span>
+            <span class="day-done-badge" id="badge-s4c4" style="background:var(--s4-dim);color:var(--s4)">done ✓</span>
+          </div>
+          <div class="day-title">Higher-Order Functions</div>
+          <div class="day-hint">Every time you pass a function to setTimeout, addEventListener, or array methods — you're doing higher-order programming. Internalise this and React hooks, Redux middleware, and Express middleware all feel natural.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c4-t1"><div class="topic-cb"></div><span class="topic-text">First-class functions: assigned to vars, passed as args, returned from functions</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c4-t2"><div class="topic-cb"></div><span class="topic-text">Implementing map, filter, reduce from scratch using a for loop</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c4-t3"><div class="topic-cb"></div><span class="topic-text">Function composition: compose(f, g)(x) === f(g(x)) — pipe is reversed</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s4-c4-t4"><div class="topic-cb"></div><span class="topic-text">Currying: f(a, b, c) → f(a)(b)(c) — and when to actually use it</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s4-glow);border-color:var(--s4-dim)">
+        <div class="project-tag" style="color:var(--s4)"><span>◆</span> Practice Project</div>
+        <div class="project-name">Utility Function Library</div>
+        <div class="project-desc">Build a mini utility library from scratch — implement debounce, throttle, memoize, deepClone, compose, and once (function that can only be called once). No lodash. Write tests for each one using console.assert. Every function exercises closures directly.</div>
+        <div class="project-check" onclick="toggleProject('proj-s4')">
+          <div class="project-cb" id="proj-s4" style="border-color:var(--s4)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Closures are the source of memory leaks when you close over large DOM trees or datasets. If a closure holds a reference to a DOM node that gets removed, the node cannot be garbage-collected. Always null out references in cleanup functions. This is exactly what React's useEffect cleanup does.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 4</div>
+        <div class="mental-model-text">A closure is a backpack attached to a function. Wherever you carry the function, the backpack goes. Inside the backpack are all the variables from the scope where the function was defined — not where it was called. React's useState hook is a closure. Every hook is a closure.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">Closures</span>
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">Lexical scope</span>
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">this binding</span>
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">HOF</span>
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">Currying</span>
+        <span class="skill-pill" style="background:var(--s4-dim);color:var(--s4);border-color:#145a2e">Debounce</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 5: Async JavaScript           -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec5">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s5-dim);color:var(--s5)">05</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Async JavaScript</h2>
+          <p class="week-desc">The event loop is the most important mental model in JS. Promises and async/await are just tools built on top of it. Understand the loop first — everything else becomes obvious.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-5" style="color:var(--s5)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-5" style="background:var(--s5);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">event loop</span>
+            <span class="day-done-badge" id="badge-s5c1" style="background:var(--s5-dim);color:var(--s5)">done ✓</span>
+          </div>
+          <div class="day-title">The JavaScript Event Loop</div>
+          <div class="day-hint">JavaScript is single-threaded — one call stack, one thing at a time. The event loop picks tasks from queues when the stack is empty. Microtasks (Promises) always drain before the next macrotask (setTimeout). This ordering is everything.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c1-t1"><div class="topic-cb"></div><span class="topic-text">Single-threaded model: one call stack, one execution context at a time</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c1-t2"><div class="topic-cb"></div><span class="topic-text">Web APIs: where setTimeout, fetch, addEventListener actually live (not in V8)</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c1-t3"><div class="topic-cb"></div><span class="topic-text">Microtask queue (Promises, queueMicrotask) vs macrotask queue (setTimeout)</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c1-t4"><div class="topic-cb"></div><span class="topic-text">Classic question: log order of setTimeout(fn, 0) vs Promise.resolve().then(fn)</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">promises</span>
+            <span class="day-done-badge" id="badge-s5c2" style="background:var(--s5-dim);color:var(--s5)">done ✓</span>
+          </div>
+          <div class="day-title">Callbacks & Promises</div>
+          <div class="day-hint">A Promise is a box that will eventually contain a value. You pass the box around synchronously. Only .then() schedules what to do when the box opens. The box is immutable once settled — you can't re-resolve it.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c2-t1"><div class="topic-cb"></div><span class="topic-text">Callbacks: the original pattern — and why nesting them creates "callback hell"</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c2-t2"><div class="topic-cb"></div><span class="topic-text">new Promise((resolve, reject)) — creating and settling promises</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c2-t3"><div class="topic-cb"></div><span class="topic-text">.then(), .catch(), .finally() — chaining and error propagation through the chain</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c2-t4"><div class="topic-cb"></div><span class="topic-text">Promise states: pending → fulfilled or rejected — state is immutable once settled</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">async / await</span>
+            <span class="day-done-badge" id="badge-s5c3" style="background:var(--s5-dim);color:var(--s5)">done ✓</span>
+          </div>
+          <div class="day-title">Async / Await</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">async</code> always returns a Promise, even if you return a plain value — it's wrapped automatically. <code style="font-family:DM Mono,monospace;font-size:11px">await</code> pauses the async function, not the entire program.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c3-t1"><div class="topic-cb"></div><span class="topic-text">async function: always returns a Promise, even for non-Promise return values</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c3-t2"><div class="topic-cb"></div><span class="topic-text">await: pauses the async function until the Promise settles</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c3-t3"><div class="topic-cb"></div><span class="topic-text">Error handling: try/catch/finally inside async functions — and re-throwing</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c3-t4"><div class="topic-cb"></div><span class="topic-text">Sequential vs parallel: await in sequence vs Promise.all([a(), b(), c()])</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">advanced patterns</span>
+            <span class="day-done-badge" id="badge-s5c4" style="background:var(--s5-dim);color:var(--s5)">done ✓</span>
+          </div>
+          <div class="day-title">Advanced Async Patterns</div>
+          <div class="day-hint">Promise.all fails fast — one rejection kills it. Promise.allSettled waits for all and gives you each result. Use allSettled when you need all results regardless of individual failures (e.g. batch API calls).</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c4-t1"><div class="topic-cb"></div><span class="topic-text">Promise.all (fail fast), Promise.allSettled, Promise.race, Promise.any</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c4-t2"><div class="topic-cb"></div><span class="topic-text">AbortController: cancelling fetch requests and async operations mid-flight</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c4-t3"><div class="topic-cb"></div><span class="topic-text">Debounce vs throttle — implement both without libraries</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s5-c4-t4"><div class="topic-cb"></div><span class="topic-text">Retry logic with exponential backoff — a production async pattern</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s5-glow);border-color:var(--s5-dim)">
+        <div class="project-tag" style="color:var(--s5)"><span>◆</span> Practice Project</div>
+        <div class="project-name">GitHub Profile Viewer</div>
+        <div class="project-desc">Fetch the GitHub REST API to display user profiles and repos. Implement async/await with try/catch error handling, AbortController to cancel stale requests on new searches, debounced search input, and a loading skeleton. Covers the entire async chapter in one project.</div>
+        <div class="project-check" onclick="toggleProject('proj-s5')">
+          <div class="project-cb" id="proj-s5" style="border-color:var(--s5)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> The most common async mistake is calling await in a loop sequentially when you could use Promise.all. <code>for (const item of items) { await fetch(item) }</code> is N requests in series. <code>await Promise.all(items.map(fetch))</code> is N requests in parallel — potentially N× faster.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 5</div>
+        <div class="mental-model-text">The call stack is a stack of plates. JavaScript adds a plate when a function is called, removes it when the function returns. The event loop only adds new plates when the stack is empty. async/await pauses a function (removes its plate temporarily) without blocking — the loop keeps running other tasks.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s5-dim);color:var(--s5);border-color:#5a2e14">Event loop</span>
+        <span class="skill-pill" style="background:var(--s5-dim);color:var(--s5);border-color:#5a2e14">Promises</span>
+        <span class="skill-pill" style="background:var(--s5-dim);color:var(--s5);border-color:#5a2e14">async/await</span>
+        <span class="skill-pill" style="background:var(--s5-dim);color:var(--s5);border-color:#5a2e14">Promise.all</span>
+        <span class="skill-pill" style="background:var(--s5-dim);color:var(--s5);border-color:#5a2e14">AbortController</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 6: OOP & Patterns             -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec6">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s6-dim);color:var(--s6)">06</span>
+        <div class="week-header-text">
+          <h2 class="week-title">OOP & Design Patterns</h2>
+          <p class="week-desc">JavaScript's OOP is prototype-based, not class-based. ES6 class syntax is sugar over prototypes. Understanding the prototype chain explains how all built-in methods work — and demystifies every JavaScript framework.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-6" style="color:var(--s6)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-6" style="background:var(--s6);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">prototypes</span>
+            <span class="day-done-badge" id="badge-s6c1" style="background:var(--s6-dim);color:var(--s6)">done ✓</span>
+          </div>
+          <div class="day-title">Prototypes & Prototype Chain</div>
+          <div class="day-hint">When you access a property, JS walks the chain: own properties → prototype → prototype's prototype → null. Array.prototype.map lives on the prototype — not copied onto every array. This is how built-ins work.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c1-t1"><div class="topic-cb"></div><span class="topic-text">Every object has [[Prototype]] — accessed via Object.getPrototypeOf()</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c1-t2"><div class="topic-cb"></div><span class="topic-text">Prototype chain lookup: own properties first, then the chain, then null</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c1-t3"><div class="topic-cb"></div><span class="topic-text">Object.create(proto): create an object with a specific prototype object</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c1-t4"><div class="topic-cb"></div><span class="topic-text">hasOwnProperty vs in operator — own properties vs inherited ones</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">classes</span>
+            <span class="day-done-badge" id="badge-s6c2" style="background:var(--s6-dim);color:var(--s6)">done ✓</span>
+          </div>
+          <div class="day-title">ES6 Classes</div>
+          <div class="day-hint">ES6 <code style="font-family:DM Mono,monospace;font-size:11px">class</code> is syntactic sugar over prototypes — there are no real classes in JavaScript. The prototype chain still runs underneath. Learn prototypes first; classes second. Classes make the familiar pattern easier to write.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c2-t1"><div class="topic-cb"></div><span class="topic-text">class, constructor, instance methods — and how they link to the prototype</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c2-t2"><div class="topic-cb"></div><span class="topic-text">Getters and setters: get/set with computed property behaviour</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c2-t3"><div class="topic-cb"></div><span class="topic-text">static methods and properties: called on the class, not on instances</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c2-t4"><div class="topic-cb"></div><span class="topic-text">Private class fields with #: true encapsulation, enforced by the engine</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">inheritance</span>
+            <span class="day-done-badge" id="badge-s6c3" style="background:var(--s6-dim);color:var(--s6)">done ✓</span>
+          </div>
+          <div class="day-title">Inheritance & Composition</div>
+          <div class="day-hint">Prefer composition over inheritance. Deep inheritance trees are fragile — changing a base class breaks every subclass below it. Compose behaviour through mixins and higher-order functions instead of extending.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c3-t1"><div class="topic-cb"></div><span class="topic-text">extends keyword and how it sets up the prototype chain between classes</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c3-t2"><div class="topic-cb"></div><span class="topic-text">super() in constructor — must call before accessing `this` in subclass</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c3-t3"><div class="topic-cb"></div><span class="topic-text">Method overriding and the fragile base class problem</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c3-t4"><div class="topic-cb"></div><span class="topic-text">Mixin pattern: Object.assign(Target.prototype, Mixin) for composition</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">patterns</span>
+            <span class="day-done-badge" id="badge-s6c4" style="background:var(--s6-dim);color:var(--s6)">done ✓</span>
+          </div>
+          <div class="day-title">Design Patterns</div>
+          <div class="day-hint">Patterns are vocabulary — they communicate complex ideas in one word. Observer = subscribe/publish. Factory = create without new. Module = encapsulate. Singleton = one instance. Know the pattern, know its tradeoffs.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c4-t1"><div class="topic-cb"></div><span class="topic-text">Module pattern (IIFE + closure): encapsulation before ES modules existed</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c4-t2"><div class="topic-cb"></div><span class="topic-text">Factory functions: create objects without the new keyword — more flexible</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c4-t3"><div class="topic-cb"></div><span class="topic-text">Observer / Pub-Sub: subscribe(), publish(), unsubscribe() — build it from scratch</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s6-c4-t4"><div class="topic-cb"></div><span class="topic-text">Singleton, Strategy, and Decorator patterns — and their real-world JS usage</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s6-glow);border-color:var(--s6-dim)">
+        <div class="project-tag" style="color:var(--s6)"><span>◆</span> Practice Project</div>
+        <div class="project-name">OOP Bank Account System</div>
+        <div class="project-desc">Build Account, SavingsAccount, and CheckingAccount classes using inheritance. Private fields for balance. Static factory methods for creating accounts. Observer pattern to notify "transaction listeners" on every deposit/withdraw. Compose an ATM class that uses dependency injection instead of extending Account.</div>
+        <div class="project-check" onclick="toggleProject('proj-s6')">
+          <div class="project-cb" id="proj-s6" style="border-color:var(--s6)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> React components are functions (or classes) that follow the Factory pattern. React hooks are closures. Context is Observer pattern. Redux is a variant of Flux which is a strict Observer. Once you see patterns everywhere, you stop needing to memorise framework-specific APIs — you already understand the shape.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 6</div>
+        <div class="mental-model-text">The prototype chain is a linked list of objects. When you do <code>arr.map()</code>, JavaScript doesn't find map on the array — it finds it on <code>Array.prototype</code>. Every array in the program shares one copy of <code>map</code>. Classes don't change this — they just make writing prototype links look familiar to Java/Python developers.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s6-dim);color:var(--s6);border-color:#4a1470">Prototype chain</span>
+        <span class="skill-pill" style="background:var(--s6-dim);color:var(--s6);border-color:#4a1470">ES6 Classes</span>
+        <span class="skill-pill" style="background:var(--s6-dim);color:var(--s6);border-color:#4a1470">extends / super</span>
+        <span class="skill-pill" style="background:var(--s6-dim);color:var(--s6);border-color:#4a1470">Observer</span>
+        <span class="skill-pill" style="background:var(--s6-dim);color:var(--s6);border-color:#4a1470">Factory</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SECTION 7: Advanced JavaScript        -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="week-section" id="sec7">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--s7-dim);color:var(--s7)">07</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Advanced JavaScript</h2>
+          <p class="week-desc">Iterators, generators, Proxy, memory management, and modern ES features. This is what separates engineers who use JavaScript from engineers who understand it. You'll see how frameworks are built, not just how to use them.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-7" style="color:var(--s7)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-7" style="background:var(--s7);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">iteration protocol</span>
+            <span class="day-done-badge" id="badge-s7c1" style="background:var(--s7-dim);color:var(--s7)">done ✓</span>
+          </div>
+          <div class="day-title">Iterators & Generators</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">for...of</code> works on anything with a <code style="font-family:DM Mono,monospace;font-size:11px">Symbol.iterator</code> — arrays, strings, Maps, Sets, generators. This protocol lets you make your own data structures work with <code style="font-family:DM Mono,monospace;font-size:11px">for...of</code> and spread.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c1-t1"><div class="topic-cb"></div><span class="topic-text">Iterable protocol: Symbol.iterator, the iterator object, .next() → {value, done}</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c1-t2"><div class="topic-cb"></div><span class="topic-text">for...of under the hood — how it calls Symbol.iterator and .next()</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c1-t3"><div class="topic-cb"></div><span class="topic-text">Generator functions: function*, yield, pausing and resuming execution</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c1-t4"><div class="topic-cb"></div><span class="topic-text">Infinite sequences and lazy evaluation — generating values on demand</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">meta-programming</span>
+            <span class="day-done-badge" id="badge-s7c2" style="background:var(--s7-dim);color:var(--s7)">done ✓</span>
+          </div>
+          <div class="day-title">Proxy & Reflect</div>
+          <div class="day-hint">Proxy wraps an object and intercepts operations on it. Vue 3's entire reactivity system is built with Proxy — when you set a property, the Proxy trap fires and triggers component re-renders. This is not a niche feature.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c2-t1"><div class="topic-cb"></div><span class="topic-text">new Proxy(target, handler): intercepting get, set, has, deleteProperty, apply</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c2-t2"><div class="topic-cb"></div><span class="topic-text">Reflect API: the counterpart to every Proxy trap — consistent meta-operations</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c2-t3"><div class="topic-cb"></div><span class="topic-text">Building a reactive object: notify watchers on set, track dependencies on get</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c2-t4"><div class="topic-cb"></div><span class="topic-text">Use cases: validation, auto-logging, read-only views, virtual properties</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">performance</span>
+            <span class="day-done-badge" id="badge-s7c3" style="background:var(--s7-dim);color:var(--s7)">done ✓</span>
+          </div>
+          <div class="day-title">Memory & Performance</div>
+          <div class="day-hint">Memory leaks happen when you keep references to objects you no longer need. Most common sources: event listeners never removed, global variables, closures holding DOM references. <code style="font-family:DM Mono,monospace;font-size:11px">WeakMap</code> breaks these reference cycles.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c3-t1"><div class="topic-cb"></div><span class="topic-text">Garbage collection: mark-and-sweep — how GC determines what to collect</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c3-t2"><div class="topic-cb"></div><span class="topic-text">Common leak patterns: detached DOM nodes, unremoved listeners, accidental globals</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c3-t3"><div class="topic-cb"></div><span class="topic-text">WeakMap and WeakSet: hold weak references that don't prevent GC</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c3-t4"><div class="topic-cb"></div><span class="topic-text">DevTools: Memory tab (heap snapshots), Performance tab, flame charts</span></li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">modern features</span>
+            <span class="day-done-badge" id="badge-s7c4" style="background:var(--s7-dim);color:var(--s7)">done ✓</span>
+          </div>
+          <div class="day-title">Modules & Modern ES Features</div>
+          <div class="day-hint">ES Modules are live bindings — when the exported value changes, all importers see the new value. CommonJS copies the value at require() time. This difference causes bugs in large codebases. Know which module system you're using.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c4-t1"><div class="topic-cb"></div><span class="topic-text">ES Modules: named export/import, default export/import, re-exporting with as</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c4-t2"><div class="topic-cb"></div><span class="topic-text">CommonJS vs ESM: require() vs import — sync vs async, copies vs live bindings</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c4-t3"><div class="topic-cb"></div><span class="topic-text">Optional chaining (?.), nullish coalescing (??), logical assignment (&&=, ||=, ??=)</span></li>
+            <li class="topic-item" onclick="toggle(this)" data-id="s7-c4-t4"><div class="topic-cb"></div><span class="topic-text">structuredClone, Array.at(), Object.fromEntries, Error.cause, top-level await</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--s7-glow);border-color:var(--s7-dim)">
+        <div class="project-tag" style="color:var(--s7)"><span>◆</span> Capstone Project</div>
+        <div class="project-name">Mini Reactive State Manager</div>
+        <div class="project-desc">Build a mini version of Vue 3's reactivity system using Proxy. Create a reactive(obj) function that returns a Proxy. When a property is set, it notifies all registered watchers. Add a computed(fn) function for derived values. Add a watch(fn) for side effects. This is the core of Vue, MobX, and Solid.js.</div>
+        <div class="project-check" onclick="toggleProject('proj-s7')">
+          <div class="project-cb" id="proj-s7" style="border-color:var(--s7)"></div>
+          <span class="project-check-label">Mark capstone as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> After completing this section, read the Vue 3 reactivity source code. It's Proxy-based and remarkably readable. Then read the Solid.js source. You'll recognise every pattern — because you just built them. Reading framework source is how engineers go from senior to staff level.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Section 7</div>
+        <div class="mental-model-text">Generators pause execution and resume it — they're cooperative multitasking inside a single thread. The async/await syntax was built on generators. Proxy intercepts the language itself. These aren't "advanced features" — they're the implementation substrate that all modern JavaScript tooling is built on top of.</div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--s7-dim);color:var(--s7);border-color:#1a3d5c">Generators</span>
+        <span class="skill-pill" style="background:var(--s7-dim);color:var(--s7);border-color:#1a3d5c">Proxy / Reflect</span>
+        <span class="skill-pill" style="background:var(--s7-dim);color:var(--s7);border-color:#1a3d5c">Memory mgmt</span>
+        <span class="skill-pill" style="background:var(--s7-dim);color:var(--s7);border-color:#1a3d5c">ES Modules</span>
+        <span class="skill-pill" style="background:var(--s7-dim);color:var(--s7);border-color:#1a3d5c">WeakMap</span>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <div class="resources-section">
+      <div class="resources-title">Resources to keep open</div>
+      <div class="resources-grid">
+        <a class="resource-item" href="https://javascript.info" target="_blank">
+          <div class="resource-name">javascript.info</div>
+          <div class="resource-desc">The best free JS textbook. Covers everything in this roadmap.</div>
+        </a>
+        <a class="resource-item" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+          <div class="resource-name">MDN Web Docs</div>
+          <div class="resource-desc">The authoritative reference for every JS feature and browser API.</div>
+        </a>
+        <a class="resource-item" href="https://eloquentjavascript.net" target="_blank">
+          <div class="resource-name">Eloquent JavaScript</div>
+          <div class="resource-desc">Free online book. Excellent for Sections 4–6.</div>
+        </a>
+        <a class="resource-item" href="https://cs.slides.com/lynnclark/understanding-the-event-loop" target="_blank">
+          <div class="resource-name">Jake Archibald: Event Loop</div>
+          <div class="resource-desc">The definitive talk on the event loop. Watch before Section 5.</div>
+        </a>
+        <a class="resource-item" href="https://github.com/getify/You-Dont-Know-JS" target="_blank">
+          <div class="resource-name">You Don't Know JS</div>
+          <div class="resource-desc">Deep dives on scope, closures, this, and types. Free on GitHub.</div>
+        </a>
+        <a class="resource-item" href="https://web.dev/learn/css" target="_blank">
+          <div class="resource-name">web.dev/learn/css</div>
+          <div class="resource-desc">Google's modern CSS course. Perfect for Section 1.</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /main-inner -->
+  </main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const SECTION_IDS = {
+  1: { c1:['s1-c1-t1','s1-c1-t2','s1-c1-t3','s1-c1-t4'], c2:['s1-c2-t1','s1-c2-t2','s1-c2-t3','s1-c2-t4'], c3:['s1-c3-t1','s1-c3-t2','s1-c3-t3','s1-c3-t4'], c4:['s1-c4-t1','s1-c4-t2','s1-c4-t3','s1-c4-t4'] },
+  2: { c1:['s2-c1-t1','s2-c1-t2','s2-c1-t3','s2-c1-t4'], c2:['s2-c2-t1','s2-c2-t2','s2-c2-t3','s2-c2-t4'], c3:['s2-c3-t1','s2-c3-t2','s2-c3-t3','s2-c3-t4'], c4:['s2-c4-t1','s2-c4-t2','s2-c4-t3','s2-c4-t4'] },
+  3: { c1:['s3-c1-t1','s3-c1-t2','s3-c1-t3','s3-c1-t4'], c2:['s3-c2-t1','s3-c2-t2','s3-c2-t3','s3-c2-t4'], c3:['s3-c3-t1','s3-c3-t2','s3-c3-t3','s3-c3-t4'], c4:['s3-c4-t1','s3-c4-t2','s3-c4-t3','s3-c4-t4'] },
+  4: { c1:['s4-c1-t1','s4-c1-t2','s4-c1-t3','s4-c1-t4'], c2:['s4-c2-t1','s4-c2-t2','s4-c2-t3','s4-c2-t4'], c3:['s4-c3-t1','s4-c3-t2','s4-c3-t3','s4-c3-t4'], c4:['s4-c4-t1','s4-c4-t2','s4-c4-t3','s4-c4-t4'] },
+  5: { c1:['s5-c1-t1','s5-c1-t2','s5-c1-t3','s5-c1-t4'], c2:['s5-c2-t1','s5-c2-t2','s5-c2-t3','s5-c2-t4'], c3:['s5-c3-t1','s5-c3-t2','s5-c3-t3','s5-c3-t4'], c4:['s5-c4-t1','s5-c4-t2','s5-c4-t3','s5-c4-t4'] },
+  6: { c1:['s6-c1-t1','s6-c1-t2','s6-c1-t3','s6-c1-t4'], c2:['s6-c2-t1','s6-c2-t2','s6-c2-t3','s6-c2-t4'], c3:['s6-c3-t1','s6-c3-t2','s6-c3-t3','s6-c3-t4'], c4:['s6-c4-t1','s6-c4-t2','s6-c4-t3','s6-c4-t4'] },
+  7: { c1:['s7-c1-t1','s7-c1-t2','s7-c1-t3','s7-c1-t4'], c2:['s7-c2-t1','s7-c2-t2','s7-c2-t3','s7-c2-t4'], c3:['s7-c3-t1','s7-c3-t2','s7-c3-t3','s7-c3-t4'], c4:['s7-c4-t1','s7-c4-t2','s7-c4-t3','s7-c4-t4'] }
+};
+
+const SECTION_NAMES = {
+  1:'HTML & CSS', 2:'JS Fundamentals', 3:'DOM & Events',
+  4:'Functions & Scope', 5:'Async JavaScript', 6:'OOP & Patterns', 7:'Advanced JS'
+};
+
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem('js-tracker') || '{}'); } catch(e) { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem('js-tracker', JSON.stringify(state));
+}
+
+// ── TOPIC TOGGLE ──────────────────────────────────
+function toggle(el) {
+  const id = el.dataset.id;
+  state[id] = !state[id];
+  saveState();
+  applyItem(el, state[id]);
+  updateAll();
+}
+
+function applyItem(el, checked) {
+  el.classList.toggle('checked', !!checked);
+  const cb = el.querySelector('.topic-cb');
+  const color = getSecColor(el);
+  cb.style.background = checked ? color : '';
+  cb.style.borderColor = checked ? color : '';
+}
+
+function getSecColor(el) {
+  const id = el.dataset.id;
+  const s = id.charAt(1);
+  return getComputedStyle(document.documentElement).getPropertyValue(`--s${s}`).trim();
+}
+
+// ── PROJECT TOGGLE ────────────────────────────────
+function toggleProject(id) {
+  state[id] = !state[id];
+  saveState();
+  applyProject(id, state[id]);
+  updateAll();
+}
+
+function applyProject(id, done) {
+  const cb = document.getElementById(id);
+  if (!cb) return;
+  cb.classList.toggle('done', !!done);
+  const s = id.split('-s')[1];
+  const col = getComputedStyle(document.documentElement).getPropertyValue(`--s${s}`).trim();
+  cb.style.background = done ? col : '';
+  cb.style.borderColor = col;
+}
+
+// ── UPDATE ALL ────────────────────────────────────
+function updateAll() {
+  let totalTopics = 0, doneTopics = 0, doneSections = 0, doneProjects = 0;
+  const secDone = {}, secTotal = {};
+
+  for (let s = 1; s <= 7; s++) {
+    let st = 0, sd = 0;
+    for (const cards of Object.values(SECTION_IDS[s])) {
+      for (const id of cards) {
+        st++; totalTopics++;
+        if (state[id]) { sd++; doneTopics++; }
+      }
+    }
+    secTotal[s] = st;
+    secDone[s] = sd;
+    const pct = st ? Math.round(sd / st * 100) : 0;
+
+    document.getElementById(`wpct-${s}`).textContent = pct + '%';
+    document.getElementById(`wfill-${s}`).style.width = pct + '%';
+    document.getElementById(`nav-pct-${s}`).textContent = pct + '%';
+
+    // card badges
+    const cards = Object.keys(SECTION_IDS[s]);
+    cards.forEach((ck, i) => {
+      const badge = document.getElementById(`badge-s${s}c${i+1}`);
+      if (!badge) return;
+      const allDone = SECTION_IDS[s][ck].every(id => state[id]);
+      badge.classList.toggle('visible', allDone);
+    });
+
+    if (sd === st && st > 0) doneSections++;
+    if (state[`proj-s${s}`]) doneProjects++;
+  }
+
+  const overallPct = totalTopics ? Math.round(doneTopics / totalTopics * 100) : 0;
+  document.getElementById('overall-pct').textContent = overallPct + '%';
+  document.getElementById('overall-fill').style.width = overallPct + '%';
+
+  document.getElementById('stat-done').textContent = doneTopics;
+  document.getElementById('stat-total').textContent = totalTopics;
+  document.getElementById('stat-sections').textContent = doneSections;
+  document.getElementById('stat-projects').textContent = doneProjects;
+
+  // Active section
+  let activeSection = 7;
+  for (let s = 1; s <= 7; s++) {
+    if (secDone[s] < secTotal[s]) { activeSection = s; break; }
+  }
+  document.getElementById('stat-active').textContent = 'S' + activeSection;
+  document.getElementById('stat-active-name').textContent = SECTION_NAMES[activeSection];
+
+  // Celebrate
+  const prevComplete = JSON.parse(sessionStorage.getItem('js-sections-complete') || '{}');
+  for (let s = 1; s <= 7; s++) {
+    if (secDone[s] === secTotal[s] && secTotal[s] > 0 && !prevComplete[s]) {
+      prevComplete[s] = true;
+      sessionStorage.setItem('js-sections-complete', JSON.stringify(prevComplete));
+      showCelebrate(`${SECTION_NAMES[s]} complete! 🎉`);
+      break;
+    }
+  }
+}
+
+function showCelebrate(msg) {
+  const bar = document.getElementById('celebrate-bar');
+  document.getElementById('celebrate-msg').textContent = msg;
+  bar.classList.add('show');
+  setTimeout(() => bar.classList.remove('show'), 4000);
+}
+
+// ── RESET ─────────────────────────────────────────
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  state = {};
+  saveState();
+  sessionStorage.removeItem('js-sections-complete');
+  restoreAll();
+  updateAll();
+}
+
+// ── RESTORE FROM STATE ────────────────────────────
+function restoreAll() {
+  document.querySelectorAll('.topic-item').forEach(el => {
+    applyItem(el, !!state[el.dataset.id]);
+  });
+  for (let s = 1; s <= 7; s++) {
+    applyProject(`proj-s${s}`, !!state[`proj-s${s}`]);
+  }
+}
+
+// ── NAV ACTIVE ────────────────────────────────────
+function updateNavActive() {
+  const sections = document.querySelectorAll('.week-section');
+  let active = 'sec1';
+  sections.forEach(s => {
+    if (s.getBoundingClientRect().top <= 120) active = s.id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + active);
+  });
+}
+
+// ── INIT ──────────────────────────────────────────
+loadState();
+restoreAll();
+updateAll();
+window.addEventListener('scroll', updateNavActive, { passive: true });
+
+// ── THEME ─────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('js-tracker-theme', isLight ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isLight ? '☾' : '☀';
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem('js-tracker-theme')
+    || localStorage.getItem('devroads-theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = '☾';
+  }
+})();
+</script>
+</body>
+</html>
