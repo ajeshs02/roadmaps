@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERN Mastery — 4 Week Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0d0f12;
+    --bg2:      #13161b;
+    --bg3:      #1a1e26;
+    --border:   #252a35;
+    --border2:  #2f3545;
+    --text:     #e8eaf0;
+    --muted:    #6b7385;
+    --muted2:   #4a5166;
+    --w1:       #f59e0b;
+    --w1-dim:   #2d1f00;
+    --w1-glow:  #f59e0b18;
+    --w2:       #06b6d4;
+    --w2-dim:   #00202e;
+    --w2-glow:  #06b6d418;
+    --w3:       #22c55e;
+    --w3-dim:   #002210;
+    --w3-glow:  #22c55e18;
+    --w4:       #a855f7;
+    --w4-dim:   #1e002e;
+    --w4-glow:  #a855f718;
+    --radius:   12px;
+    --radius-sm: 7px;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  /* ── LIGHT MODE ── */
+  html.light {
+    --bg:       #f3f4f8;
+    --bg2:      #ffffff;
+    --bg3:      #eaecf2;
+    --border:   #dde1ec;
+    --border2:  #c8cedf;
+    --text:     #1a1d27;
+    --muted:    #5a6275;
+    --muted2:   #9099b0;
+    --w1-dim:   #fef3c7;
+    --w1-glow:  #f59e0b12;
+    --w2-dim:   #cffafe;
+    --w2-glow:  #06b6d412;
+    --w3-dim:   #dcfce7;
+    --w3-glow:  #22c55e12;
+    --w4-dim:   #f3e8ff;
+    --w4-glow:  #a855f712;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── LAYOUT ── */
+  .layout { display: block; min-height: 100vh; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  .sidebar-top {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .logo-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, #f59e0b, #a855f7);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .overall-progress { margin-bottom: 4px; }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: .3px;
+  }
+
+  .progress-pct {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--w1), var(--w2), var(--w3), var(--w4));
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 1.2px;
+    color: var(--muted2);
+    text-transform: uppercase;
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background .15s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--bg3); color: var(--text); }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-week-title { flex: 1; font-size: 12px; line-height: 1.3; }
+
+  .nav-mini-progress {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted2);
+  }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .theme-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .theme-btn:hover {
+    border-color: var(--w4);
+    color: var(--w4);
+    background: var(--w4-glow);
+  }
+
+  .reset-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .3px;
+  }
+
+  .reset-btn:hover {
+    border-color: #e06b3f66;
+    color: #e06b3f;
+    background: #e06b3f18;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 260px;
+    padding: 48px 56px 80px;
+    min-height: 100vh;
+  }
+
+  .main-inner { width: 100%; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { margin-bottom: 48px; }
+
+  .page-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .page-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--muted2);
+  }
+
+  .page-title {
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title strong { font-weight: 500; }
+
+  .page-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .stat-card:hover { border-color: var(--border2); }
+
+  .stat-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 500;
+    font-family: var(--mono);
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub { font-size: 11px; color: var(--muted2); }
+
+  /* ── WEEK SECTION ── */
+  .week-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 32px;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .week-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .week-header-text { flex: 1; }
+
+  .week-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 5px;
+    letter-spacing: -0.3px;
+  }
+
+  .week-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .week-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .week-pct {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .week-track {
+    width: 80px; height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .week-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ── DAYS GRID ── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .day-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .day-card:hover { border-color: var(--border2); }
+
+  .day-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .day-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: .3px;
+  }
+
+  .day-done-badge {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .day-done-badge.visible { opacity: 1; }
+
+  .day-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .day-hint {
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    background: var(--bg3);
+    border-radius: 6px;
+    border-left: 2px solid var(--border2);
+    font-style: italic;
+  }
+
+  .day-hint code {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+    font-style: normal;
+  }
+
+  /* ── TOPIC ITEMS ── */
+  .topic-list { list-style: none; }
+
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background .1s;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin: 0 -6px;
+  }
+
+  .topic-item:last-child { border-bottom: none; }
+  .topic-item:hover { background: var(--bg3); }
+
+  .topic-cb {
+    width: 15px; height: 15px;
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    transition: all .15s;
+    background: transparent;
+  }
+
+  .topic-item.checked .topic-cb { border-color: transparent; }
+
+  .topic-item.checked .topic-cb::after {
+    content: '';
+    display: block;
+    width: 8px; height: 6px;
+    border-left: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .topic-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    transition: color .15s;
+    flex: 1;
+  }
+
+  .topic-item.checked .topic-text {
+    color: var(--muted2);
+    text-decoration: line-through;
+    text-decoration-color: var(--muted2);
+  }
+
+  .topic-text code {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    background: var(--bg3);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── PROJECT CARD ── */
+  .project-card {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    opacity: .06;
+    transform: translate(30px, -30px);
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .project-desc code {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  .project-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .project-cb {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+    flex-shrink: 0;
+  }
+
+  .project-cb.done::after {
+    content: '';
+    display: block;
+    width: 9px; height: 7px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .project-check-label {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--muted);
+    transition: color .15s;
+  }
+
+  .project-check:hover .project-check-label { color: var(--text); }
+
+  /* ── TIP CARD ── */
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; opacity: .7; }
+
+  .tip-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  .tip-text strong { color: var(--text); font-weight: 500; }
+
+  .tip-text code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── INTERVIEW CALLOUT ── */
+  .interview-callout {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .interview-icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+
+  .interview-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .interview-text strong { color: var(--text); font-weight: 500; }
+
+  .interview-text code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── MENTAL MODEL ── */
+  .mental-model {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--bg3);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .mental-model-label {
+    font-size: 9px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 4px;
+  }
+
+  .mental-model-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .mental-model-text code {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ── SKILL PILLS ── */
+  .pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .skill-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: .2px;
+  }
+
+  /* ── RESOURCES ── */
+  .resources-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 40px;
+  }
+
+  .resources-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resources-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .resource-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    text-decoration: none;
+    display: block;
+    transition: border-color .15s;
+  }
+
+  .resource-item:hover { border-color: var(--border2); }
+
+  .resource-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+    font-family: var(--mono);
+  }
+
+  .resource-desc { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+
+  /* ── CELEBRATE ── */
+  .celebrate-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    animation: fadeSlide .3s ease;
+  }
+
+  .celebrate-bar.show { display: flex; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  html.light ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .main { padding: 40px 40px 80px; }
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { position: static; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { margin-left: 0; padding: 28px 28px 60px; }
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .resources-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .main { padding: 20px 16px 60px; }
+    .days-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .week-header { flex-wrap: wrap; gap: 10px; }
+    .week-progress-wrap { flex-direction: row; align-items: center; gap: 10px; }
+    .page-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <div class="logo-icon">MERN</div>
+        <div>
+          <div class="logo-text">MERN Mastery</div>
+          <div class="logo-sub">Interview-ready · 4 weeks</div>
+        </div>
+      </div>
+      <div class="overall-progress">
+        <div class="progress-row">
+          <span class="progress-label">overall</span>
+          <span class="progress-pct" id="overall-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="overall-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Weeks</div>
+      <a class="nav-item active" href="#week1" data-week="1">
+        <div class="nav-dot" style="background:var(--w1)"></div>
+        <div class="nav-week-title">JS Foundations</div>
+        <span class="nav-mini-progress" id="nav-pct-1">0%</span>
+      </a>
+      <a class="nav-item" href="#week2" data-week="2">
+        <div class="nav-dot" style="background:var(--w2)"></div>
+        <div class="nav-week-title">React Mastery</div>
+        <span class="nav-mini-progress" id="nav-pct-2">0%</span>
+      </a>
+      <a class="nav-item" href="#week3" data-week="3">
+        <div class="nav-dot" style="background:var(--w3)"></div>
+        <div class="nav-week-title">Node & Express</div>
+        <span class="nav-mini-progress" id="nav-pct-3">0%</span>
+      </a>
+      <a class="nav-item" href="#week4" data-week="4">
+        <div class="nav-dot" style="background:var(--w4)"></div>
+        <div class="nav-week-title">Full Stack + Jobs</div>
+        <span class="nav-mini-progress" id="nav-pct-4">0%</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle light/dark">
+        <span id="theme-icon">☀</span>
+      </button>
+      <button class="reset-btn" onclick="resetAll()">↺ reset progress</button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+  <div class="main-inner">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <div class="page-tag">interview roadmap</div>
+      <h1 class="page-title">Become a <strong>MERN</strong> developer</h1>
+      <p class="page-desc">A focused 4-week plan to go from "built a CRUD app" to "interview-ready". Every topic here is picked because it shows up in real 0–2 year interviews. No filler.</p>
+    </header>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">completed</div>
+        <div class="stat-value" id="stat-done">0</div>
+        <div class="stat-sub">of <span id="stat-total">0</span> topics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">current week</div>
+        <div class="stat-value" id="stat-week">W1</div>
+        <div class="stat-sub" id="stat-week-name">JS Foundations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">projects done</div>
+        <div class="stat-value" id="stat-projects">0</div>
+        <div class="stat-sub">of 4 builds</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">est. time left</div>
+        <div class="stat-value" id="stat-time">~14h</div>
+        <div class="stat-sub" id="stat-time-sub">this week</div>
+      </div>
+    </div>
+
+    <!-- celebrate bar -->
+    <div class="celebrate-bar" id="celebrate-bar">
+      <span id="celebrate-msg">🎉 Week complete!</span>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 1 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week1">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w1-dim);color:var(--w1)">Week 1</span>
+        <div class="week-header-text">
+          <h2 class="week-title">JavaScript & CSS — The Interview Layer</h2>
+          <p class="week-desc">You know JS. Now you need to understand <em>why</em> it works. Closures, the event loop, prototype chain, async patterns — interviewers test these exact concepts, not whether you can use React.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-1" style="color:var(--w1)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-1" style="background:var(--w1);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+
+        <!-- Day 1-2 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1–2 · ~4 hrs</span>
+            <span class="day-done-badge" id="badge-w1d1" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">JS Engine & Scope</div>
+          <div class="day-hint">Interviewers love asking "what happens here?" — knowing how JS parses & executes code is your answer to 90% of tricky questions.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>var</code> / <code>let</code> / <code>const</code> — hoisting & temporal dead zone</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Closures — lexical scope, practical use cases</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>this</code> — 4 binding rules (default, implicit, explicit, new)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Prototype chain & <code>class</code> as syntax sugar</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w1d2" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Async JavaScript — Full Picture</div>
+          <div class="day-hint">The event loop is the #1 JS interview topic. Know the difference between microtasks and macrotasks — it explains every "why does this run first?" question.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Event loop: call stack, task queue, microtask queue</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Promises — <code>.then()</code> chaining, error propagation</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>async/await</code> — why it's just promise sugar</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>Promise.all</code> / <code>allSettled</code> / <code>race</code></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w1d3" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Modern JS Patterns</div>
+          <div class="day-hint">These are the patterns you'll write every day on the job. Destructuring, spread/rest, and array methods separate "knows JS" from "thinks in JS".</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Destructuring — objects, arrays, default values, rename</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Spread / rest operators — shallow copy gotchas</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>map</code> / <code>filter</code> / <code>reduce</code> — functional array style</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Optional chaining <code>?.</code>, nullish coalescing <code>??</code></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 5 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w1d4" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">CSS That Actually Matters</div>
+          <div class="day-hint">Interviewers don't test divs and colours — they test layout. "Build this UI in 15 mins" is a common screen. Know Flexbox and Grid cold.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Flexbox mastery — gap, align-items, justify-content</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">CSS Grid — template areas, auto-fill, minmax</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">CSS variables + Tailwind utility class mindset</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Responsive design — mobile-first, <code>clamp()</code>, breakpoints</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Project -->
+      <div class="project-card" style="background:var(--w1-glow);border-color:var(--w1-dim)">
+        <div class="project-tag" style="color:var(--w1)"><span>◆</span> Weekend Project</div>
+        <div class="project-name">JS Interview Prep Kit</div>
+        <div class="project-desc">Build a personal "JS concepts" repo on GitHub. For each topic: write a 10-line code snippet that demonstrates the concept + a comment explaining what would trip people up. Implement <code>debounce</code>, <code>throttle</code>, <code>memoize</code>, and a <code>Promise.all</code> polyfill from scratch. Interviewers love "implement X without a library".</div>
+        <div class="project-check" onclick="toggleProject('proj-w1')">
+          <div class="project-cb" id="proj-w1" style="border-color:var(--w1)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="interview-callout">
+        <span class="interview-icon">🎯</span>
+        <p class="interview-text"><strong>Interview hot topics this week:</strong> "What is a closure?" (answer with a real use case, not just a definition). "What's the difference between <code>==</code> and <code>===</code>?" "What happens in the event loop when you call <code>setTimeout(fn, 0)</code>?" These come up in nearly every JS screen.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> When asked about closures, don't just say "a function that has access to its outer scope." Show the interviewer you understand <em>why</em> — mention the lexical environment, the fact the inner function holds a reference (not a copy) to the outer variable, and give a real use case like a counter factory or a debounce function.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 1</div>
+        <div class="mental-model-text">
+          JavaScript is single-threaded, but it's not slow — it delegates I/O to the browser APIs / Node APIs, and uses the event loop to pick up results without blocking. Every async interview question is really about this: "which queue does this go in, and when does the engine drain it?" Know that <code>Promise.then</code> → microtask queue (runs before the next task), <code>setTimeout</code> → macrotask queue (runs after). That's the whole model.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">Closures</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">Event Loop</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">Prototype chain</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">Async/Await</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">Flexbox & Grid</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#7a5000">this binding</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 2 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week2">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w2-dim);color:var(--w2)">Week 2</span>
+        <div class="week-header-text">
+          <h2 class="week-title">React — From User to Architect</h2>
+          <p class="week-desc">You've used React. Now understand what's happening under the hood. Reconciliation, the rules of hooks, performance pitfalls — this is what separates junior from mid-level in interviews.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-2" style="color:var(--w2)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-2" style="background:var(--w2);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w2d1" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">React Internals</div>
+          <div class="day-hint">You don't need to read React source — but knowing what reconciliation means tells you why keys matter, why mutating state breaks things, and why re-renders happen.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Virtual DOM — what it is and why it's fast</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Reconciliation & diffing — how React decides what to update</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">The <code>key</code> prop — why it matters beyond lists</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Rules of hooks — why you can't call in conditions</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w2d2" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">Hooks — Deep & Practical</div>
+          <div class="day-hint">Don't memorise the API — understand <em>when</em> and <em>why</em> each hook exists. "When would you use <code>useCallback</code>?" is a very common interview question.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>useState</code> batching — React 18 auto-batching behaviour</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>useEffect</code> — deps array, cleanup, common mistakes</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>useCallback</code> & <code>useMemo</code> — when they actually help</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>useRef</code> — DOM refs vs mutable instance values</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w2d3" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">Custom Hooks & State Patterns</div>
+          <div class="day-hint">Custom hooks are the "how do you structure reusable React logic?" answer. <code>useReducer</code> is the answer to "how do you manage complex state without Redux?"</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Custom hooks — <code>useFetch</code>, <code>useLocalStorage</code>, <code>useDebounce</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>useReducer</code> — when state transitions get complex</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Context API — global state, provider pattern</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">State colocation — lifting up vs pushing down</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~4 hrs</span>
+            <span class="day-done-badge" id="badge-w2d4" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">React Router & Performance</div>
+          <div class="day-hint">Route-based code splitting drops initial bundle size by 40–60% in most apps. Knowing this is a huge green flag in interviews about "how would you optimise this?"</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">React Router v6 — nested routes, <code>Outlet</code>, layout routes</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Protected routes — auth guard pattern</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Code splitting with <code>React.lazy</code> + <code>Suspense</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>React.memo</code> — prevent re-renders, measure first</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="project-card" style="background:var(--w2-glow);border-color:var(--w2-dim)">
+        <div class="project-tag" style="color:var(--w2)"><span>◆</span> Weekend Project</div>
+        <div class="project-name">React SPA with Auth Flow</div>
+        <div class="project-desc">A multi-page React app with: protected routes (redirect if not logged in), a custom <code>useAuth</code> hook, a custom <code>useFetch</code> hook with loading/error states, at least one page using <code>useReducer</code> for form state, and React Router v6 nested layouts. Use a free public API for data. This is your portfolio React project.</div>
+        <div class="project-check" onclick="toggleProject('proj-w2')">
+          <div class="project-cb" id="proj-w2" style="border-color:var(--w2)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="interview-callout">
+        <span class="interview-icon">🎯</span>
+        <p class="interview-text"><strong>Interview hot topics this week:</strong> "Why did my component re-render?" "Explain the difference between <code>useCallback</code> and <code>useMemo</code>." "How does the virtual DOM work?" "How do you share state between sibling components?" These are the questions that trip up people who've only used React without understanding it.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Most juniors overuse <code>useMemo</code> and <code>useCallback</code>. The real answer in interviews: "I only add them after measuring a performance issue with React DevTools Profiler." Premature memoisation <em>hurts</em> performance. Saying this in an interview signals senior thinking.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 2</div>
+        <div class="mental-model-text">
+          React's job is to keep the UI in sync with state. Every re-render is React asking "what should the DOM look like <em>now</em>?" The reconciler diffs the new element tree against the previous one and applies only the changes. Hooks are the mechanism to "hook into" React's render cycle from a function component — that's why their call order must be stable between renders. Break that order, break the mapping.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">Virtual DOM</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">Custom Hooks</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">useReducer</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">Context API</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">React Router v6</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#005060">Code Splitting</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 3 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week3">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w3-dim);color:var(--w3)">Week 3</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Node, Express & MongoDB — Backend Like a Pro</h2>
+          <p class="week-desc">You've built Express routes. Now go deeper — middleware chains, proper error handling, JWT refresh flow, Mongoose schema design. This is where backend interviews separate candidates.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-3" style="color:var(--w3)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-3" style="background:var(--w3);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w3d1" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Node.js Runtime Depth</div>
+          <div class="day-hint">Node's event loop is <em>different</em> from the browser's. Understanding libuv, the thread pool, and the timer phases will answer questions like "is Node single-threaded?"</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Node event loop phases — timers, poll, check, callbacks</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Streams & Buffers — why you don't <code>readFileSync</code> in production</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">CommonJS vs ES Modules — <code>require</code> vs <code>import</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Environment config — <code>dotenv</code>, <code>process.env</code>, never commit secrets</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w3d2" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Express Architecture</div>
+          <div class="day-hint">Middleware <em>is</em> Express. Every route handler, every error handler, every auth check — it's all middleware. Understanding the chain means you can debug any Express issue.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Middleware chain — order matters, <code>next()</code> flow</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Centralised error handling — <code>next(err)</code> pattern</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Request validation — Joi or <code>express-validator</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Layered architecture: routes → controllers → services</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w3d3" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Auth — Production Grade</div>
+          <div class="day-hint">JWT auth is in every MERN job description. Go beyond "sign and verify" — understand the access + refresh token pattern, why <code>httpOnly</code> cookies beat localStorage for security.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">bcrypt hashing — salt rounds, timing attack prevention</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">JWT — access token (short-lived) + refresh token (long-lived)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>httpOnly</code> cookies vs localStorage — XSS trade-offs</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Role-based access (RBAC) middleware pattern</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~4 hrs</span>
+            <span class="day-done-badge" id="badge-w3d4" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">MongoDB & Mongoose Mastery</div>
+          <div class="day-hint">"Embedding vs referencing" is the MongoDB schema interview question. Knowing when to use aggregation vs <code>populate()</code> signals you've built something bigger than a tutorial app.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Schema design — embedding vs referencing (denorm vs norm)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Indexes — compound, text, sparse, explain query plan</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Mongoose middleware (pre/post hooks) and virtuals</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Aggregation pipeline — <code>$match</code>, <code>$group</code>, <code>$lookup</code></span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="project-card" style="background:var(--w3-glow);border-color:var(--w3-dim)">
+        <div class="project-tag" style="color:var(--w3)"><span>◆</span> Weekend Project</div>
+        <div class="project-name">REST API with Layered Architecture</div>
+        <div class="project-desc">Build a Node/Express API with proper separation: <code>routes/</code> → <code>controllers/</code> → <code>services/</code> → <code>models/</code>. Include: JWT auth with refresh tokens, role-based middleware (admin/user), request validation, centralised error handler, and at least one aggregation query. This is the backend you'll reference in every interview.</div>
+        <div class="project-check" onclick="toggleProject('proj-w3')">
+          <div class="project-cb" id="proj-w3" style="border-color:var(--w3)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="interview-callout">
+        <span class="interview-icon">🎯</span>
+        <p class="interview-text"><strong>Interview hot topics this week:</strong> "What is middleware in Express?" "How does JWT authentication work?" "What's the difference between embedding and referencing in MongoDB?" "How would you handle errors globally in Express?" These are word-for-word questions from real MERN interviews.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Never store JWTs in <code>localStorage</code> in production — XSS can steal them. Use <code>httpOnly</code> cookies for the refresh token and keep the access token in memory (a JS variable). Most candidates don't know this distinction, and knowing it will impress every interviewer asking about authentication security.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 3</div>
+        <div class="mental-model-text">
+          An Express app is a list of middleware functions. Every request walks down the list until something calls <code>res.send()</code> or the list ends. Controllers shouldn't know about the DB — that's the service's job. Services shouldn't know about HTTP — that's the controller's job. This separation means you can test each layer in isolation, and swap MongoDB for Postgres without touching your routes.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">Node event loop</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">Middleware chain</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">JWT + Refresh</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">RBAC</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">MongoDB Indexes</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#005020">Aggregation</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 4 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week4">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w4-dim);color:var(--w4)">Week 4</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Full Stack Integration & Interview Ready</h2>
+          <p class="week-desc">Connect everything, secure it, test it, deploy it, and walk into interviews with a working production app and confident answers to every MERN question they can throw at you.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-4" style="color:var(--w4)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-4" style="background:var(--w4);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w4d1" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Security & Production Patterns</div>
+          <div class="day-hint">Every production MERN app needs these. "How do you secure an Express API?" is a standard interview question — and this is the complete answer.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">CORS — <code>origin</code> whitelist, credentials, preflight</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code>helmet.js</code> — HTTP security headers in one line</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Rate limiting — prevent brute force on auth endpoints</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Input sanitisation — XSS & NoSQL injection prevention</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w4d2" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Testing Your Stack</div>
+          <div class="day-hint">You don't need 100% coverage. Know how to write a meaningful test for a React component and an Express endpoint — that's what employers actually ask about.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Jest unit tests — pure functions, utilities, transformations</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">React Testing Library — test by user behaviour, not implementation</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Supertest — HTTP API endpoint testing without a running server</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">What to test: happy path + one edge case per feature</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w4d3" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Deploy & Go Live</div>
+          <div class="day-hint">A live link beats a GitHub repo every time. "It's deployed at…" is the most powerful phrase in a job interview. Get both frontend and backend live before you start applying.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Vercel for React — <code>vercel.json</code>, env vars, preview deploys</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Railway or Render for Node API — free tier, env config</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">MongoDB Atlas — cloud cluster, IP whitelist, connection string</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">GitHub Actions — auto-lint + test on every push to main</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~4 hrs</span>
+            <span class="day-done-badge" id="badge-w4d4" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Interview Blitz Prep</div>
+          <div class="day-hint">Interviews are a skill, not just knowledge. Practice saying your answers out loud. The candidate who can explain a concept clearly always beats the one who vaguely "knows" it.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Top 20 MERN interview questions — written answers for each</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">REST API design — status codes, pagination, versioning</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Portfolio README — live link, tech stack, architecture diagram</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">System design basics — how would you build Twitter/Airbnb frontend?</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="project-card" style="background:var(--w4-glow);border-color:var(--w4-dim)">
+        <div class="project-tag" style="color:var(--w4)"><span>◆</span> Capstone Project</div>
+        <div class="project-name">Full Stack MERN — Portfolio Centrepiece</div>
+        <div class="project-desc">Combine your Week 2 React SPA + Week 3 Node API into one deployed, production-quality app. Requirements: user auth (register/login/logout), at least 3 CRUD features, protected routes on the frontend, RBAC on the backend, rate limiting, input validation, deployed live with working demo. Suggested ideas: a job tracker, a recipe book with sharing, a note-taking app with tags. This is what you demo in every interview.</div>
+        <div class="project-check" onclick="toggleProject('proj-w4')">
+          <div class="project-cb" id="proj-w4" style="border-color:var(--w4)"></div>
+          <span class="project-check-label">Mark capstone as complete 🎉</span>
+        </div>
+      </div>
+
+      <div class="interview-callout">
+        <span class="interview-icon">🎯</span>
+        <p class="interview-text"><strong>Interview hot topics this week:</strong> "Walk me through your project architecture." "How do you handle security in your app?" "How would you improve the performance of your React app?" "What would you do differently if you had to rebuild it?" Having a live deployed app lets you answer all of these with confidence and specifics.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Before any interview, open your deployed app and be ready to walk through the code live. Interviewers will often say "show me something you built." Walk them through one interesting technical decision — why you chose to embed vs reference in Mongo, or why you use <code>httpOnly</code> cookies. One specific, thoughtful decision tells them more than listing ten technologies.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 4</div>
+        <div class="mental-model-text">
+          A production MERN app is four separate concerns that communicate over HTTP: a React SPA (client-side rendering, routing, state), an Express API (business logic, auth, validation), a MongoDB Atlas cluster (persistent data), and a deployment platform (env vars, TLS, uptime). Interviewers care that you can reason about the <em>seams</em> — CORS, auth token flow, data serialisation, error handling across the boundary. That understanding is what the interview is testing.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">helmet + CORS</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">Rate Limiting</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">Jest + RTL</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">Vercel + Railway</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">MongoDB Atlas</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#500060">GitHub Actions</span>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <div class="resources-section">
+      <div class="resources-title">Resources to keep open</div>
+      <div class="resources-grid">
+        <a class="resource-item" href="https://javascript.info" target="_blank">
+          <div class="resource-name">javascript.info</div>
+          <div class="resource-desc">The best JS deep-dive on the internet. Week 1 bible.</div>
+        </a>
+        <a class="resource-item" href="https://react.dev" target="_blank">
+          <div class="resource-name">react.dev</div>
+          <div class="resource-desc">Official React docs with interactive examples. Week 2.</div>
+        </a>
+        <a class="resource-item" href="https://expressjs.com/en/guide/writing-middleware.html" target="_blank">
+          <div class="resource-name">Express Middleware Guide</div>
+          <div class="resource-desc">Understand middleware before you write another route.</div>
+        </a>
+        <a class="resource-item" href="https://mongoosejs.com/docs/guide.html" target="_blank">
+          <div class="resource-name">Mongoose Docs</div>
+          <div class="resource-desc">Schema design, virtuals, middleware. Week 3.</div>
+        </a>
+        <a class="resource-item" href="https://testing-library.com/docs/react-testing-library/intro" target="_blank">
+          <div class="resource-name">React Testing Library</div>
+          <div class="resource-desc">Test components as users interact with them.</div>
+        </a>
+        <a class="resource-item" href="https://roadmap.sh/react" target="_blank">
+          <div class="resource-name">roadmap.sh/react</div>
+          <div class="resource-desc">Visual React career roadmap. Use as a reference check.</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /main-inner -->
+  </main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const TOPIC_IDS = {
+  1: { d1:['w1-d1-t1','w1-d1-t2','w1-d1-t3','w1-d1-t4'], d2:['w1-d2-t1','w1-d2-t2','w1-d2-t3','w1-d2-t4'], d3:['w1-d3-t1','w1-d3-t2','w1-d3-t3','w1-d3-t4'], d4:['w1-d4-t1','w1-d4-t2','w1-d4-t3','w1-d4-t4'] },
+  2: { d1:['w2-d1-t1','w2-d1-t2','w2-d1-t3','w2-d1-t4'], d2:['w2-d2-t1','w2-d2-t2','w2-d2-t3','w2-d2-t4'], d3:['w2-d3-t1','w2-d3-t2','w2-d3-t3','w2-d3-t4'], d4:['w2-d4-t1','w2-d4-t2','w2-d4-t3','w2-d4-t4'] },
+  3: { d1:['w3-d1-t1','w3-d1-t2','w3-d1-t3','w3-d1-t4'], d2:['w3-d2-t1','w3-d2-t2','w3-d2-t3','w3-d2-t4'], d3:['w3-d3-t1','w3-d3-t2','w3-d3-t3','w3-d3-t4'], d4:['w3-d4-t1','w3-d4-t2','w3-d4-t3','w3-d4-t4'] },
+  4: { d1:['w4-d1-t1','w4-d1-t2','w4-d1-t3','w4-d1-t4'], d2:['w4-d2-t1','w4-d2-t2','w4-d2-t3','w4-d2-t4'], d3:['w4-d3-t1','w4-d3-t2','w4-d3-t3','w4-d3-t4'], d4:['w4-d4-t1','w4-d4-t2','w4-d4-t3','w4-d4-t4'] }
+};
+
+const WEEK_NAMES = { 1:'JS Foundations', 2:'React Mastery', 3:'Node & Express', 4:'Full Stack + Jobs' };
+
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem('mern-tracker') || '{}'); } catch(e) { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem('mern-tracker', JSON.stringify(state));
+}
+
+// ── TOGGLE TOPIC ──────────────────────────────────
+function toggle(el) {
+  const id = el.dataset.id;
+  state[id] = !state[id];
+  saveState();
+  applyItem(el, state[id]);
+  updateAll();
+}
+
+function applyItem(el, checked) {
+  el.classList.toggle('checked', !!checked);
+  const cb = el.querySelector('.topic-cb');
+  if (checked) {
+    cb.style.background = getWeekColor(el);
+    cb.style.borderColor = getWeekColor(el);
+  } else {
+    cb.style.background = '';
+    cb.style.borderColor = '';
+  }
+}
+
+function getWeekColor(el) {
+  const id = el.dataset.id;
+  const w = id.charAt(1);
+  return getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+}
+
+// ── TOGGLE PROJECT ────────────────────────────────
+function toggleProject(id) {
+  state[id] = !state[id];
+  saveState();
+  applyProject(id, state[id]);
+  updateAll();
+}
+
+function applyProject(id, done) {
+  const cb = document.getElementById(id);
+  if (!cb) return;
+  cb.classList.toggle('done', !!done);
+  const w = id.slice(-1);
+  const col = getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+  if (done) {
+    cb.style.background = col;
+    cb.style.borderColor = col;
+  } else {
+    cb.style.background = '';
+    cb.style.borderColor = col;
+  }
+}
+
+// ── UPDATE ALL ────────────────────────────────────
+function updateAll() {
+  let totalTopics = 0, doneTopics = 0, doneProjects = 0;
+  const weekDone = {}, weekTotal = {};
+
+  for (let w = 1; w <= 4; w++) {
+    let wt = 0, wd = 0;
+    for (const day of Object.values(TOPIC_IDS[w])) {
+      for (const id of day) {
+        wt++; totalTopics++;
+        if (state[id]) { wd++; doneTopics++; }
+      }
+    }
+    weekTotal[w] = wt;
+    weekDone[w] = wd;
+    const pct = wt ? Math.round(wd / wt * 100) : 0;
+
+    document.getElementById(`wpct-${w}`).textContent = pct + '%';
+    document.getElementById(`wfill-${w}`).style.width = pct + '%';
+    document.getElementById(`nav-pct-${w}`).textContent = pct + '%';
+
+    const days = Object.keys(TOPIC_IDS[w]);
+    days.forEach((dk, i) => {
+      const badge = document.getElementById(`badge-w${w}d${i+1}`);
+      if (!badge) return;
+      badge.classList.toggle('visible', TOPIC_IDS[w][dk].every(id => state[id]));
+    });
+
+    if (state[`proj-w${w}`]) doneProjects++;
+  }
+
+  const overallPct = totalTopics ? Math.round(doneTopics / totalTopics * 100) : 0;
+  document.getElementById('overall-pct').textContent = overallPct + '%';
+  document.getElementById('overall-fill').style.width = overallPct + '%';
+
+  document.getElementById('stat-done').textContent = doneTopics;
+  document.getElementById('stat-total').textContent = totalTopics;
+  document.getElementById('stat-projects').textContent = doneProjects;
+
+  let currentWeek = 4;
+  for (let w = 1; w <= 4; w++) {
+    if (weekDone[w] < weekTotal[w]) { currentWeek = w; break; }
+  }
+  document.getElementById('stat-week').textContent = 'W' + currentWeek;
+  document.getElementById('stat-week-name').textContent = WEEK_NAMES[currentWeek];
+
+  const remaining = totalTopics - doneTopics;
+  const hrs = Math.max(0, Math.round(remaining * (14 / 64)));
+  document.getElementById('stat-time').textContent = hrs > 0 ? `~${hrs}h` : 'Done!';
+  document.getElementById('stat-time-sub').textContent = hrs > 0 ? 'estimated remaining' : 'all complete 🎉';
+
+  const prevComplete = JSON.parse(sessionStorage.getItem('mern-weeks-complete') || '{}');
+  for (let w = 1; w <= 4; w++) {
+    if (weekDone[w] === weekTotal[w] && weekTotal[w] > 0 && !prevComplete[w]) {
+      prevComplete[w] = true;
+      sessionStorage.setItem('mern-weeks-complete', JSON.stringify(prevComplete));
+      showCelebrate(`Week ${w} done — ${WEEK_NAMES[w]} complete! 🎉`);
+    }
+  }
+}
+
+function showCelebrate(msg) {
+  const bar = document.getElementById('celebrate-bar');
+  document.getElementById('celebrate-msg').textContent = msg;
+  bar.classList.add('show');
+  setTimeout(() => bar.classList.remove('show'), 4000);
+}
+
+// ── RESET ─────────────────────────────────────────
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  state = {};
+  saveState();
+  sessionStorage.removeItem('mern-weeks-complete');
+  restoreAll();
+  updateAll();
+}
+
+// ── RESTORE FROM STATE ────────────────────────────
+function restoreAll() {
+  document.querySelectorAll('.topic-item').forEach(el => {
+    applyItem(el, !!state[el.dataset.id]);
+  });
+  for (let w = 1; w <= 4; w++) {
+    applyProject(`proj-w${w}`, !!state[`proj-w${w}`]);
+  }
+}
+
+// ── NAV ACTIVE ────────────────────────────────────
+function updateNavActive() {
+  const sections = document.querySelectorAll('.week-section');
+  let active = 'week1';
+  sections.forEach(s => {
+    if (s.getBoundingClientRect().top <= 120) active = s.id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + active);
+  });
+}
+
+// ── THEME ─────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('mern-tracker-theme', isLight ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isLight ? '☾' : '☀';
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem('mern-tracker-theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = '☾';
+  }
+})();
+
+// ── INIT ──────────────────────────────────────────
+loadState();
+restoreAll();
+updateAll();
+window.addEventListener('scroll', updateNavActive, { passive: true });
+</script>
+</body>
+</html>

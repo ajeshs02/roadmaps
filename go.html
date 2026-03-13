@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Go Mastery — 4 Week Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0d0f12;
+    --bg2:      #13161b;
+    --bg3:      #1a1e26;
+    --border:   #252a35;
+    --border2:  #2f3545;
+    --text:     #e8eaf0;
+    --muted:    #6b7385;
+    --muted2:   #4a5166;
+    --w1:       #7c6ee6;
+    --w1-dim:   #2a2447;
+    --w1-glow:  #7c6ee620;
+    --w2:       #2eb88a;
+    --w2-dim:   #0e2e22;
+    --w2-glow:  #2eb88a20;
+    --w3:       #e06b3f;
+    --w3-dim:   #2e1a0e;
+    --w3-glow:  #e06b3f20;
+    --w4:       #3b9ede;
+    --w4-dim:   #0e2030;
+    --w4-glow:  #3b9ede20;
+    --radius:   12px;
+    --radius-sm: 7px;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  /* ── LIGHT MODE ── */
+  html.light {
+    --bg:       #f3f4f8;
+    --bg2:      #ffffff;
+    --bg3:      #eaecf2;
+    --border:   #dde1ec;
+    --border2:  #c8cedf;
+    --text:     #1a1d27;
+    --muted:    #5a6275;
+    --muted2:   #9099b0;
+    --w1-dim:   #ede9fc;
+    --w1-glow:  #7c6ee614;
+    --w2-dim:   #ddf4ec;
+    --w2-glow:  #2eb88a14;
+    --w3-dim:   #fdeee8;
+    --w3-glow:  #e06b3f14;
+    --w4-dim:   #e3f2fd;
+    --w4-glow:  #3b9ede14;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: block;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  .sidebar-top {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #7c6ee6, #3b9ede);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* overall progress */
+  .overall-progress {
+    margin-bottom: 4px;
+  }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: .3px;
+  }
+
+  .progress-pct {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--w1), var(--w4));
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* sidebar nav */
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 1.2px;
+    color: var(--muted2);
+    text-transform: uppercase;
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background .15s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 14px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--bg3); color: var(--text); }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-week-title {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .nav-mini-progress {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted2);
+  }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .reset-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .3px;
+  }
+
+  .reset-btn:hover {
+    border-color: #e06b3f66;
+    color: var(--w3);
+    background: var(--w3-glow);
+  }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 260px;
+    padding: 48px 56px 80px;
+    min-height: 100vh;
+  }
+
+  .main-inner {
+    width: 100%;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-bottom: 48px;
+  }
+
+  .page-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .page-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--muted2);
+  }
+
+  .page-title {
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title strong {
+    font-weight: 500;
+  }
+
+  .page-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .stat-card:hover { border-color: var(--border2); }
+
+  .stat-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 500;
+    font-family: var(--mono);
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  /* ── WEEK SECTION ── */
+  .week-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 32px;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .week-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .week-header-text { flex: 1; }
+
+  .week-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 5px;
+    letter-spacing: -0.3px;
+  }
+
+  .week-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .week-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .week-pct {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .week-track {
+    width: 80px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .week-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* days grid */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .day-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+
+  .day-card:hover { border-color: var(--border2); }
+
+  .day-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .day-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: .3px;
+  }
+
+  .day-done-badge {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .day-done-badge.visible { opacity: 1; }
+
+  .day-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  /* topic items */
+  .topic-list { list-style: none; }
+
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background .1s;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin: 0 -6px;
+  }
+
+  .topic-item:last-child { border-bottom: none; }
+  .topic-item:hover { background: var(--bg3); }
+
+  .topic-cb {
+    width: 15px; height: 15px;
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    transition: all .15s;
+    background: transparent;
+  }
+
+  .topic-item.checked .topic-cb {
+    border-color: transparent;
+  }
+
+  .topic-item.checked .topic-cb::after {
+    content: '';
+    display: block;
+    width: 8px; height: 6px;
+    border-left: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .topic-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    transition: color .15s;
+    flex: 1;
+  }
+
+  .topic-item.checked .topic-text {
+    color: var(--muted2);
+    text-decoration: line-through;
+    text-decoration-color: var(--muted2);
+  }
+
+  /* project card */
+  .project-card {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    opacity: .06;
+    transform: translate(30px, -30px);
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .project-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .project-cb {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+    flex-shrink: 0;
+  }
+
+  .project-cb.done::after {
+    content: '';
+    display: block;
+    width: 9px; height: 7px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .project-check-label {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--muted);
+    transition: color .15s;
+  }
+
+  .project-check:hover .project-check-label { color: var(--text); }
+
+  /* tip card */
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .tip-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    opacity: .7;
+  }
+
+  .tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .tip-text strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .tip-text code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* skill pills */
+  .pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .skill-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: .2px;
+  }
+
+  /* resources */
+  .resources-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 40px;
+  }
+
+  .resources-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resources-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .resource-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    text-decoration: none;
+    display: block;
+    transition: border-color .15s;
+  }
+
+  .resource-item:hover { border-color: var(--border2); }
+
+  .resource-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+    font-family: var(--mono);
+  }
+
+  .resource-desc {
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.4;
+  }
+
+  /* celebrations */
+  .celebrate-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    animation: fadeSlide .3s ease;
+  }
+
+  .celebrate-bar.show { display: flex; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* theme toggle */
+  .theme-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .theme-btn:hover {
+    border-color: var(--w4);
+    color: var(--w4);
+    background: var(--w4-glow);
+  }
+
+  /* day hint */
+  .day-hint {
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    background: var(--bg3);
+    border-radius: 6px;
+    border-left: 2px solid var(--border2);
+    font-style: italic;
+  }
+
+  /* mental model box */
+  .mental-model {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .mental-model-label {
+    font-size: 9px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 3px;
+  }
+  .mental-model-text {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .mental-model-text code {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* light mode scrollbar */
+  html.light ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* responsive */
+
+  /* Medium laptops: 2 columns for days, reduce padding slightly */
+  @media (max-width: 1200px) {
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .main { padding: 40px 40px 80px; }
+  }
+
+  /* Tablet / small laptop: collapse sidebar */
+  @media (max-width: 900px) {
+    .layout { display: block; }
+    .sidebar { position: static; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { margin-left: 0; padding: 28px 28px 60px; }
+    .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .resources-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Mobile: single column everything */
+  @media (max-width: 560px) {
+    .main { padding: 20px 16px 60px; }
+    .days-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .week-header { flex-wrap: wrap; gap: 10px; }
+    .week-progress-wrap { flex-direction: row; align-items: center; gap: 10px; }
+    .page-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <div class="logo-icon">Go</div>
+        <div>
+          <div class="logo-text">Mastery Tracker</div>
+          <div class="logo-sub">MERN → Go · 4 weeks</div>
+        </div>
+      </div>
+      <div class="overall-progress">
+        <div class="progress-row">
+          <span class="progress-label">overall</span>
+          <span class="progress-pct" id="overall-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="overall-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Weeks</div>
+      <a class="nav-item active" href="#week1" data-week="1">
+        <div class="nav-dot" style="background:var(--w1)"></div>
+        <div class="nav-week-title">Foundations</div>
+        <span class="nav-mini-progress" id="nav-pct-1">0%</span>
+      </a>
+      <a class="nav-item" href="#week2" data-week="2">
+        <div class="nav-dot" style="background:var(--w2)"></div>
+        <div class="nav-week-title">HTTP & Data</div>
+        <span class="nav-mini-progress" id="nav-pct-2">0%</span>
+      </a>
+      <a class="nav-item" href="#week3" data-week="3">
+        <div class="nav-dot" style="background:var(--w3)"></div>
+        <div class="nav-week-title">Concurrency</div>
+        <span class="nav-mini-progress" id="nav-pct-3">0%</span>
+      </a>
+      <a class="nav-item" href="#week4" data-week="4">
+        <div class="nav-dot" style="background:var(--w4)"></div>
+        <div class="nav-week-title">Production</div>
+        <span class="nav-mini-progress" id="nav-pct-4">0%</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle light/dark mode">
+          <span id="theme-icon">☀</span>
+        </button>
+      </div>
+      <button class="reset-btn" onclick="resetAll()">↺ reset progress</button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+  <div class="main-inner">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <div class="page-tag">learning roadmap</div>
+      <h1 class="page-title">Master <strong>Go</strong> in one month</h1>
+      <p class="page-desc">A structured 4-week plan built for MERN developers. Check off topics as you go — progress auto-saves in your browser.</p>
+    </header>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">completed</div>
+        <div class="stat-value" id="stat-done">0</div>
+        <div class="stat-sub">of <span id="stat-total">0</span> topics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">current week</div>
+        <div class="stat-value" id="stat-week">W1</div>
+        <div class="stat-sub" id="stat-week-name">Foundations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">projects done</div>
+        <div class="stat-value" id="stat-projects">0</div>
+        <div class="stat-sub">of 4 weekend builds</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">est. time left</div>
+        <div class="stat-value" id="stat-time">~9h</div>
+        <div class="stat-sub" id="stat-time-sub">this week</div>
+      </div>
+    </div>
+
+    <!-- celebrate bar -->
+    <div class="celebrate-bar" id="celebrate-bar">
+      <span id="celebrate-msg">🎉 Week complete!</span>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 1 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week1">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w1-dim);color:var(--w1)">Week 1</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Foundations — Rewire Your Brain</h2>
+          <p class="week-desc">Static typing, Go's type system, pointers, and error handling. Coming from JS, these need the most mental rewiring. Get these right and everything else clicks.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-1" style="color:var(--w1)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-1" style="background:var(--w1);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <!-- Day 1-2 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1–2 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w1d1" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Types, Structs & Interfaces</div>
+          <div class="day-hint">Think: TypeScript interfaces enforced at compile time with zero runtime cost. Structs replace <code style="font-family:DM Mono,monospace;font-size:11px">const user = {}</code> — but the shape is locked forever.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Static typing vs JS dynamic — thinking in types</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Structs as compiled JS objects</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Interfaces — implicit, no <code style="font-family:DM Mono,monospace;font-size:12px">implements</code> keyword</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Pointers — #1 concept Node devs must grok first</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w1d2" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Error Handling</div>
+          <div class="day-hint">Every function that can fail returns <code style="font-family:DM Mono,monospace;font-size:11px">(result, error)</code>. The caller decides what to do. No hidden throws, no surprise crashes.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">No try/catch — errors are return values</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">The <code style="font-family:DM Mono,monospace;font-size:12px">error</code> interface and custom error types</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Wrapping errors with <code style="font-family:DM Mono,monospace;font-size:12px">fmt.Errorf("%w")</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">When to panic vs return an error</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w1d3" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Collections & Closures</div>
+          <div class="day-hint">Slices have a length and a capacity — like JS arrays but explicit. Maps are unordered; never depend on iteration order.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Slices vs arrays (slices ≈ JS arrays)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Maps — key-value like JS objects</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">First-class functions & closures</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">defer</code> — you'll love this once you see it</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 5 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w1d4" style="background:var(--w1-dim);color:var(--w1)">done ✓</span>
+          </div>
+          <div class="day-title">Packages & Modules</div>
+          <div class="day-hint">Capitalised = exported (public). Lowercase = package-private. The compiler enforces it — no <code style="font-family:DM Mono,monospace;font-size:11px">export</code> keyword needed.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">go.mod</code> vs npm/package.json</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Exported vs unexported (Capital = public)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Stdlib: <code style="font-family:DM Mono,monospace;font-size:12px">fmt</code>, <code style="font-family:DM Mono,monospace;font-size:12px">os</code>, <code style="font-family:DM Mono,monospace;font-size:12px">strings</code>, <code style="font-family:DM Mono,monospace;font-size:12px">io</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w1-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">go get</code> to add dependencies</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Project -->
+      <div class="project-card" style="background:var(--w1-glow);border-color:var(--w1-dim)">
+        <div class="project-tag" style="color:var(--w1)">
+          <span>◆</span> Weekend Project
+        </div>
+        <div class="project-name">CLI Task Manager</div>
+        <div class="project-desc">Build a command-line todo app with <code style="font-family:DM Mono,monospace;font-size:12px">cobra</code>. Persist tasks to a JSON file using <code style="font-family:DM Mono,monospace;font-size:12px">encoding/json</code>. Forces you to use structs, file I/O, error handling, and package structure all at once — the perfect first real Go project.</div>
+        <div class="project-check" onclick="toggleProject('proj-w1')">
+          <div class="project-cb" id="proj-w1" style="border-color:var(--w1)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Go's biggest shift isn't the syntax — it's the zero value philosophy and nil vs undefined. Read Effective Go on initialization before the weekend project. Also set up <code>gopls</code> in your editor; the LSP feedback is your best teacher.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 1</div>
+        <div class="mental-model-text">
+          Go is not "JavaScript with types". It's a compiled systems language that chose simplicity over features. You lose: classes, inheritance, generics complexity, exceptions. You gain: fast compile, predictable memory, zero-cost abstractions, and code that reads like prose. The constraint <em>is</em> the feature.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">Types & structs</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">Error handling</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">Interfaces</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">Go modules</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">Pointers</span>
+        <span class="skill-pill" style="background:var(--w1-dim);color:var(--w1);border-color:#4a3e9e">defer</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 2 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week2">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w2-dim);color:var(--w2)">Week 2</span>
+        <div class="week-header-text">
+          <h2 class="week-title">HTTP, Routing & Databases</h2>
+          <p class="week-desc">Your home turf — you've built REST APIs in Express. Rebuild that intuition in Go. Your Node.js patterns map almost 1-to-1, but now they're faster and statically typed.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-2" style="color:var(--w2)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-2" style="background:var(--w2);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w2d1" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">net/http Raw Server</div>
+          <div class="day-hint">Go's stdlib HTTP is production-grade without a framework. Understanding it makes Gin feel like sugar on top — not magic.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">HTTP handlers — like Express route callbacks</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">ResponseWriter</code> + <code style="font-family:DM Mono,monospace;font-size:12px">*http.Request</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">ServeMux for basic routing</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Middleware pattern via function wrapping</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w2d2" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">Gin Framework</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">gin.Context</code> is your <code style="font-family:DM Mono,monospace;font-size:11px">req + res</code> in one. <code style="font-family:DM Mono,monospace;font-size:11px">ShouldBindJSON(&amp;input)</code> replaces <code style="font-family:DM Mono,monospace;font-size:11px">req.body</code> with compile-time type safety.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Gin is the Express of Go — very familiar feel</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Route groups, path params, query strings</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Middleware: auth, logging, CORS</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">JSON binding & validation via struct tags</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w2d3" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">PostgreSQL with sqlx</div>
+          <div class="day-hint">No ODM magic. You write SQL, sqlx scans rows into structs. Explicit beats magic — you see exactly what hits the DB.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">sqlx: raw SQL with struct scanning</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Prepared statements & named queries</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Transactions — critical for data integrity</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Connection pooling config (vs Mongoose)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w2d4" style="background:var(--w2-dim);color:var(--w2)">done ✓</span>
+          </div>
+          <div class="day-title">Project Structure & Config</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">cmd/</code> = entrypoint. <code style="font-family:DM Mono,monospace;font-size:11px">internal/</code> = app logic (import-protected by compiler). <code style="font-family:DM Mono,monospace;font-size:11px">pkg/</code> = reusable across projects.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Standard layout: <code style="font-family:DM Mono,monospace;font-size:12px">cmd/</code>, <code style="font-family:DM Mono,monospace;font-size:12px">internal/</code>, <code style="font-family:DM Mono,monospace;font-size:12px">pkg/</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Env config with <code style="font-family:DM Mono,monospace;font-size:12px">viper</code> or <code style="font-family:DM Mono,monospace;font-size:12px">godotenv</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">JWT auth middleware in Go</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w2-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Repository pattern — Mongoose models reimagined</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--w2-glow);border-color:var(--w2-dim)">
+        <div class="project-tag" style="color:var(--w2)"><span>◆</span> Weekend Project</div>
+        <div class="project-name">Notes App REST API with Auth</div>
+        <div class="project-desc">Full CRUD REST API — Gin + PostgreSQL + JWT auth. Focus on proper layering: handlers → services → repository. Same architecture you'd build in Node, but now statically typed and 3x faster.</div>
+        <div class="project-check" onclick="toggleProject('proj-w2')">
+          <div class="project-cb" id="proj-w2" style="border-color:var(--w2)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Don't jump to GORM yet. Learn <code>sqlx</code> with raw SQL first — GORM hides too many gotchas that will bite you in production. Also learn <code>context.Context</code> for request timeouts early. There's nothing like it in Express, and it's everywhere in production Go code.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 2</div>
+        <div class="mental-model-text">
+          Gin is <em>Express minus the callback hell</em>. The key shift: request handling is synchronous Go code — no <code>async/await</code> needed because each request runs in its own goroutine. <code>context.Context</code> is the request-scoped value bag that flows through every layer, carrying deadlines, cancellation, and request IDs. Learn it early.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#1a6645">net/http</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#1a6645">Gin</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#1a6645">sqlx + PostgreSQL</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#1a6645">JWT Auth</span>
+        <span class="skill-pill" style="background:var(--w2-dim);color:var(--w2);border-color:#1a6645">context.Context</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 3 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week3">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w3-dim);color:var(--w3)">Week 3</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Concurrency — Go's Superpower</h2>
+          <p class="week-desc">This is why people choose Go over Node for backend services. Goroutines aren't threads and channels aren't event emitters — but once it clicks, it feels more powerful than async/await.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-3" style="color:var(--w3)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-3" style="background:var(--w3);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w3d1" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Goroutines & Channels</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">go func()</code> costs ~2KB stack vs ~1MB for OS threads. Run 100K goroutines easily. Channels are the typed pipes between them.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Goroutines: lighter than threads, ~2KB stack</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Channels: typed pipes between goroutines</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Buffered vs unbuffered channels</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">select</code> — like Promise.race but for channels</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w3d2" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">sync Package & WaitGroups</div>
+          <div class="day-hint">Use channels to transfer data ownership. Reach for <code style="font-family:DM Mono,monospace;font-size:11px">Mutex</code> only when multiple goroutines must share state they all own.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">WaitGroup</code> — like Promise.all for goroutines</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">Mutex</code> for shared state (prefer channels)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">sync.Once</code> for singleton initialization</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Race detector: <code style="font-family:DM Mono,monospace;font-size:12px">go run -race</code></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w3d3" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Worker Pools</div>
+          <div class="day-hint">Classic pattern: N workers, one jobs channel, one results channel. Workers pull jobs, push results. Simple, composable, no framework needed.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Fan-out / fan-in — Go's most powerful pattern</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Fixed-size worker pool with channels</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Graceful shutdown with <code style="font-family:DM Mono,monospace;font-size:12px">context.WithCancel</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Real use: parallel DB queries, batch jobs</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w3d4" style="background:var(--w3-dim);color:var(--w3)">done ✓</span>
+          </div>
+          <div class="day-title">Testing in Go</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">_test.go</code> files are compiled out of production binaries automatically. Table-driven tests = one function, N scenarios as a struct slice.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Built-in <code style="font-family:DM Mono,monospace;font-size:12px">testing</code> package — no Jest needed</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Table-driven tests — Go's idiomatic style</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Mocking with interfaces (no jest.mock)</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w3-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Benchmarks with <code style="font-family:DM Mono,monospace;font-size:12px">testing.B</code></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--w3-glow);border-color:var(--w3-dim)">
+        <div class="project-tag" style="color:var(--w3)"><span>◆</span> Weekend Project</div>
+        <div class="project-name">Concurrent URL Health Checker</div>
+        <div class="project-desc">Check 100+ URLs concurrently using a worker pool (10 workers). Return health status, response times, HTTP codes. Add it as an endpoint to your Week 2 API. Write table-driven tests for the core logic. Exercises goroutines, channels, WaitGroups, and testing all at once.</div>
+        <div class="project-check" onclick="toggleProject('proj-w3')">
+          <div class="project-cb" id="proj-w3" style="border-color:var(--w3)"></div>
+          <span class="project-check-label">Mark project as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> "Don't communicate by sharing memory; share memory by communicating." When you reach for a <code>Mutex</code>, ask if a channel would express the intent more clearly. Always run concurrent code with <code>-race</code> during development — it catches bugs that only appear under production load.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 3</div>
+        <div class="mental-model-text">
+          Node's event loop handles concurrency on one thread. Go's scheduler multiplexes thousands of goroutines across all CPU cores. When a goroutine blocks on I/O, the scheduler parks it and runs another — no callbacks, no promises, no <code>async</code> tax on the call stack. This is why Go HTTP servers handle 10× more concurrent requests per memory than Node.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#5a2e14">Goroutines</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#5a2e14">Channels</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#5a2e14">Worker pools</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#5a2e14">sync package</span>
+        <span class="skill-pill" style="background:var(--w3-dim);color:var(--w3);border-color:#5a2e14">Table-driven tests</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- WEEK 4 -->
+    <!-- ═══════════════════════════════════ -->
+    <section class="week-section" id="week4">
+      <div class="week-header">
+        <span class="week-num" style="background:var(--w4-dim);color:var(--w4)">Week 4</span>
+        <div class="week-header-text">
+          <h2 class="week-title">Production Go — Ship It</h2>
+          <p class="week-desc">The week that turns you from someone who can write Go into someone who can run Go in production. Observability, profiling, Docker, and a capstone you can show in interviews.</p>
+        </div>
+        <div class="week-progress-wrap">
+          <span class="week-pct" id="wpct-4" style="color:var(--w4)">0%</span>
+          <div class="week-track"><div class="week-fill" id="wfill-4" style="background:var(--w4);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 1 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w4d1" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Logging & Observability</div>
+          <div class="day-hint">JSON logs + structured fields = grep-able, Datadog/Loki-indexable. <code style="font-family:DM Mono,monospace;font-size:11px">console.log</code> strings are unsearchable under load.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Structured logging with <code style="font-family:DM Mono,monospace;font-size:12px">slog</code> (Go 1.21+) or <code style="font-family:DM Mono,monospace;font-size:12px">zap</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Request tracing via <code style="font-family:DM Mono,monospace;font-size:12px">context</code> propagation</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Prometheus metrics with <code style="font-family:DM Mono,monospace;font-size:12px">promhttp</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d1-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Liveness vs readiness health endpoints</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 2 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w4d2" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Performance & Profiling</div>
+          <div class="day-hint"><code style="font-family:DM Mono,monospace;font-size:11px">go tool pprof</code> shows where CPU time actually goes. Most perf issues are GC pressure or a hot allocation loop — measure before optimising.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text"><code style="font-family:DM Mono,monospace;font-size:12px">pprof</code> — CPU & memory profiling built in</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Escape analysis: heap vs stack allocation</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Avoiding goroutine leaks in production</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d2-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Benchmark-driven optimization loop</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 3 · ~1 hr</span>
+            <span class="day-done-badge" id="badge-w4d3" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">Docker & Deployment</div>
+          <div class="day-hint">Stage 1: <code style="font-family:DM Mono,monospace;font-size:11px">golang:alpine</code> builds the binary. Stage 2: <code style="font-family:DM Mono,monospace;font-size:11px">scratch</code> (empty image) just runs it. Result: &lt;10MB, no shell, no CVEs.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Multi-stage Dockerfile — single binary output</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">&lt;10MB container with <code style="font-family:DM Mono,monospace;font-size:12px">scratch</code> or <code style="font-family:DM Mono,monospace;font-size:12px">alpine</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Graceful shutdown: <code style="font-family:DM Mono,monospace;font-size:12px">os.Signal</code> + <code style="font-family:DM Mono,monospace;font-size:12px">Shutdown()</code></span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d3-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">12-factor config via environment variables</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="day-card">
+          <div class="day-meta">
+            <span class="day-label">Day 4–5 · ~2 hrs</span>
+            <span class="day-done-badge" id="badge-w4d4" style="background:var(--w4-dim);color:var(--w4)">done ✓</span>
+          </div>
+          <div class="day-title">gRPC Basics</div>
+          <div class="day-hint">HTTP/2 + binary protobuf = 5–10× faster than JSON REST for internal services. Schema-first means client and server agree upfront — no more API drift.</div>
+          <ul class="topic-list">
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t1">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Why gRPC for service-to-service comms</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t2">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Protobuf: define your API contract first</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t3">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Generating Go code from <code style="font-family:DM Mono,monospace;font-size:12px">.proto</code> files</span>
+            </li>
+            <li class="topic-item" onclick="toggle(this)" data-id="w4-d4-t4">
+              <div class="topic-cb"></div>
+              <span class="topic-text">Unary RPC — one simple server + client</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card" style="background:var(--w4-glow);border-color:var(--w4-dim)">
+        <div class="project-tag" style="color:var(--w4)"><span>◆</span> Capstone Project</div>
+        <div class="project-name">Production-Ready URL Shortener</div>
+        <div class="project-desc">Everything together: Gin REST API + PostgreSQL + Redis caching + background goroutine for click analytics + structured logging + Prometheus metrics + multi-stage Docker build. Under 10MB container. Deploy to Railway or Fly.io. This is the portfolio piece for backend interviews.</div>
+        <div class="project-check" onclick="toggleProject('proj-w4')">
+          <div class="project-cb" id="proj-w4" style="border-color:var(--w4)"></div>
+          <span class="project-check-label">Mark capstone as complete</span>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-icon">⟡</span>
+        <p class="tip-text"><strong>Senior tip:</strong> Go's single binary is its killer Docker feature. A Node app needs ~300MB of node_modules in the image; your Go binary is often under 20MB total. That difference matters at scale — faster cold starts, smaller attack surface, cheaper egress. Always implement <code>http.Server.Shutdown</code> with a signal handler in every production service.</p>
+      </div>
+
+      <div class="mental-model">
+        <div class="mental-model-label">⬡ Mental Model — Week 4</div>
+        <div class="mental-model-text">
+          Production Go means: one statically-linked binary, structured JSON logs, metrics that Prometheus can scrape, a <code>/healthz</code> endpoint Kubernetes can probe, and a signal handler that drains in-flight requests before exit. This is the entire operational surface. No runtime, no VM, no dependency hell — just a binary and env vars.
+        </div>
+      </div>
+
+      <div class="pills-row">
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#1a3d5c">slog / zap</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#1a3d5c">pprof</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#1a3d5c">Docker multi-stage</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#1a3d5c">Graceful shutdown</span>
+        <span class="skill-pill" style="background:var(--w4-dim);color:var(--w4);border-color:#1a3d5c">gRPC</span>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <div class="resources-section">
+      <div class="resources-title">Resources to keep open</div>
+      <div class="resources-grid">
+        <a class="resource-item" href="https://go.dev/tour" target="_blank">
+          <div class="resource-name">go.dev/tour</div>
+          <div class="resource-desc">Official Go tour. Surprisingly good. Do this in Week 1.</div>
+        </a>
+        <a class="resource-item" href="https://gobyexample.com" target="_blank">
+          <div class="resource-name">gobyexample.com</div>
+          <div class="resource-desc">Quick syntax lookups with real examples.</div>
+        </a>
+        <a class="resource-item" href="https://100go.co" target="_blank">
+          <div class="resource-name">100go.co</div>
+          <div class="resource-desc">100 Go mistakes. Read in Weeks 3–4.</div>
+        </a>
+        <a class="resource-item" href="https://go.dev/doc/effective_go" target="_blank">
+          <div class="resource-name">Effective Go</div>
+          <div class="resource-desc">Official style guide. Read alongside Week 1.</div>
+        </a>
+        <a class="resource-item" href="https://pkg.go.dev/std" target="_blank">
+          <div class="resource-name">pkg.go.dev/std</div>
+          <div class="resource-desc">Go standard library reference.</div>
+        </a>
+        <a class="resource-item" href="https://github.com/gin-gonic/gin" target="_blank">
+          <div class="resource-name">Gin docs</div>
+          <div class="resource-desc">Your Express replacement. Week 2.</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /main-inner -->
+  </main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const TOPIC_IDS = {
+  1: { d1: ['w1-d1-t1','w1-d1-t2','w1-d1-t3','w1-d1-t4'], d2: ['w1-d2-t1','w1-d2-t2','w1-d2-t3','w1-d2-t4'], d3: ['w1-d3-t1','w1-d3-t2','w1-d3-t3','w1-d3-t4'], d4: ['w1-d4-t1','w1-d4-t2','w1-d4-t3','w1-d4-t4'] },
+  2: { d1: ['w2-d1-t1','w2-d1-t2','w2-d1-t3','w2-d1-t4'], d2: ['w2-d2-t1','w2-d2-t2','w2-d2-t3','w2-d2-t4'], d3: ['w2-d3-t1','w2-d3-t2','w2-d3-t3','w2-d3-t4'], d4: ['w2-d4-t1','w2-d4-t2','w2-d4-t3','w2-d4-t4'] },
+  3: { d1: ['w3-d1-t1','w3-d1-t2','w3-d1-t3','w3-d1-t4'], d2: ['w3-d2-t1','w3-d2-t2','w3-d2-t3','w3-d2-t4'], d3: ['w3-d3-t1','w3-d3-t2','w3-d3-t3','w3-d3-t4'], d4: ['w3-d4-t1','w3-d4-t2','w3-d4-t3','w3-d4-t4'] },
+  4: { d1: ['w4-d1-t1','w4-d1-t2','w4-d1-t3','w4-d1-t4'], d2: ['w4-d2-t1','w4-d2-t2','w4-d2-t3','w4-d2-t4'], d3: ['w4-d3-t1','w4-d3-t2','w4-d3-t3','w4-d3-t4'], d4: ['w4-d4-t1','w4-d4-t2','w4-d4-t3','w4-d4-t4'] }
+};
+
+const WEEK_NAMES = { 1:'Foundations', 2:'HTTP & Data', 3:'Concurrency', 4:'Production' };
+const WEEK_HOURS = { 1:'~9 hrs', 2:'~10 hrs', 3:'~10 hrs', 4:'~11 hrs' };
+
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem('go-tracker') || '{}'); } catch(e) { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem('go-tracker', JSON.stringify(state));
+}
+
+// ── TOGGLE TOPIC ──────────────────────────────────
+function toggle(el) {
+  const id = el.dataset.id;
+  state[id] = !state[id];
+  saveState();
+  applyItem(el, state[id]);
+  updateAll();
+}
+
+function applyItem(el, checked) {
+  el.classList.toggle('checked', !!checked);
+  const cb = el.querySelector('.topic-cb');
+  if (checked) {
+    cb.style.background = getWeekColor(el);
+    cb.style.borderColor = getWeekColor(el);
+  } else {
+    cb.style.background = '';
+    cb.style.borderColor = '';
+  }
+}
+
+function getWeekColor(el) {
+  const id = el.dataset.id;
+  const w = id.charAt(1);
+  return getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+}
+
+// ── TOGGLE PROJECT ────────────────────────────────
+function toggleProject(id) {
+  state[id] = !state[id];
+  saveState();
+  applyProject(id, state[id]);
+  updateAll();
+}
+
+function applyProject(id, done) {
+  const cb = document.getElementById(id);
+  if (!cb) return;
+  cb.classList.toggle('done', !!done);
+  const w = id.slice(-1);
+  if (done) {
+    cb.style.background = getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+    cb.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+  } else {
+    cb.style.background = '';
+    const col = getComputedStyle(document.documentElement).getPropertyValue(`--w${w}`).trim();
+    cb.style.borderColor = col;
+  }
+}
+
+// ── UPDATE ALL COUNTERS ───────────────────────────
+function updateAll() {
+  let totalTopics = 0, doneTopics = 0, doneProjects = 0;
+  const weekDone = {};
+  const weekTotal = {};
+
+  for (let w = 1; w <= 4; w++) {
+    let wt = 0, wd = 0;
+    for (const day of Object.values(TOPIC_IDS[w])) {
+      for (const id of day) {
+        wt++; totalTopics++;
+        if (state[id]) { wd++; doneTopics++; }
+      }
+    }
+    weekTotal[w] = wt;
+    weekDone[w] = wd;
+    const pct = wt ? Math.round(wd / wt * 100) : 0;
+
+    // per-week UI
+    document.getElementById(`wpct-${w}`).textContent = pct + '%';
+    document.getElementById(`wfill-${w}`).style.width = pct + '%';
+    document.getElementById(`nav-pct-${w}`).textContent = pct + '%';
+
+    // day badges for this week
+    const days = Object.keys(TOPIC_IDS[w]);
+    days.forEach((dk, i) => {
+      const badge = document.getElementById(`badge-w${w}d${i+1}`);
+      if (!badge) return;
+      const allDone = TOPIC_IDS[w][dk].every(id => state[id]);
+      badge.classList.toggle('visible', allDone);
+    });
+
+    if (state[`proj-w${w}`]) doneProjects++;
+  }
+
+  const overallPct = totalTopics ? Math.round(doneTopics / totalTopics * 100) : 0;
+  document.getElementById('overall-pct').textContent = overallPct + '%';
+  document.getElementById('overall-fill').style.width = overallPct + '%';
+
+  // stats
+  document.getElementById('stat-done').textContent = doneTopics;
+  document.getElementById('stat-total').textContent = totalTopics;
+  document.getElementById('stat-projects').textContent = doneProjects;
+
+  // current week
+  let currentWeek = 4;
+  for (let w = 1; w <= 4; w++) {
+    if (weekDone[w] < weekTotal[w]) { currentWeek = w; break; }
+  }
+  document.getElementById('stat-week').textContent = 'W' + currentWeek;
+  document.getElementById('stat-week-name').textContent = WEEK_NAMES[currentWeek];
+
+  // time left (rough estimate: 9 topics = 1 hr)
+  const remaining = totalTopics - doneTopics;
+  const hrs = Math.max(0, Math.round(remaining * (9 / 64)));
+  document.getElementById('stat-time').textContent = hrs > 0 ? `~${hrs}h` : 'Done!';
+  document.getElementById('stat-time-sub').textContent = hrs > 0 ? 'estimated remaining' : 'all complete 🎉';
+
+  // celebrate
+  const prevComplete = JSON.parse(sessionStorage.getItem('go-weeks-complete') || '{}');
+  for (let w = 1; w <= 4; w++) {
+    if (weekDone[w] === weekTotal[w] && weekTotal[w] > 0 && !prevComplete[w]) {
+      prevComplete[w] = true;
+      sessionStorage.setItem('go-weeks-complete', JSON.stringify(prevComplete));
+      showCelebrate(`Week ${w} complete — ${WEEK_NAMES[w]} unlocked! 🎉`);
+    }
+  }
+}
+
+function showCelebrate(msg) {
+  const bar = document.getElementById('celebrate-bar');
+  document.getElementById('celebrate-msg').textContent = msg;
+  bar.classList.add('show');
+  setTimeout(() => bar.classList.remove('show'), 4000);
+}
+
+// ── RESET ─────────────────────────────────────────
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  state = {};
+  saveState();
+  sessionStorage.removeItem('go-weeks-complete');
+  restoreAll();
+  updateAll();
+}
+
+// ── RESTORE FROM STATE ────────────────────────────
+function restoreAll() {
+  document.querySelectorAll('.topic-item').forEach(el => {
+    const id = el.dataset.id;
+    applyItem(el, !!state[id]);
+  });
+  for (let w = 1; w <= 4; w++) {
+    applyProject(`proj-w${w}`, !!state[`proj-w${w}`]);
+  }
+}
+
+// ── NAV ACTIVE ────────────────────────────────────
+function updateNavActive() {
+  const sections = document.querySelectorAll('.week-section');
+  let active = 'week1';
+  sections.forEach(s => {
+    if (s.getBoundingClientRect().top <= 120) active = s.id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + active);
+  });
+}
+
+// ── INIT ──────────────────────────────────────────
+loadState();
+restoreAll();
+updateAll();
+window.addEventListener('scroll', updateNavActive, { passive: true });
+
+// ── THEME ─────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('go-tracker-theme', isLight ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isLight ? '☾' : '☀';
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem('go-tracker-theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = '☾';
+  }
+})();
+</script>
+</body>
+</html>
