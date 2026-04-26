@@ -1,0 +1,1746 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSA Tracker — Interview Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dsa.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ═══ SIDEBAR ═══ -->
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <a href="/index.html" class="logo">
+            <div class="logo-icon">DSA</div>
+            <div>
+              <div class="logo-text">DSA Tracker</div>
+              <div class="logo-sub">Pattern-based · Interview prep</div>
+            </div>
+          </a>
+          <div class="progress-row">
+            <span class="progress-label">overall</span>
+            <span class="progress-pct" id="overall-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div
+              class="progress-fill"
+              id="overall-fill"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-label">Phases</div>
+
+          <a class="nav-item active" href="#phase1">
+            <div class="nav-dot" style="background: var(--p1)"></div>
+            <div class="nav-phase-title">Foundations &amp; Arrays</div>
+            <span class="nav-mini-progress" id="nav-pct-1">0%</span>
+          </a>
+          <a class="nav-item" href="#phase2">
+            <div class="nav-dot" style="background: var(--p2)"></div>
+            <div class="nav-phase-title">
+              Linked List, Stack &amp; Recursion
+            </div>
+            <span class="nav-mini-progress" id="nav-pct-2">0%</span>
+          </a>
+          <a class="nav-item" href="#phase3">
+            <div class="nav-dot" style="background: var(--p3)"></div>
+            <div class="nav-phase-title">Search, Sort &amp; Greedy</div>
+            <span class="nav-mini-progress" id="nav-pct-3">0%</span>
+          </a>
+          <a class="nav-item" href="#phase4">
+            <div class="nav-dot" style="background: var(--p4)"></div>
+            <div class="nav-phase-title">Trees &amp; Traversal</div>
+            <span class="nav-mini-progress" id="nav-pct-4">0%</span>
+          </a>
+          <a class="nav-item" href="#phase5">
+            <div class="nav-dot" style="background: var(--p5)"></div>
+            <div class="nav-phase-title">Heaps, Graphs &amp; DP</div>
+            <span class="nav-mini-progress" id="nav-pct-5">0%</span>
+          </a>
+
+          <div class="nav-divider"></div>
+
+          <a class="nav-item" href="#phase6">
+            <div class="nav-dot" style="background: var(--p6)"></div>
+            <div class="nav-phase-title">Final Consolidation</div>
+            <span class="nav-mini-progress" id="nav-pct-6">0%</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="theme-btn" onclick="toggleTheme()">
+            <span id="theme-icon">☀</span> Toggle theme
+          </button>
+          <button class="reset-btn" onclick="resetAll()">
+            ↺ reset progress
+          </button>
+          <a class="home-link" href="index.html">← back to all trackers</a>
+        </div>
+      </aside>
+
+      <!-- ═══ MAIN ═══ -->
+      <main class="main">
+        <div class="main-inner">
+          <!-- celebrate bar -->
+          <div class="celebrate-bar" id="celebrate-bar">
+            <span>🎉</span>
+            <span id="celebrate-msg"></span>
+          </div>
+
+          <!-- page header -->
+          <div class="page-header">
+            <div class="page-tag">javascript · pattern-based</div>
+            <h1 class="page-title">DSA <strong>Interview Prep</strong></h1>
+            <p class="page-desc">
+              A pattern-focused roadmap for MERN developers preparing for
+              mid-level interviews. Work through phases at your own pace — focus
+              on recognising patterns, not memorising solutions.
+            </p>
+          </div>
+
+          <!-- stats row -->
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-label">Solved</div>
+              <div class="stat-value" id="stat-solved">0</div>
+              <div class="stat-sub" id="stat-solved-sub">of 43 problems</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Easy</div>
+              <div class="stat-value" id="stat-easy">0</div>
+              <div class="stat-sub" id="stat-easy-sub">of 18 easy</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Medium</div>
+              <div class="stat-value" id="stat-medium">0</div>
+              <div class="stat-sub" id="stat-medium-sub">of 25 medium</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Phases</div>
+              <div class="stat-value" id="stat-phases">0</div>
+              <div class="stat-sub">of 5 complete</div>
+            </div>
+          </div>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 1 — Foundations & Arrays             -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase1" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p1-dim); color: var(--p1)"
+              >
+                Phase 1
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">Foundations &amp; Arrays</div>
+                <div class="phase-desc">
+                  The highest ROI phase. These patterns appear in every
+                  interview round — master them before moving on.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-1" style="color: var(--p1)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-1"
+                    style="background: var(--p1); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="patterns-block">
+              <div class="block-label">Patterns covered</div>
+              <div class="patterns-chips">
+                <span class="pattern-chip">Big-O</span>
+                <span class="pattern-chip">Arrays</span>
+                <span class="pattern-chip">Strings</span>
+                <span class="pattern-chip">HashMap / Set</span>
+                <span class="pattern-chip">Two Pointers</span>
+                <span class="pattern-chip">Sliding Window</span>
+                <span class="pattern-chip">Prefix Sum</span>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Practice problems</div>
+                <span class="problems-count" id="pcount-1">0 / 8</span>
+              </div>
+              <div class="problems-grid">
+                <div
+                  class="problem-item"
+                  data-id="p1-1"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Two Sum</span>
+                  <span class="prob-pattern">HashMap</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/two-sum/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-2"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Contains Duplicate</span>
+                  <span class="prob-pattern">HashSet</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/contains-duplicate/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-3"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Valid Anagram</span>
+                  <span class="prob-pattern">HashMap</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/valid-anagram/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-4"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name"
+                    >Best Time to Buy &amp; Sell Stock</span
+                  >
+                  <span class="prob-pattern">Array</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-5"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Valid Palindrome</span>
+                  <span class="prob-pattern">Two Ptrs</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/valid-palindrome/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-6"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name"
+                    >Longest Substring Without Repeating</span
+                  >
+                  <span class="prob-pattern">Sliding Win</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-7"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Minimum Size Subarray Sum</span>
+                  <span class="prob-pattern">Sliding Win</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/minimum-size-subarray-sum/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p1-8"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Product of Array Except Self</span>
+                  <span class="prob-pattern">Prefix Sum</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/product-of-array-except-self/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card">
+              <span class="checkpoint-icon">🎯</span>
+              <div class="checkpoint-text">
+                <strong>Phase checkpoint —</strong> Solve basic array/string
+                questions in 20–30 min and explain the approach clearly. Sliding
+                window should feel natural, not guesswork.
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 2 — Linked List, Stack & Recursion   -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase2" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p2-dim); color: var(--p2)"
+              >
+                Phase 2
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">
+                  Linked List, Stack &amp; Recursion
+                </div>
+                <div class="phase-desc">
+                  Pointer manipulation and call-stack thinking. Backtracking
+                  here unlocks a whole category of medium problems.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-2" style="color: var(--p2)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-2"
+                    style="background: var(--p2); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="patterns-block">
+              <div class="block-label">Patterns covered</div>
+              <div class="patterns-chips">
+                <span class="pattern-chip">Linked List</span>
+                <span class="pattern-chip">Fast / Slow Pointers</span>
+                <span class="pattern-chip">Stack</span>
+                <span class="pattern-chip">Monotonic Stack</span>
+                <span class="pattern-chip">Queue</span>
+                <span class="pattern-chip">Recursion</span>
+                <span class="pattern-chip">Backtracking</span>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Practice problems</div>
+                <span class="problems-count" id="pcount-2">0 / 9</span>
+              </div>
+              <div class="problems-grid">
+                <div
+                  class="problem-item"
+                  data-id="p2-1"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Reverse Linked List</span>
+                  <span class="prob-pattern">Linked List</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/reverse-linked-list/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-2"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Middle of the Linked List</span>
+                  <span class="prob-pattern">Fast/Slow</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/middle-of-the-linked-list/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-3"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Merge Two Sorted Lists</span>
+                  <span class="prob-pattern">Linked List</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/merge-two-sorted-lists/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-4"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Valid Parentheses</span>
+                  <span class="prob-pattern">Stack</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/valid-parentheses/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-5"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Min Stack</span>
+                  <span class="prob-pattern">Stack</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/min-stack/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-6"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Daily Temperatures</span>
+                  <span class="prob-pattern">Mono Stack</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/daily-temperatures/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-7"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Generate Parentheses</span>
+                  <span class="prob-pattern">Backtracking</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/generate-parentheses/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-8"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Subsets</span>
+                  <span class="prob-pattern">Backtracking</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/subsets/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p2-9"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Permutations</span>
+                  <span class="prob-pattern">Backtracking</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/permutations/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card">
+              <span class="checkpoint-icon">🎯</span>
+              <div class="checkpoint-text">
+                <strong>Phase checkpoint —</strong> Handle pointer-based
+                problems without freezing. Write a recursive solution with a
+                clear base case without looking at hints.
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 3 — Search, Sort & Greedy            -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase3" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p3-dim); color: var(--p3)"
+              >
+                Phase 3
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">Search, Sort &amp; Greedy</div>
+                <div class="phase-desc">
+                  Binary search goes way beyond "find a number in an array."
+                  Learn to search on the answer space. Greedy = local choice →
+                  global optimum.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-3" style="color: var(--p3)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-3"
+                    style="background: var(--p3); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="patterns-block">
+              <div class="block-label">Patterns covered</div>
+              <div class="patterns-chips">
+                <span class="pattern-chip">Binary Search</span>
+                <span class="pattern-chip">Binary Search on Answer</span>
+                <span class="pattern-chip">Sorting Strategy</span>
+                <span class="pattern-chip">Intervals</span>
+                <span class="pattern-chip">Greedy</span>
+                <span class="pattern-chip">Greedy + Sort</span>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Practice problems</div>
+                <span class="problems-count" id="pcount-3">0 / 9</span>
+              </div>
+              <div class="problems-grid">
+                <div
+                  class="problem-item"
+                  data-id="p3-1"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Binary Search</span>
+                  <span class="prob-pattern">Binary Search</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/binary-search/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-2"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Search Insert Position</span>
+                  <span class="prob-pattern">Binary Search</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/search-insert-position/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-3"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Meeting Rooms</span>
+                  <span class="prob-pattern">Intervals</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/meeting-rooms/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-4"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name"
+                    >Find First &amp; Last Position</span
+                  >
+                  <span class="prob-pattern">Binary Search</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-5"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Koko Eating Bananas</span>
+                  <span class="prob-pattern">BS on Answer</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/koko-eating-bananas/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-6"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Merge Intervals</span>
+                  <span class="prob-pattern">Intervals</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/merge-intervals/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-7"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Non-overlapping Intervals</span>
+                  <span class="prob-pattern">Greedy</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/non-overlapping-intervals/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-8"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Jump Game</span>
+                  <span class="prob-pattern">Greedy</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/jump-game/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p3-9"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Gas Station</span>
+                  <span class="prob-pattern">Greedy</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/gas-station/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card">
+              <span class="checkpoint-icon">🎯</span>
+              <div class="checkpoint-text">
+                <strong>Phase checkpoint —</strong> Spot when a problem is about
+                sorting, searching, or greedy choice. Recognise
+                binary-search-on-answer problems (search space ≠ array
+                elements).
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 4 — Trees & Traversal                -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase4" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p4-dim); color: var(--p4)"
+              >
+                Phase 4
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">Trees &amp; Traversal</div>
+                <div class="phase-desc">
+                  One of the most common interview sections. DFS + recursion is
+                  the core move — know when BFS (level-order) is better.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-4" style="color: var(--p4)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-4"
+                    style="background: var(--p4); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="patterns-block">
+              <div class="block-label">Patterns covered</div>
+              <div class="patterns-chips">
+                <span class="pattern-chip">Binary Trees</span>
+                <span class="pattern-chip">DFS (pre / in / post order)</span>
+                <span class="pattern-chip">BFS / Level Order</span>
+                <span class="pattern-chip">Tree Recursion</span>
+                <span class="pattern-chip">BST Properties</span>
+                <span class="pattern-chip">LCA</span>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Practice problems</div>
+                <span class="problems-count" id="pcount-4">0 / 8</span>
+              </div>
+              <div class="problems-grid">
+                <div
+                  class="problem-item"
+                  data-id="p4-1"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Maximum Depth of Binary Tree</span>
+                  <span class="prob-pattern">DFS</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-2"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Invert Binary Tree</span>
+                  <span class="prob-pattern">DFS</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/invert-binary-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-3"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Same Tree</span>
+                  <span class="prob-pattern">DFS</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/same-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-4"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Diameter of Binary Tree</span>
+                  <span class="prob-pattern">DFS</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/diameter-of-binary-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-5"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Path Sum</span>
+                  <span class="prob-pattern">DFS</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/path-sum/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-6"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name"
+                    >Binary Tree Level Order Traversal</span
+                  >
+                  <span class="prob-pattern">BFS</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/binary-tree-level-order-traversal/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-7"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Validate Binary Search Tree</span>
+                  <span class="prob-pattern">BST / DFS</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/validate-binary-search-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p4-8"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Lowest Common Ancestor</span>
+                  <span class="prob-pattern">BST / LCA</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card">
+              <span class="checkpoint-icon">🎯</span>
+              <div class="checkpoint-text">
+                <strong>Phase checkpoint —</strong> Write recursive tree
+                solutions confidently. Know instinctively when BFS (level-based)
+                is better than DFS (path-based / depth-based).
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 5 — Heaps, Graphs & DP               -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase5" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p5-dim); color: var(--p5)"
+              >
+                Phase 5
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">Heaps, Graphs &amp; DP</div>
+                <div class="phase-desc">
+                  Cover the remaining high-value topics. DP is pattern
+                  recognition — once you see overlapping subproblems, you'll
+                  know what to do.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-5" style="color: var(--p5)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-5"
+                    style="background: var(--p5); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="patterns-block">
+              <div class="block-label">Patterns covered</div>
+              <div class="patterns-chips">
+                <span class="pattern-chip">Heap / Priority Queue</span>
+                <span class="pattern-chip">Graph BFS / DFS</span>
+                <span class="pattern-chip">Topological Sort</span>
+                <span class="pattern-chip">Trie</span>
+                <span class="pattern-chip">1D DP</span>
+                <span class="pattern-chip">Memoisation</span>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Practice problems</div>
+                <span class="problems-count" id="pcount-5">0 / 9</span>
+              </div>
+              <div class="problems-grid">
+                <div
+                  class="problem-item"
+                  data-id="p5-1"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Kth Largest Element in Array</span>
+                  <span class="prob-pattern">Heap</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/kth-largest-element-in-an-array/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-2"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Top K Frequent Elements</span>
+                  <span class="prob-pattern">Heap</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/top-k-frequent-elements/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-3"
+                  data-diff="easy"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Climbing Stairs</span>
+                  <span class="prob-pattern">DP</span>
+                  <span class="diff-badge easy">Easy</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/climbing-stairs/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-4"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">House Robber</span>
+                  <span class="prob-pattern">DP</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/house-robber/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-5"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Coin Change</span>
+                  <span class="prob-pattern">DP</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/coin-change/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-6"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Number of Islands</span>
+                  <span class="prob-pattern">Graph DFS</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/number-of-islands/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-7"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Clone Graph</span>
+                  <span class="prob-pattern">Graph BFS</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/clone-graph/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-8"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Course Schedule</span>
+                  <span class="prob-pattern">Topo Sort</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/course-schedule/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+
+                <div
+                  class="problem-item"
+                  data-id="p5-9"
+                  data-diff="medium"
+                  onclick="toggle(this)"
+                >
+                  <div class="problem-cb"></div>
+                  <span class="problem-name">Implement Trie (Prefix Tree)</span>
+                  <span class="prob-pattern">Trie</span>
+                  <span class="diff-badge medium">Med</span>
+                  <a
+                    class="lc-link"
+                    href="https://leetcode.com/problems/implement-trie-prefix-tree/"
+                    target="_blank"
+                    onclick="event.stopPropagation()"
+                    >LC ↗</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card">
+              <span class="checkpoint-icon">🎯</span>
+              <div class="checkpoint-text">
+                <strong>Phase checkpoint —</strong> Explain whether a problem
+                needs BFS/DFS, heap, trie, or DP. That pattern recognition alone
+                is a major interview advantage.
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- PHASE 6 — Final Consolidation              -->
+          <!-- ══════════════════════════════════════════ -->
+          <section id="phase6" class="phase-section">
+            <div class="phase-header">
+              <div
+                class="phase-badge"
+                style="background: var(--p6-dim); color: var(--p6)"
+              >
+                Final
+              </div>
+              <div class="phase-header-text">
+                <div class="phase-title">Final Consolidation</div>
+                <div class="phase-desc">
+                  This stretch matters more than learning any new advanced
+                  topic. Revisit weak spots, simulate real interviews, and
+                  verify readiness.
+                </div>
+              </div>
+              <div class="phase-progress-wrap">
+                <span class="phase-pct" id="ppct-6" style="color: var(--p6)"
+                  >0%</span
+                >
+                <div class="phase-track">
+                  <div
+                    class="phase-fill"
+                    id="pfill-6"
+                    style="background: var(--p6); width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="problems-block">
+              <div class="problems-header">
+                <div class="block-label">Tasks</div>
+                <span class="problems-count" id="pcount-6">0 / 6</span>
+              </div>
+            </div>
+
+            <div class="tasks-list">
+              <div class="task-item" data-id="p6-1" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Redo 10 weakest problems</div>
+                  <div class="task-desc">
+                    Go back through all phases. Pick the 10 problems you
+                    struggled with most and solve them again from scratch — no
+                    hints, no peeking.
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-item" data-id="p6-2" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Timed mock round 1</div>
+                  <div class="task-desc">
+                    1 easy + 1 medium, 45 min total. Simulate real interview
+                    conditions — camera on, talk through your thought process
+                    out loud.
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-item" data-id="p6-3" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Timed mock round 2</div>
+                  <div class="task-desc">
+                    1 easy + 1 medium, 45 min total. Pick different problem
+                    types from round 1. Review your approach immediately after.
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-item" data-id="p6-4" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Revise core patterns — Part 1</div>
+                  <div class="task-desc">
+                    Arrays, HashMap, sliding window, two pointers, binary
+                    search. Write out the template for each pattern from memory.
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-item" data-id="p6-5" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Revise core patterns — Part 2</div>
+                  <div class="task-desc">
+                    Trees (DFS/BFS), heap, graph traversal, DP (1D). Revisit
+                    your notes and trace through one example per pattern.
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-item" data-id="p6-6" onclick="toggle(this)">
+                <div class="task-cb"></div>
+                <div class="task-content">
+                  <div class="task-title">Final mixed test</div>
+                  <div class="task-desc">
+                    3 random problems in 75 min: 1 string/array, 1 tree/graph, 1
+                    DP or binary search. Grade yourself on speed and explanation
+                    quality.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="checkpoint-card" style="margin-top: 12px">
+              <span class="checkpoint-icon">🏁</span>
+              <div class="checkpoint-text">
+                <strong>You're ready when —</strong> you can identify the
+                pattern quickly, solve easy in 10–15 min, medium in 25–40 min
+                with minimal hints, and explain your solution clearly. That's
+                the real interview metric.
+              </div>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════ -->
+          <!-- JS TIPS                                     -->
+          <!-- ══════════════════════════════════════════ -->
+          <div class="tips-section">
+            <div class="section-title">JavaScript-specific notes</div>
+            <div class="tips-grid">
+              <div class="tip-card">
+                <div class="tip-card-title">
+                  Use Map &amp; Set, not plain objects
+                </div>
+                <div class="tip-card-text">
+                  <code>Map.get()</code> returns <code>undefined</code> for
+                  missing keys — always check. Objects coerce keys to strings
+                  which causes bugs with numeric keys.
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-card-title">Sort numbers properly</div>
+                <div class="tip-card-text">
+                  Default <code>.sort()</code> is lexicographic. Always pass a
+                  comparator: <code>arr.sort((a, b) =&gt; a - b)</code>.
+                  Forgetting this causes subtle wrong-answer bugs.
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-card-title">Queue pattern without shift()</div>
+                <div class="tip-card-text">
+                  <code>shift()</code> is O(n). For BFS queues, use an array
+                  with a head pointer index and advance it — avoids reallocation
+                  on large inputs.
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-card-title">
+                  Recursion helpers &amp; BFS template
+                </div>
+                <div class="tip-card-text">
+                  Write a consistent inner <code>dfs(node, ...)</code> helper.
+                  For BFS, always: init queue with root, loop while queue
+                  non-empty, push children per iteration.
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-card-title">
+                  Avoid string concatenation in loops
+                </div>
+                <div class="tip-card-text">
+                  Strings are immutable — repeated <code>+=</code> in tight
+                  loops is O(n²). Push to an array and join once at the end:
+                  <code>parts.join('')</code>.
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-card-title">What not to memorise</div>
+                <div class="tip-card-text">
+                  Skip segment trees, Fenwick trees, advanced graph algorithms,
+                  heavy DP optimisations, suffix arrays. Out of scope for
+                  mid-level generalist roles.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /main-inner -->
+      </main>
+    </div>
+    <!-- /layout -->
+
+    <script>
+      // ── DATA ──────────────────────────────────────────────────────────────────────
+
+      const PHASE_IDS = {
+        1: ["p1-1", "p1-2", "p1-3", "p1-4", "p1-5", "p1-6", "p1-7", "p1-8"],
+        2: [
+          "p2-1",
+          "p2-2",
+          "p2-3",
+          "p2-4",
+          "p2-5",
+          "p2-6",
+          "p2-7",
+          "p2-8",
+          "p2-9",
+        ],
+        3: [
+          "p3-1",
+          "p3-2",
+          "p3-3",
+          "p3-4",
+          "p3-5",
+          "p3-6",
+          "p3-7",
+          "p3-8",
+          "p3-9",
+        ],
+        4: ["p4-1", "p4-2", "p4-3", "p4-4", "p4-5", "p4-6", "p4-7", "p4-8"],
+        5: [
+          "p5-1",
+          "p5-2",
+          "p5-3",
+          "p5-4",
+          "p5-5",
+          "p5-6",
+          "p5-7",
+          "p5-8",
+          "p5-9",
+        ],
+        6: ["p6-1", "p6-2", "p6-3", "p6-4", "p6-5", "p6-6"],
+      };
+
+      const PHASE_NAMES = {
+        1: "Foundations & Arrays",
+        2: "Linked List, Stack & Recursion",
+        3: "Search, Sort & Greedy",
+        4: "Trees & Traversal",
+        5: "Heaps, Graphs & DP",
+        6: "Final Consolidation",
+      };
+
+      // easy problem IDs (for stat tracking)
+      const EASY_IDS = new Set([
+        "p1-1",
+        "p1-2",
+        "p1-3",
+        "p1-4",
+        "p1-5",
+        "p2-1",
+        "p2-2",
+        "p2-3",
+        "p2-4",
+        "p3-1",
+        "p3-2",
+        "p3-3",
+        "p4-1",
+        "p4-2",
+        "p4-3",
+        "p4-4",
+        "p4-5",
+        "p5-3",
+      ]);
+
+      let state = {};
+
+      function loadState() {
+        try {
+          state = JSON.parse(localStorage.getItem("dsa-tracker") || "{}");
+        } catch (e) {
+          state = {};
+        }
+      }
+
+      function saveState() {
+        localStorage.setItem("dsa-tracker", JSON.stringify(state));
+      }
+
+      // ── TOGGLE ────────────────────────────────────────────────────────────────────
+
+      function toggle(el) {
+        const id = el.dataset.id;
+        state[id] = !state[id];
+        saveState();
+        applyItem(el, state[id]);
+        updateAll();
+      }
+
+      function applyItem(el, checked) {
+        el.classList.toggle("checked", !!checked);
+        // find cb inside the element
+        const cb =
+          el.querySelector(".problem-cb") || el.querySelector(".task-cb");
+        if (!cb) return;
+        const phase = (el.dataset.id || "")
+          .replace(/[^0-9].*$/, "")
+          .replace("p", "");
+        const pNum = el.dataset.id ? el.dataset.id.charAt(1) : "1";
+        const color = getComputedStyle(document.documentElement)
+          .getPropertyValue(`--p${pNum}`)
+          .trim();
+        if (checked) {
+          cb.style.background = color;
+          cb.style.borderColor = color;
+        } else {
+          cb.style.background = "";
+          cb.style.borderColor = "";
+        }
+      }
+
+      // ── UPDATE ALL ────────────────────────────────────────────────────────────────
+
+      function updateAll() {
+        let totalProblems = 0,
+          doneProblems = 0;
+        let totalEasy = 0,
+          doneEasy = 0;
+        let totalMedium = 0,
+          doneMedium = 0;
+        let phasesComplete = 0;
+
+        for (let p = 1; p <= 6; p++) {
+          const ids = PHASE_IDS[p];
+          const total = ids.length;
+          let done = 0;
+
+          ids.forEach((id) => {
+            if (state[id]) done++;
+          });
+
+          const pct = total ? Math.round((done / total) * 100) : 0;
+
+          const pctEl = document.getElementById(`ppct-${p}`);
+          const fillEl = document.getElementById(`pfill-${p}`);
+          const navEl = document.getElementById(`nav-pct-${p}`);
+          const cntEl = document.getElementById(`pcount-${p}`);
+
+          if (pctEl) pctEl.textContent = pct + "%";
+          if (fillEl) fillEl.style.width = pct + "%";
+          if (navEl) navEl.textContent = pct + "%";
+          if (cntEl) cntEl.textContent = done + " / " + total;
+
+          // only count phases 1-5 toward "phases complete"
+          if (p <= 5) {
+            totalProblems += total;
+            doneProblems += done;
+            if (done === total) phasesComplete++;
+
+            ids.forEach((id) => {
+              if (EASY_IDS.has(id)) {
+                totalEasy++;
+                if (state[id]) doneEasy++;
+              } else {
+                totalMedium++;
+                if (state[id]) doneMedium++;
+              }
+            });
+          }
+        }
+
+        // overall (all 49 items)
+        const allIds = Object.values(PHASE_IDS).flat();
+        const allDone = allIds.filter((id) => state[id]).length;
+        const overallPct = allIds.length
+          ? Math.round((allDone / allIds.length) * 100)
+          : 0;
+
+        document.getElementById("overall-pct").textContent = overallPct + "%";
+        document.getElementById("overall-fill").style.width = overallPct + "%";
+
+        document.getElementById("stat-solved").textContent = doneProblems;
+        document.getElementById("stat-solved-sub").textContent =
+          `of ${totalProblems} problems`;
+        document.getElementById("stat-easy").textContent = doneEasy;
+        document.getElementById("stat-easy-sub").textContent =
+          `of ${totalEasy} easy`;
+        document.getElementById("stat-medium").textContent = doneMedium;
+        document.getElementById("stat-medium-sub").textContent =
+          `of ${totalMedium} medium`;
+        document.getElementById("stat-phases").textContent = phasesComplete;
+
+        // celebrate on phase completion
+        const prev = JSON.parse(
+          sessionStorage.getItem("dsa-phases-complete") || "{}",
+        );
+        for (let p = 1; p <= 6; p++) {
+          const ids = PHASE_IDS[p];
+          const done = ids.filter((id) => state[id]).length;
+          if (done === ids.length && !prev[p]) {
+            prev[p] = true;
+            sessionStorage.setItem("dsa-phases-complete", JSON.stringify(prev));
+            const label =
+              p === 6
+                ? "Final Consolidation done — you're interview-ready! 🏁"
+                : `Phase ${p} complete — ${PHASE_NAMES[p]}! 🎉`;
+            showCelebrate(label);
+          }
+        }
+      }
+
+      function showCelebrate(msg) {
+        const bar = document.getElementById("celebrate-bar");
+        document.getElementById("celebrate-msg").textContent = msg;
+        bar.classList.add("show");
+        setTimeout(() => bar.classList.remove("show"), 4500);
+      }
+
+      // ── RESTORE ───────────────────────────────────────────────────────────────────
+
+      function restoreAll() {
+        document.querySelectorAll(".problem-item, .task-item").forEach((el) => {
+          applyItem(el, !!state[el.dataset.id]);
+        });
+      }
+
+      // ── RESET ─────────────────────────────────────────────────────────────────────
+
+      function resetAll() {
+        if (!confirm("Reset all DSA progress? This cannot be undone.")) return;
+        state = {};
+        saveState();
+        sessionStorage.removeItem("dsa-phases-complete");
+        restoreAll();
+        updateAll();
+      }
+
+      // ── NAV ACTIVE ────────────────────────────────────────────────────────────────
+
+      function updateNavActive() {
+        const sections = document.querySelectorAll(".phase-section");
+        let active = "phase1";
+        sections.forEach((s) => {
+          if (s.getBoundingClientRect().top <= 100) active = s.id;
+        });
+        document.querySelectorAll(".nav-item").forEach((n) => {
+          n.classList.toggle("active", n.getAttribute("href") === "#" + active);
+        });
+      }
+
+      // ── THEME ─────────────────────────────────────────────────────────────────────
+
+      function toggleTheme() {
+        const isLight = document.documentElement.classList.toggle("light");
+        localStorage.setItem("dsa-tracker-theme", isLight ? "light" : "dark");
+        document.getElementById("theme-icon").textContent = isLight ? "☾" : "☀";
+      }
+
+      (function initTheme() {
+        const saved = localStorage.getItem("dsa-tracker-theme");
+        const mernTheme = localStorage.getItem("mern-tracker-theme");
+        const devTheme = localStorage.getItem("devroads-theme");
+        const theme = saved || mernTheme || devTheme;
+        if (theme === "light") {
+          document.documentElement.classList.add("light");
+          const icon = document.getElementById("theme-icon");
+          if (icon) icon.textContent = "☾";
+        }
+      })();
+
+      // ── INIT ──────────────────────────────────────────────────────────────────────
+      loadState();
+      restoreAll();
+      updateAll();
+      window.addEventListener("scroll", updateNavActive, { passive: true });
+    </script>
+  </body>
+</html>

@@ -557,11 +557,11 @@
     <!-- ── STATS STRIP ── -->
     <div class="stats-strip" style="margin-left: auto; margin-right: auto">
       <div class="stat-strip-item">
-        <span class="stat-strip-val">4</span>
+        <span class="stat-strip-val">5</span>
         <span class="stat-strip-label">trackers available</span>
       </div>
       <div class="stat-strip-item">
-        <span class="stat-strip-val">~16</span>
+        <span class="stat-strip-val">~19</span>
         <span class="stat-strip-label">weeks of content</span>
       </div>
       <div class="stat-strip-item">
@@ -574,6 +574,40 @@
     <section class="grid-section">
       <div class="grid-label">trackers</div>
       <div class="cards-grid">
+        <!-- DSA -->
+        <a
+          class="tracker-card"
+          href="dsa.html"
+          style="
+            --card-gradient: linear-gradient(135deg, #f59e0b, #f43f5e);
+            --card-glow: radial-gradient(circle, #f43f5e20, transparent 70%);
+          "
+        >
+          <div class="card-header">
+            <div class="card-icon">DSA</div>
+            <div class="card-meta">
+              <div class="card-tag">5 phases · ~90 days</div>
+              <div class="card-title">DSA Interview Prep</div>
+            </div>
+          </div>
+          <p class="card-desc">
+            A pattern-focused DSA roadmap for MERN developers targeting
+            mid-level interviews. Covers arrays, linked lists, trees, graphs,
+            and DP — sequenced for maximum interview ROI, not competitive
+            programming.
+          </p>
+          <div class="card-footer">
+            <div class="card-pills">
+              <span class="card-pill">Two Pointers</span>
+              <span class="card-pill">Binary Search</span>
+              <span class="card-pill">DFS / BFS</span>
+              <span class="card-pill">DP</span>
+              <span class="card-pill">Heaps</span>
+            </div>
+            <span class="card-cta">Open tracker →</span>
+          </div>
+        </a>
+
         <!-- GO -->
         <a
           class="tracker-card"
@@ -653,7 +687,7 @@
           <div class="card-header">
             <div class="card-icon">JS</div>
             <div class="card-meta">
-              <div class="card-tag">coming soon</div>
+              <div class="card-tag">standalone · deep dive</div>
               <div class="card-title">JavaScript Deep Dive</div>
             </div>
           </div>
@@ -686,7 +720,7 @@
           <div class="card-header">
             <div class="card-icon">Re</div>
             <div class="card-meta">
-              <div class="card-tag">coming soon</div>
+              <div class="card-tag">standalone · advanced</div>
               <div class="card-title">React Mastery</div>
             </div>
           </div>
@@ -715,6 +749,7 @@
         >progress saves in your browser · no account needed</span
       >
       <div class="footer-links">
+        <a class="footer-link" href="dsa.html">DSA</a>
         <a class="footer-link" href="go.html">Go</a>
         <a class="footer-link" href="mern.html">MERN</a>
         <a class="footer-link" href="javascript.html">JavaScript</a>
@@ -731,10 +766,10 @@
 
       (function initTheme() {
         const saved = localStorage.getItem("devroads-theme");
-        // sync with whatever the trackers saved — check both keys
         const goTheme = localStorage.getItem("go-tracker-theme");
         const mernTheme = localStorage.getItem("mern-tracker-theme");
-        const theme = saved || goTheme || mernTheme;
+        const dsaTheme = localStorage.getItem("dsa-tracker-theme");
+        const theme = saved || goTheme || mernTheme || dsaTheme;
         if (theme === "light") {
           document.documentElement.classList.add("light");
           const icon = document.getElementById("theme-icon");
